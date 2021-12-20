@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.data.ItemsItem
-import com.example.gbook.databinding.SecGridViewItemBinding
+import com.example.gbook.databinding.ThirdGridViewItemBinding
 import com.example.gbook.fragments.BookListFragmentDirections
 
-class SecondBookGridAdapter : ListAdapter<ItemsItem,
-        SecondBookGridAdapter.SecondBookViewHolder>(DiffCallback) {
+class ThirdBookGridAdapter : ListAdapter<ItemsItem,
+        ThirdBookGridAdapter.ThirdBookViewHolder>(DiffCallback) {
 
 
-    class SecondBookViewHolder(
+    class ThirdBookViewHolder(
         private var binding:
-        SecGridViewItemBinding
+        ThirdGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bookItem: ItemsItem) {
@@ -44,22 +44,21 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SecondBookViewHolder {
-        return SecondBookViewHolder(
-            SecGridViewItemBinding.inflate(
+    ): ThirdBookViewHolder {
+        return ThirdBookViewHolder(
+            ThirdGridViewItemBinding.inflate(
                 LayoutInflater.from(parent.context)
             )
         )
     }
 
 
-    override fun onBindViewHolder(holder: SecondBookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ThirdBookViewHolder, position: Int) {
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
 
         holder.bookThumb.setOnClickListener {
-
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,2)
+            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,3)
             holder.bookThumb.findNavController().navigate(action)
 
         }

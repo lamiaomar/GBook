@@ -2,11 +2,14 @@ package com.example.gbook.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.data.ItemsItem
 import com.example.gbook.databinding.GridViewItemBinding
+import com.example.gbook.fragments.BookListFragmentDirections
 
 class BookGridAdapter : ListAdapter<ItemsItem,
         BookGridAdapter.BookViewHolder>(DiffCallback) {
@@ -20,8 +23,10 @@ class BookGridAdapter : ListAdapter<ItemsItem,
         fun bind(bookItem: ItemsItem) {
             binding.result = bookItem
             binding.executePendingBindings()
+
         }
 
+        val bookThumb : ImageView = binding.bookThumb
 
     }
 
@@ -49,17 +54,15 @@ class BookGridAdapter : ListAdapter<ItemsItem,
 
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val marsPhoto = getItem(position)
-        holder.bind(marsPhoto)
+        val bookPhoto = getItem(position)
+        holder.bind(bookPhoto)
 
-//            holder.button.setOnClickListener {
-////            view -> view.findNavController().navigate(R.id.action_moviesFragment_to_detailsFragment)
-//                val action =
-//                    MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(position)
-//                holder.button.findNavController().navigate(action)
-//
-//            }
+        holder.bookThumb.setOnClickListener{
 
+            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,1)
+            holder.bookThumb.findNavController().navigate(action)
+
+        }
 
     }
 
