@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.data.ItemsItem
-import com.example.gbook.databinding.GridViewItemBinding
+import com.example.gbook.databinding.ThirdGridViewItemBinding
 import com.example.gbook.fragments.BookListFragmentDirections
 
-class BookGridAdapter : ListAdapter<ItemsItem,
-        BookGridAdapter.BookViewHolder>(DiffCallback) {
+class ThirdBookGridAdapter : ListAdapter<ItemsItem,
+        ThirdBookGridAdapter.ThirdBookViewHolder>(DiffCallback) {
 
 
-    class BookViewHolder(
+    class ThirdBookViewHolder(
         private var binding:
-        GridViewItemBinding
+        ThirdGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bookItem: ItemsItem) {
@@ -26,7 +26,7 @@ class BookGridAdapter : ListAdapter<ItemsItem,
 
         }
 
-        val bookThumb : ImageView = binding.bookThumb
+        val bookThumb: ImageView = binding.bookThumb
 
     }
 
@@ -44,22 +44,21 @@ class BookGridAdapter : ListAdapter<ItemsItem,
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BookViewHolder {
-        return BookViewHolder(
-            GridViewItemBinding.inflate(
+    ): ThirdBookViewHolder {
+        return ThirdBookViewHolder(
+            ThirdGridViewItemBinding.inflate(
                 LayoutInflater.from(parent.context)
             )
         )
     }
 
 
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ThirdBookViewHolder, position: Int) {
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
 
-        holder.bookThumb.setOnClickListener{
-
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,1)
+        holder.bookThumb.setOnClickListener {
+            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,3)
             holder.bookThumb.findNavController().navigate(action)
 
         }
@@ -67,4 +66,3 @@ class BookGridAdapter : ListAdapter<ItemsItem,
     }
 
 }
-

@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.gbook.BookViewmodel
-import com.example.gbook.R
 import com.example.gbook.adapter.BookGridAdapter
+import com.example.gbook.adapter.SecondBookGridAdapter
+import com.example.gbook.adapter.ThirdBookGridAdapter
 import com.example.gbook.databinding.FragmentBookListBinding
 
 class BookListFragment : Fragment() {
@@ -24,12 +25,12 @@ class BookListFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
+        // Giving the binding access to the ViewModel
         binding.viewModel = viewModel
 
         binding.photosGrid.adapter = BookGridAdapter()
-        binding.photosGrid2.adapter = BookGridAdapter()
-        binding.photosGrid3.adapter = BookGridAdapter()
+        binding.photosGrid2.adapter = SecondBookGridAdapter()
+        binding.photosGrid3.adapter = ThirdBookGridAdapter()
 
         return binding.root
     }

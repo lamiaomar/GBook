@@ -15,9 +15,8 @@ class BookViewmodel : ViewModel(){
     var thieresult = MutableLiveData<List<ItemsItem?>>()
 
 
-//    var title = MutableLiveData<String?>()
-//    var image = MutableLiveData<String?>()
-
+    var qApi1 = "fantasy"
+    var qApi2 = "classic"
 
     init {
         getBook()
@@ -27,17 +26,15 @@ class BookViewmodel : ViewModel(){
     private fun getBook(){
 
         viewModelScope.launch {
-            result.value = BooksApi.retrofitService.getBook( "fantasy").items
-            secresult.value = BooksApi.retrofitService.getBook( "classic").items
+            result.value = BooksApi.retrofitService.getBook(qApi1).items
+            secresult.value = BooksApi.retrofitService.getBook( qApi2).items
             thieresult.value = BooksApi.retrofitService.getBook( "kids").items
 
             //"inauthor:steve inauthor:jobs"
-//            title.value = result.value!![0]?.volumeInfo?.title
-//            Log.e("IMAGE" , "${title.value}")
-//            image.value = result.value!![0]?.volumeInfo?.imageLinks?.thumbnail
-//            Log.e("IMAGE" ,"${image.value}")
+
         }
     }
+
 
 
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="result"
+            type="com.example.gbook.data.ItemsItem" />
+
+        <variable
+            name="viewModel"
+            type="com.example.gbook.BookViewmodel" />
+
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="20dp"
+            >
+
+            <!--            app:imageUrl="@{viewModel.image}"-->
+
+
+            <ImageView
+                android:id="@+id/book_thumb"
+                android:layout_width="128dp"
+                android:layout_height="194dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="24dp"
+                app:imageUrl="@{result.volumeInfo.imageLinks.thumbnail}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/bookName"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@{result.volumeInfo.title}"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/book_thumb"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
+

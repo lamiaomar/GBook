@@ -11,11 +11,11 @@ import com.example.gbook.data.ItemsItem
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    Log.e("imgUrl" , "$imgUrl")
+    Log.e("imgUrl", "$imgUrl")
 
     imgUrl.let {
         val imgUri = imgUrl?.toUri()?.buildUpon()?.build()
-        Log.e("imgUri" , "$imgUri")
+        Log.e("imgUri", "$imgUri")
         Glide.with(imgView.context)
             .load(imgUri)
             .centerCrop() // scale image to fill the entire ImageView
@@ -31,9 +31,24 @@ fun bindRecyclerView(
     recyclerView: RecyclerView,
     data: List<ItemsItem>?
 ) {
-    Log.e("TAG", "la : ")
     val adapter = recyclerView.adapter as BookGridAdapter
     adapter.submitList(data)
-    Log.e("TAG", "la : ${adapter.submitList(data)}")
+}
 
+@BindingAdapter("secListData")
+fun bindSecRecyclerView(
+    recyclerView: RecyclerView,
+    data: List<ItemsItem>?
+) {
+    val adapter = recyclerView.adapter as SecondBookGridAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("thirdListData")
+fun bindThirdRecyclerView(
+    recyclerView: RecyclerView,
+    data: List<ItemsItem>?
+) {
+    val adapter = recyclerView.adapter as ThirdBookGridAdapter
+    adapter.submitList(data)
 }

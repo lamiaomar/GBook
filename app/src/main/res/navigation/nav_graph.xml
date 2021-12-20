@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/bookListFragment">
 
     <fragment
         android:id="@+id/bookListFragment"
         android:name="com.example.gbook.fragments.BookListFragment"
-        android:label="BookListFragment" />
+        android:label="BookListFragment" >
+        <action
+            android:id="@+id/action_bookListFragment_to_bookDetailsFragment"
+            app:destination="@id/bookDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetailsFragment"
+        android:name="com.example.gbook.fragments.BookDetailsFragment"
+        android:label="fragment_book_details"
+        tools:layout="@layout/fragment_book_details" >
+        <argument
+            android:name="title"
+            app:argType="integer" />
+        <argument
+            android:name="listNum"
+            app:argType="integer" />
+    </fragment>
 </navigation>
