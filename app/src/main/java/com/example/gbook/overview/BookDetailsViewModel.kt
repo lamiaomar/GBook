@@ -31,6 +31,9 @@ class BookDetailsViewModel : ViewModel() {
             } else if (listNum == 3) {
                 val item = bookViewModel.thieresult.value?.get(displayPosition)
                 setBookDetails(item)
+            } else if (listNum == 4){
+                val item = bookViewModel.searchResult.value?.get(displayPosition)
+                setBookDetails(item)
             }
 
         } catch (e: Exception) {
@@ -48,6 +51,7 @@ class BookDetailsViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        title.value = "Empty title"
+        title.value
+
     }
 }

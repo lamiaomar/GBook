@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.data.ItemsItem
 import com.example.gbook.databinding.SearchGridViewItemBinding
 import com.example.gbook.fragments.BookListFragmentDirections
+import com.example.gbook.fragments.SearchFragmentDirections
 
 class SearchBooksGridAdapter : ListAdapter<ItemsItem,
         SearchBooksGridAdapter.SearchBookViewHolder>(DiffCallback) {
@@ -58,8 +59,8 @@ class SearchBooksGridAdapter : ListAdapter<ItemsItem,
         holder.bind(bookPhoto)
 
         holder.bookThumb.setOnClickListener {
-
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,4)
+            val action =
+                SearchFragmentDirections.actionSearchFragmentToBookDetailsFragment(position, 4)
             holder.bookThumb.findNavController().navigate(action)
 
         }
@@ -67,3 +68,4 @@ class SearchBooksGridAdapter : ListAdapter<ItemsItem,
     }
 
 }
+

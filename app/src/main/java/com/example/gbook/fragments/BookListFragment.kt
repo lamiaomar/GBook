@@ -47,6 +47,9 @@ class BookListFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+
+
     }
 
 

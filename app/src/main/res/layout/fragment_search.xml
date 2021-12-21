@@ -13,12 +13,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.android.marsphotos.overview.OverViewFragment">
+            tools:context="com.example.gbook.MainActivity">
 
             <SearchView
                 android:id="@+id/searchView"
@@ -35,19 +35,16 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photos_grid_search"
-                android:layout_width="404dp"
-                android:layout_height="649dp"
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
                 android:clipToPadding="false"
-                android:orientation="horizontal"
                 android:padding="12dp"
-                android:scrollbars="horizontal"
+                android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/searchView"
-                app:layout_constraintVertical_bias="1.0"
                 app:searchListData="@{viewModel.searchResult}"
                 app:spanCount="2"
                 tools:itemCount="16"

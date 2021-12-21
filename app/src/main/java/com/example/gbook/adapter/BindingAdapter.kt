@@ -19,8 +19,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         Glide.with(imgView.context)
             .load(imgUri)
             .centerCrop() // scale image to fill the entire ImageView
-            .error(R.drawable.ic_launcher_foreground)
-            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_connection_error)
+            .placeholder(R.drawable.ic_broken_image)
             .into(imgView)
 
     }

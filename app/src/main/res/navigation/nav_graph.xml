@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
-        <action
-            android:id="@+id/action_bookListFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
@@ -33,7 +30,7 @@
         android:name="com.example.gbook.fragments.SearchFragment"
         android:label="SearchFragment" >
         <action
-            android:id="@+id/action_searchFragment_to_bookListFragment"
-            app:destination="@id/bookListFragment" />
+            android:id="@+id/action_searchFragment_to_bookDetailsFragment"
+            app:destination="@id/bookDetailsFragment" />
     </fragment>
 </navigation>
