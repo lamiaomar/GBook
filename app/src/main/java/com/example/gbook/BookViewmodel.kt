@@ -1,5 +1,6 @@
 package com.example.gbook
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ class BookViewmodel : ViewModel(){
     var result = MutableLiveData<List<ItemsItem?>>()
     var secresult = MutableLiveData<List<ItemsItem?>>()
     var thieresult = MutableLiveData<List<ItemsItem?>>()
+    var searchResult = MutableLiveData<List<ItemsItem?>>()
 
 
     var qApi1 = "fantasy"
@@ -33,6 +35,23 @@ class BookViewmodel : ViewModel(){
             //"inauthor:steve inauthor:jobs"
 
         }
+    }
+
+    fun getSearchBook(query : String?){
+
+        viewModelScope.launch {
+            try {
+                searchResult.value = BooksApi.retrofitService.getBook(query!!).items
+
+                Log.e("search" , "search ${searchResult.value}")
+            }catch (e : Exception){
+
+            }
+        }
+    }
+
+    fun homePageNavigation(){
+
     }
 
 

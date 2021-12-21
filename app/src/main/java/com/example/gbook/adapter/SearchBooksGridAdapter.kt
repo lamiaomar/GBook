@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.data.ItemsItem
-import com.example.gbook.databinding.SecGridViewItemBinding
+import com.example.gbook.databinding.SearchGridViewItemBinding
 import com.example.gbook.fragments.BookListFragmentDirections
 
-class SecondBookGridAdapter : ListAdapter<ItemsItem,
-        SecondBookGridAdapter.SearchBookViewHolder>(DiffCallback) {
+class SearchBooksGridAdapter : ListAdapter<ItemsItem,
+        SearchBooksGridAdapter.SearchBookViewHolder>(DiffCallback) {
 
 
     class SearchBookViewHolder(
         private var binding:
-        SecGridViewItemBinding
+        SearchGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bookItem: ItemsItem) {
@@ -32,7 +32,7 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
 
     companion object DiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
         override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return newItem.id == oldItem.id
+            return newItem.volumeInfo!!.title == oldItem.volumeInfo!!.title
         }
 
         override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
@@ -46,7 +46,7 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
         viewType: Int
     ): SearchBookViewHolder {
         return SearchBookViewHolder(
-            SecGridViewItemBinding.inflate(
+            SearchGridViewItemBinding.inflate(
                 LayoutInflater.from(parent.context)
             )
         )
@@ -59,7 +59,7 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
 
         holder.bookThumb.setOnClickListener {
 
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,2)
+            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,4)
             holder.bookThumb.findNavController().navigate(action)
 
         }
