@@ -52,3 +52,12 @@ fun bindThirdRecyclerView(
     val adapter = recyclerView.adapter as ThirdBookGridAdapter
     adapter.submitList(data)
 }
+
+@BindingAdapter("searchListData")
+fun bindSearchRecyclerView(
+    recyclerView: RecyclerView,
+    data: List<ItemsItem>?
+) {
+    val adapter = recyclerView.adapter as SearchBooksGridAdapter
+    adapter.submitList(data)
+}
