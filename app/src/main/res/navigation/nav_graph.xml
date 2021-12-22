@@ -12,6 +12,12 @@
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
+        <action
+            android:id="@+id/action_bookListFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_bookListFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
@@ -33,4 +39,8 @@
             android:id="@+id/action_searchFragment_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.example.gbook.fragments.AuthenticationFragment"
+        android:label="AuthenticationFragment" />
 </navigation>

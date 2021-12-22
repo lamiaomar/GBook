@@ -58,10 +58,8 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
         holder.bind(bookPhoto)
 
         holder.bookThumb.setOnClickListener {
-
             val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,2)
             holder.bookThumb.findNavController().navigate(action)
-
         }
 
     }
