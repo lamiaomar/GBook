@@ -15,82 +15,174 @@
     tools:ignore="Autofill, LabelFor">
 
     <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_in"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/etSignInEmail"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="24dp"
+        android:text="G"
+        android:textColor="@color/blue"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/or"
+        android:layout_marginTop="24dp"
+        android:text="B"
+        android:textColor="@color/red"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="o"
+        android:textColor="@color/blue"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="o"
+        android:textColor="@color/yellow"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="140dp"
+        android:text="k"
+        android:textColor="@color/green"
+        android:textSize="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/sign_in"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount2"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <EditText
+
+    <!--    <EditText-->
+<!--        android:id="@+id/etSignInEmail"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_marginVertical="20dp"-->
+<!--        android:hint="@string/email"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        android:padding="10dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/etSignInPassword"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_chainStyle="packed" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etSignInEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="365dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
         android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/etSignInPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etemail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="120dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="365dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toBottomOf="@+id/etSignInEmail">
 
-    <EditText
-        android:id="@+id/etSignInPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:maxLength="8"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
-        app:layout_constraintEnd_toEndOf="@+id/etSignInEmail"
-        app:layout_constraintStart_toStartOf="@+id/etSignInEmail"
-        app:layout_constraintTop_toBottomOf="@+id/etSignInEmail" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSignInPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="120dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <EditText-->
+<!--        android:id="@+id/etSignInPassword"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginVertical="20dp"-->
+<!--        android:hint="@string/password"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:maxLength="8"-->
+<!--        android:padding="10dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/btnSignIn"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/etSignInEmail"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/etSignInEmail"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/etSignInEmail" />-->
 
     <Button
         android:id="@+id/btnSignIn"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
-        android:backgroundTint="@color/black"
         android:text="@string/sign_in"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount2"
-        app:layout_constraintEnd_toEndOf="@+id/etSignInPassword"
-        app:layout_constraintStart_toStartOf="@+id/etSignInPassword"
-        app:layout_constraintTop_toBottomOf="@+id/etSignInPassword" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toEndOf="@+id/btnCreateAccount2"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        app:layout_constraintVertical_bias="0.483" />
 
     <Button
         android:id="@+id/btnCreateAccount2"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
-        android:text="@string/create_account"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="384dp"
+        android:layout_marginBottom="364dp"
+        android:text="@string/registration"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
-        app:layout_constraintStart_toStartOf="@+id/btnSignIn"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        app:layout_constraintVertical_bias="0.479" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

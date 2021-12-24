@@ -1,20 +1,24 @@
 package com.example.gbook.authentication.views
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.gbook.R
+import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseUser
 import com.example.gbook.databinding.FragmentRegistrationBinding
+import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_registration.*
 
 
@@ -22,37 +26,29 @@ class RegistrationFragment : Fragment() {
 
     lateinit var userEmail: String
     lateinit var userPassword: String
-     var createAccountInputsArray: Array<EditText?> = arrayOf(null,null,null)
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//    var createAccountInputsArray: Array<EditText>  = arrayOf(etEmail!! , etPassword!!, etConfirmPassword!!)
-//
-//        btnCreateAccount.setOnClickListener {
-//            signIn()
-//        }
-//
-//        btnSignIn2.setOnClickListener {
-//            var action = RegistrationFragmentDirections.actionRegistrationFragmentToLogInFragment()
-//            btnSignIn2.findNavController().navigate(action)
-//            Toast.makeText(this.context, "please sign into your account", Toast.LENGTH_SHORT).show()
-////            startActivity(Intent(this, LogInFragment::class.java))
-////            toast("please sign into your account")
-////            finish()
-//        }
-//    }
+    lateinit var userFirstName: String
+    lateinit var userLastName: String
+    lateinit var userDay: String
+    lateinit var userMonth: String
+    lateinit var userYear: String
+
+
+    lateinit var auth: FirebaseAuth
+    lateinit var databaseReference: DatabaseReference
+    var createAccountInputsArray: Array<TextInputEditText?> = arrayOf(null, null, null)
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        createAccountInputsArray   = arrayOf(etEmail, etPassword, etConfirmPassword)
+        createAccountInputsArray = arrayOf(email, password, re_password)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = FragmentRegistrationBinding.inflate(inflater)
 
@@ -64,17 +60,18 @@ class RegistrationFragment : Fragment() {
         }
 
         binding.btnSignIn2.setOnClickListener {
-            var action = RegistrationFragmentDirections.actionRegistrationFragmentToLogInFragment()
+            val action = RegistrationFragmentDirections.actionRegistrationFragmentToLogInFragment()
             btnSignIn2.findNavController().navigate(action)
             Toast.makeText(this.context, "please sign into your account", Toast.LENGTH_SHORT).show()
-//            startActivity(Intent(this, LogInFragment::class.java))
-//            toast("please sign into your account")
-//            finish()
         }
+
+
+        val items = resources.getStringArray(R.array.months)
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, items)
+        binding.month.setAdapter(adapter)
 
         return binding.root
     }
-
 
 
     /* check if there's a signed-in user*/
@@ -83,34 +80,35 @@ class RegistrationFragment : Fragment() {
         super.onStart()
         val user: FirebaseUser? = firebaseAuth.currentUser
         user?.let {
-            var action = RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
+            val action =
+                RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
             btnSignIn2.findNavController().navigate(action)
-//            startActivity(Intent(this, HomeActivity::class.java))
 
             Toast.makeText(this.context, "welcome back", Toast.LENGTH_SHORT).show()
-
-            /*
-            ! from registration to homeAuthen
-             */
-
-//            toast("welcome back")
         }
     }
 
-    private fun notEmpty(): Boolean = etEmail.text.toString().trim().isNotEmpty() &&
-            etPassword.text.toString().trim().isNotEmpty() &&
-            etConfirmPassword.text.toString().trim().isNotEmpty()
+    private fun notEmpty(): Boolean = email.text.toString().trim().isNotEmpty() &&
+            password.text.toString().trim().isNotEmpty() &&
+            re_password.text.toString().trim().isNotEmpty() &&
+            first_name.text.toString().trim().isNotEmpty() &&
+            lastname.text.toString().trim().isNotEmpty() &&
+            day.text.toString().trim().isNotEmpty() &&
+            month.text.toString().trim().isNotEmpty() &&
+            year.text.toString().trim().isNotEmpty() &&
+            email.text.toString().trim().isNotEmpty()
+
 
     private fun identicalPassword(): Boolean {
         var identical = false
         if (notEmpty() &&
-            etPassword.text.toString().trim() == etConfirmPassword.text.toString().trim()
+            password.text.toString().trim() == re_password.text.toString().trim()
         ) {
             identical = true
         } else if (!notEmpty()) {
             createAccountInputsArray.forEach { input ->
                 if (input!!.text.toString().trim().isEmpty()) {
-                    input!!.error = "${input.hint} is required"
+                    input.error = "${input.hint} is required"
                 }
             }
         } else {
@@ -122,8 +120,9 @@ class RegistrationFragment : Fragment() {
     private fun signIn() {
         if (identicalPassword()) {
             // identicalPassword() returns true only  when inputs are not empty and passwords are identical
-            userEmail = etEmail.text.toString().trim()
-            userPassword = etPassword.text.toString().trim()
+            userEmail = email.text.toString().trim()
+            userPassword = password.text.toString().trim()
+
 
             /*create a user*/
             firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
@@ -135,18 +134,15 @@ class RegistrationFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        sendEmailVerification()//                        toast("failed to Authenticate !")
+                        addUserDataToDB()
+
+                        sendEmailVerification()
 
 
-                        var action =
+                        val action =
                             RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
                         btnSignIn2.findNavController().navigate(action)
-                        /*
-                        ! from regis to home
-                         */
 
-//                        startActivity(Intent(this, HomeActivity::class.java))
-//                        finish()
                     } else {
                         Toast.makeText(this.context, "failed to Authenticate !", Toast.LENGTH_SHORT)
                             .show()
@@ -155,6 +151,30 @@ class RegistrationFragment : Fragment() {
                 }
         }
     }
+
+
+    private fun addUserDataToDB() {
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid
+        databaseReference = FirebaseDatabase.getInstance().getReference("users")
+
+        userFirstName = first_name.text.toString().trim()
+        userLastName = lastname.text.toString().trim()
+        userDay = day.text.toString().trim()
+        userMonth = month.text.toString().trim()
+        userYear = year.text.toString().trim()
+        userEmail = email.text.toString().trim()
+
+        val user = User(userFirstName, userLastName, userDay, userMonth, userYear, userEmail)
+        if (uid != null) {
+            databaseReference.child(uid).setValue(user).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(this.context, "add to database succ", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
 
     /* send verification email to the new user. This will only
     *  work if the firebase user is not null.
