@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.gbook.fragments.AuthenticationFragment
 import com.example.gbook.fragments.BookListFragment
 import com.example.gbook.fragments.BookListFragmentDirections
@@ -24,47 +25,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val homePage = BookListFragment()
-        val searchPage = SearchFragment()
-        val profilePage = AuthenticationFragment()
 
 
-//        bottom_navigation.setOnItemSelectedListener{ item ->
-//
-//            when (item.itemId) {
-//                R.id.ic_home -> {
-//                    val action = BookListFragmentDirections.actionBookListFragmentToSearchFragment()
-//                    bottom_navigation.findNavController().navigate(action)
-////                    makeCerrentFragment(homePage)
-//
-////                    homePage.onDestroy()
-//                }
-//                R.id.ic_search -> {
-////                    val action = BookListFragmentDirections.actionBookListFragmentToSearchFragment()
-////                    bottom_navigation.findNavController().navigate(action)
-////                    makeCerrentFragment(searchPage)
-//                }
-//                R.id.ic_profile ->{
-////                    makeCerrentFragment(profilePage)
-//
-//                }
-//            }
-//            true
-//        }
-//
-//    }
-//
-////    private fun makeCerrentFragment(frament: Fragment) {
-//////        val action = BookListFragmentDirections.actionBookListFragmentToSearchFragment()
-//////        bottom_navigation.findNavController().navigate(action)
-////
-////
-////        supportFragmentManager.beginTransaction().apply {
-////            replace(R.id.nav_host_fragment, frament)
-////            commit()
-////        }
-////
-////    }
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val navController = findNavController(R.id.nav_host_fragment)
+
+        bottomNavigationView.setupWithNavController(navController)
+
     }
 }
 //buttom app bar with navigation host

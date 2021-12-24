@@ -19,6 +19,9 @@ class BookDetailsViewModel : ViewModel() {
 
 
     fun displayBookDetails(displayPosition: Int, listNum: Int) {
+        Log.e("display" , "${displayPosition}")
+        Log.e("display" , "${listNum}")
+
         try {
             if (listNum == 1) {
                 val item = bookViewModel.result.value?.get(displayPosition)
@@ -31,8 +34,10 @@ class BookDetailsViewModel : ViewModel() {
             } else if (listNum == 3) {
                 val item = bookViewModel.thieresult.value?.get(displayPosition)
                 setBookDetails(item)
+
             } else if (listNum == 4){
                 val item = bookViewModel.searchResult.value?.get(displayPosition)
+                Log.e("display" , "${item}")
                 setBookDetails(item)
             }
 

@@ -16,6 +16,10 @@ import com.example.gbook.adapter.SecondBookGridAdapter
 import com.example.gbook.adapter.ThirdBookGridAdapter
 import com.example.gbook.databinding.FragmentBookListBinding
 import kotlinx.android.synthetic.main.fragment_book_list.*
+import androidx.appcompat.app.AppCompatActivity
+
+
+
 
 class BookListFragment : Fragment() {
 
@@ -25,6 +29,11 @@ class BookListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+
+
         val binding = FragmentBookListBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment

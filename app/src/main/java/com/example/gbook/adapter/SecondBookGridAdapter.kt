@@ -65,3 +65,5 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
     }
 
 }
+
+//splash screen
