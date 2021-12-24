@@ -1,5 +1,6 @@
 package com.example.gbook.authentication.views
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,18 +22,48 @@ class RegistrationFragment : Fragment() {
 
     lateinit var userEmail: String
     lateinit var userPassword: String
-    lateinit var createAccountInputsArray: Array<EditText>
+     var createAccountInputsArray: Array<EditText?> = arrayOf(null,null,null)
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//    var createAccountInputsArray: Array<EditText>  = arrayOf(etEmail!! , etPassword!!, etConfirmPassword!!)
+//
+//        btnCreateAccount.setOnClickListener {
+//            signIn()
+//        }
+//
+//        btnSignIn2.setOnClickListener {
+//            var action = RegistrationFragmentDirections.actionRegistrationFragmentToLogInFragment()
+//            btnSignIn2.findNavController().navigate(action)
+//            Toast.makeText(this.context, "please sign into your account", Toast.LENGTH_SHORT).show()
+////            startActivity(Intent(this, LogInFragment::class.java))
+////            toast("please sign into your account")
+////            finish()
+//        }
+//    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        createAccountInputsArray   = arrayOf(etEmail, etPassword, etConfirmPassword)
 
-        createAccountInputsArray = arrayOf(etEmail!! , etPassword!!, etConfirmPassword!!)
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        btnCreateAccount.setOnClickListener {
+        val binding = FragmentRegistrationBinding.inflate(inflater)
+
+        binding.lifecycleOwner = this
+
+
+        binding.btnCreateAccount.setOnClickListener {
             signIn()
         }
 
-        btnSignIn2.setOnClickListener {
+        binding.btnSignIn2.setOnClickListener {
             var action = RegistrationFragmentDirections.actionRegistrationFragmentToLogInFragment()
             btnSignIn2.findNavController().navigate(action)
             Toast.makeText(this.context, "please sign into your account", Toast.LENGTH_SHORT).show()
@@ -40,22 +71,10 @@ class RegistrationFragment : Fragment() {
 //            toast("please sign into your account")
 //            finish()
         }
+
+        return binding.root
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//
-//        val binding = FragmentRegistrationBinding.inflate(inflater)
-//
-//        binding.lifecycleOwner = this
-//
-//        binding.btnCreateAccount
-//
-//        return super.onCreateView(inflater, container, savedInstanceState)
-//    }
 
 
     /* check if there's a signed-in user*/
@@ -90,8 +109,8 @@ class RegistrationFragment : Fragment() {
             identical = true
         } else if (!notEmpty()) {
             createAccountInputsArray.forEach { input ->
-                if (input.text.toString().trim().isEmpty()) {
-                    input.error = "${input.hint} is required"
+                if (input!!.text.toString().trim().isEmpty()) {
+                    input!!.error = "${input.hint} is required"
                 }
             }
         } else {
