@@ -143,19 +143,6 @@
             tools:layout_editor_absoluteY="120dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--    <Button-->
-<!--        android:id="@+id/btnCreateAccount2"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginVertical="20dp"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="384dp"-->
-<!--        android:layout_marginBottom="364dp"-->
-<!--        android:text="@string/registration"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/etPassword"-->
-<!--        app:layout_constraintVertical_bias="0.133" />-->
 
     <Button
         android:id="@+id/btnSignIn"

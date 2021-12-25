@@ -47,10 +47,10 @@ class AuthenticationFragment : Fragment() {
 
         }
 
-        binding.custmize.setOnClickListener {
-            val action = AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment()
-            findNavController().navigate(action)
-        }
+//        binding.custmize.setOnClickListener {
+//            val action = AuthenticationFragmentDirections.actionAuthenticationFragmentToRegistrationFragment()
+//            findNavController().navigate(action)
+//        }
 
         return binding.root
     }
