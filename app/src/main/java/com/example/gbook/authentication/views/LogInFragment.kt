@@ -10,16 +10,18 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.gbook.R
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
 import com.example.gbook.databinding.FragmentLogInBinding
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_log_in.*
 
 class LogInFragment : Fragment() {
     lateinit var signInEmail: String
     lateinit var signInPassword: String
-    lateinit var signInInputsArray: Array<EditText?>
+    lateinit var signInInputsArray: Array<TextInputEditText?>
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -84,6 +86,8 @@ class LogInFragment : Fragment() {
                     if (signIn.isSuccessful) {
 
                         var action = LogInFragmentDirections.actionLogInFragmentToHomeAuthenticationFragment()
+                        findNavController().navigate(action)
+
                         Toast.makeText(this.context,"signed in successfully", Toast.LENGTH_SHORT).show()
 
 //                        startActivity(Intent(this, HomeActivity::class.java))

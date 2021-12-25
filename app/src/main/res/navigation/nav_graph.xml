@@ -36,11 +36,7 @@
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.example.gbook.fragments.AuthenticationFragment"
-        android:label="AuthenticationFragment" >
-        <action
-            android:id="@+id/action_authenticationFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-    </fragment>
+        android:label="AuthenticationFragment" />
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.gbook.authentication.views.RegistrationFragment"

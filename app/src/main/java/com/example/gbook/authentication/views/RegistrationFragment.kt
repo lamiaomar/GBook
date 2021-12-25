@@ -107,8 +107,8 @@ class RegistrationFragment : Fragment() {
             identical = true
         } else if (!notEmpty()) {
             createAccountInputsArray.forEach { input ->
-                if (input!!.text.toString().trim().isEmpty()) {
-                    input.error = "${input.hint} is required"
+                if (input?.text.toString().trim().isEmpty()) {
+                    input?.error = "${input?.hint} is required"
                 }
             }
         } else {

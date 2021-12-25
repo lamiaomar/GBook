@@ -73,6 +73,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
@@ -83,28 +85,12 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-
-    <!--    <EditText-->
-<!--        android:id="@+id/etSignInEmail"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="20dp"-->
-<!--        android:layout_marginVertical="20dp"-->
-<!--        android:hint="@string/email"-->
-<!--        android:inputType="textEmailAddress"-->
-<!--        android:padding="10dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/etSignInPassword"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_chainStyle="packed" />-->
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etSignInEmail"
+        android:id="@+id/etemail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="365dp"
         android:layout_height="55dp"
@@ -116,7 +102,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etemail"
+            android:id="@+id/etSignInEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="50dp"
@@ -124,26 +110,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="365dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="32dp"
-        android:hint="@string/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSignInEmail">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSignInPassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="120dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-<!--    <EditText-->
+    <!--    <EditText-->
 <!--        android:id="@+id/etSignInPassword"-->
 <!--        android:layout_width="0dp"-->
 <!--        android:layout_height="wrap_content"-->
@@ -157,6 +124,39 @@
 <!--        app:layout_constraintStart_toStartOf="@+id/etSignInEmail"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/etSignInEmail" />-->
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="365dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:hint="@string/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etemail">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSignInPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="50dp"
+            tools:layout_editor_absoluteY="120dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    <Button-->
+<!--        android:id="@+id/btnCreateAccount2"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginVertical="20dp"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="384dp"-->
+<!--        android:layout_marginBottom="364dp"-->
+<!--        android:text="@string/registration"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/etPassword"-->
+<!--        app:layout_constraintVertical_bias="0.133" />-->
+
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="150dp"
@@ -165,24 +165,24 @@
         android:text="@string/sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintHorizontal_bias="0.735"
         app:layout_constraintStart_toEndOf="@+id/btnCreateAccount2"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        app:layout_constraintVertical_bias="0.483" />
+        app:layout_constraintVertical_bias="0.133" />
 
-    <Button
+    <TextView
         android:id="@+id/btnCreateAccount2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="384dp"
-        android:layout_marginBottom="364dp"
         android:text="@string/registration"
+        android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        app:layout_constraintVertical_bias="0.479" />
+        app:layout_constraintVertical_bias="0.13999999" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

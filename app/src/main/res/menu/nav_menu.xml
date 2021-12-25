@@ -14,7 +14,7 @@
         android:title="search"/>
 
     <item
-        android:id="@+id/authenticationFragment"
+        android:id="@+id/registrationFragment"
         android:icon="@drawable/ic_launcher_foreground"
         android:title="profile"/>
 
