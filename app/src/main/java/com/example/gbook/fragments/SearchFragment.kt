@@ -39,18 +39,6 @@ class SearchFragment : Fragment() {
                 binding.searchView.clearFocus()
                 viewModel.getSearchBook(query)
 
-//                Log.e("LOG" , "${viewModel.searchResult.value!!.isNotEmpty()}")
-//                try {
-//                    if (viewModel.searchResult.value!!.isNotEmpty()){
-//
-//                        Log.e("LOGBefore" , "${binding.photosGridSearch.visibility }")
-////                        binding.photosGridSearch.visibility = View.INVISIBLE
-//                        Log.e("LOGAfter" , "${ binding.photosGridSearch.visibility }")
-//                    }
-//                }catch (e:Exception){
-//
-//                }
-
                 return true
             }
 

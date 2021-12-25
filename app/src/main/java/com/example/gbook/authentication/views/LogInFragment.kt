@@ -45,7 +45,6 @@ class LogInFragment : Fragment() {
             var action = LogInFragmentDirections.actionLogInFragmentToRegistrationFragment()
             btnCreateAccount2.findNavController().navigate(action)
 
-//            startActivity(Intent(this, CreateAccountActivity::class.java))
         }
 
        binding.btnSignIn.setOnClickListener {
@@ -56,23 +55,6 @@ class LogInFragment : Fragment() {
 
 
     }
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-////        setContentView(R.layout.activity_sign_in)
-//
-//        signInInputsArray = arrayOf(etSignInEmail, etSignInPassword)
-//
-//        btnCreateAccount2.setOnClickListener {
-//            var action = LogInFragmentDirections.actionLogInFragmentToRegistrationFragment()
-//            btnCreateAccount2.findNavController().navigate(action)
-//
-////            startActivity(Intent(this, CreateAccountActivity::class.java))
-//        }
-//
-//        btnSignIn.setOnClickListener {
-//            signInUser()
-//        }
-//    }
 
     private fun notEmpty(): Boolean = signInEmail.isNotEmpty() && signInPassword.isNotEmpty()
 
@@ -90,20 +72,22 @@ class LogInFragment : Fragment() {
 
                         Toast.makeText(this.context,"signed in successfully", Toast.LENGTH_SHORT).show()
 
-//                        startActivity(Intent(this, HomeActivity::class.java))
-//                        toast("signed in successfully")
                     } else {
                         Toast.makeText(this.context,"sign in failed", Toast.LENGTH_SHORT).show()
 
-//                        toast("sign in failed")
                     }
                 }
         } else {
-            signInInputsArray.forEach { input ->
-                if (input!!.text.toString().trim().isEmpty()) {
-                    input.error = "${input.hint} is required"
+            try {
+                signInInputsArray.forEach { input ->
+                    if (input!!.text.toString().trim().isEmpty()) {
+                        input.error = "${input.hint} is required"
+                    }
                 }
+            }catch (e:Exception){
+                Toast.makeText(this.context, "You have to fill all fields", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 
