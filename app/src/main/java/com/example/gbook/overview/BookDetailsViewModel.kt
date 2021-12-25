@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gbook.BookViewmodel
+import com.example.gbook.data.ItemsItem
 
 
 class BookDetailsViewModel : ViewModel() {
@@ -18,27 +19,26 @@ class BookDetailsViewModel : ViewModel() {
 
 
     fun displayBookDetails(displayPosition: Int, listNum: Int) {
+        Log.e("display" , "${displayPosition}")
+        Log.e("display" , "${listNum}")
+
         try {
             if (listNum == 1) {
                 val item = bookViewModel.result.value?.get(displayPosition)
-                title.value = item?.volumeInfo?.title
-                bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
-                description.value = item?.volumeInfo?.description
-                averageRating.value = item?.volumeInfo?.averageRating.toString()
+                setBookDetails(item)
 
             } else if (listNum == 2) {
                 val item = bookViewModel.secresult.value?.get(displayPosition)
-                title.value = item?.volumeInfo?.title
-                bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
-                description.value = item?.volumeInfo?.description
-                averageRating.value = item?.volumeInfo?.averageRating.toString()
+                setBookDetails(item)
 
-            }else if (listNum == 3){
+            } else if (listNum == 3) {
                 val item = bookViewModel.thieresult.value?.get(displayPosition)
-                title.value = item?.volumeInfo?.title
-                bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
-                description.value = item?.volumeInfo?.description
-                averageRating.value = item?.volumeInfo?.averageRating.toString()
+                setBookDetails(item)
+
+            } else if (listNum == 4){
+                val item = bookViewModel.searchResult.value?.get(displayPosition)
+                Log.e("display" , "${item}")
+                setBookDetails(item)
             }
 
         } catch (e: Exception) {
@@ -47,9 +47,16 @@ class BookDetailsViewModel : ViewModel() {
 
     }
 
+    fun setBookDetails(item: ItemsItem?) {
+        title.value = item?.volumeInfo?.title
+        bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
+        description.value = item?.volumeInfo?.description
+        averageRating.value = item?.volumeInfo?.averageRating.toString()
+    }
 
     override fun onCleared() {
         super.onCleared()
-        title.value = "Empty title"
+        title.value
+
     }
 }
