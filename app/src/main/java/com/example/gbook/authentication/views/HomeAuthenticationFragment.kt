@@ -89,7 +89,7 @@ class HomeAuthenticationFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 user = snapshot.getValue(User::class.java)!!
-                binding.userName.setText(user.firstName + " " + user.lastName)
+                binding.userName.setText(user.firstName + "\n  " + user.lastName)
                 binding.userEmail.setText(user.email)
                 binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
 
