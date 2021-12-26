@@ -14,7 +14,6 @@ import com.example.gbook.fragments.BookListFragmentDirections
 class BookGridAdapter : ListAdapter<ItemsItem,
         BookGridAdapter.BookViewHolder>(DiffCallback) {
 
-
     class BookViewHolder(
         private var binding:
         GridViewItemBinding
@@ -40,7 +39,6 @@ class BookGridAdapter : ListAdapter<ItemsItem,
         }
     }
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -51,7 +49,6 @@ class BookGridAdapter : ListAdapter<ItemsItem,
             )
         )
     }
-
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val bookPhoto = getItem(position)

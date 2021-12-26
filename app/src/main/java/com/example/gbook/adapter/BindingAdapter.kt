@@ -65,7 +65,6 @@ fun bindSearchRecyclerView(
 }
 
 
-
 @BindingAdapter("booksApiStatus")
 fun bindStatus(
     statusImageView: ImageView,

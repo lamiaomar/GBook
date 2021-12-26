@@ -55,7 +55,9 @@ class BookDetailsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-
+        binding.animationView.setOnClickListener {
+//            it.animation.cancel()
+        }
         return binding.root
 
     }

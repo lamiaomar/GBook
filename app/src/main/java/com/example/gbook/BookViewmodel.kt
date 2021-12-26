@@ -73,20 +73,26 @@ class BookViewmodel : ViewModel(){
         try {
             if (listNum == 1) {
                 val item = result.value?.get(displayPosition)
+                Log.e("link","$item")
                 setBookDetails(item)
 
             } else if (listNum == 2) {
                 val item = secresult.value?.get(displayPosition)
                 setBookDetails(item)
+                Log.e("link","$item")
 
             } else if (listNum == 3) {
                 val item = thieresult.value?.get(displayPosition)
                 setBookDetails(item)
+                Log.e("link","$item")
+
 
             } else if (listNum == 4){
                 val item = searchResult.value?.get(displayPosition)
                 Log.e("display" , "${item}")
                 setBookDetails(item)
+                Log.e("link","$item")
+
             }
 
         } catch (e: Exception) {

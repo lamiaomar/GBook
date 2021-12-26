@@ -21,14 +21,15 @@
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_margin="8dp"
+        android:padding="4dp"
         app:cardCornerRadius="4dp"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="20dp"
-            >
+            android:elevation="20dp">
 
 
             <ImageView
