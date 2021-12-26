@@ -47,27 +47,7 @@ class HomeAuthenticationFragment : Fragment() {
 
         }
 
-//        val user = Firebase.auth.currentUser
-//        if (user != null) {
-//            // User is signed in
-//            user?.let {
-//                // Name, email address, and profile photo Url
-//                val name = user.displayName
-//                val email = user.email
-//                val photoUrl = user.photoUrl
-//
-//                // Check if user's email is verified
-//                val emailVerified = user.isEmailVerified
-//
-//                // The user's ID, unique to the Firebase project. Do NOT use this value to
-//                // authenticate with your backend server, if you have one. Use
-//                // FirebaseUser.getToken() instead.
-//                val uid = user.uid
-//            }
-//
-//        } else {
-//            // No user is signed in
-//        }
+
 
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()

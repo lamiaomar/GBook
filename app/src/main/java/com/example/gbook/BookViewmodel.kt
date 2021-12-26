@@ -21,12 +21,21 @@ class BookViewmodel : ViewModel(){
     var searchResult = MutableLiveData<List<ItemsItem?>>()
 
 
+    var title = MutableLiveData<String?>()
+    var bookCover = MutableLiveData<String?>()
+    var description = MutableLiveData<String?>()
+    var averageRating = MutableLiveData<String?>()
+    var pageCount = MutableLiveData<String?>()
+    var publishedDate = MutableLiveData<String?>()
+
+
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
 
-    var qApi1 = "fantasy"
+    var qApi1 = "inauthor:Ann inauthor:M inauthor:Martin"
     var qApi2 = "classic"
+
 
     init {
         getBook()
@@ -55,6 +64,45 @@ class BookViewmodel : ViewModel(){
             //"inauthor:steve inauthor:jobs"
 
         }
+    }
+
+    fun displayBookDetails(displayPosition: Int, listNum: Int) {
+        Log.e("display" , "${displayPosition}")
+        Log.e("display" , "${listNum}")
+
+        try {
+            if (listNum == 1) {
+                val item = result.value?.get(displayPosition)
+                setBookDetails(item)
+
+            } else if (listNum == 2) {
+                val item = secresult.value?.get(displayPosition)
+                setBookDetails(item)
+
+            } else if (listNum == 3) {
+                val item = thieresult.value?.get(displayPosition)
+                setBookDetails(item)
+
+            } else if (listNum == 4){
+                val item = searchResult.value?.get(displayPosition)
+                Log.e("display" , "${item}")
+                setBookDetails(item)
+            }
+
+        } catch (e: Exception) {
+            title.value = "${e.message}"
+        }
+
+    }
+
+    fun setBookDetails(item: ItemsItem?) {
+        title.value = item?.volumeInfo?.title
+        bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
+        description.value = item?.volumeInfo?.description
+        averageRating.value = item?.volumeInfo?.averageRating.toString()
+        pageCount.value = item?.volumeInfo?.pageCount.toString()
+        publishedDate.value = item?.volumeInfo?.publishedDate.toString()
+
     }
 
     fun getSearchBook(query : String?){

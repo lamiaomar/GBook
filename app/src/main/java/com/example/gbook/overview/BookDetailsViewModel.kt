@@ -16,6 +16,8 @@ class BookDetailsViewModel : ViewModel() {
     var bookCover = MutableLiveData<String?>()
     var description = MutableLiveData<String?>()
     var averageRating = MutableLiveData<String?>()
+    var pageCount = MutableLiveData<String?>()
+    var publishedDate = MutableLiveData<String?>()
 
 
     fun displayBookDetails(displayPosition: Int, listNum: Int) {
@@ -52,6 +54,9 @@ class BookDetailsViewModel : ViewModel() {
         bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
         description.value = item?.volumeInfo?.description
         averageRating.value = item?.volumeInfo?.averageRating.toString()
+        pageCount.value = item?.volumeInfo?.pageCount.toString()
+        publishedDate.value = item?.volumeInfo?.publishedDate.toString()
+
     }
 
     override fun onCleared() {

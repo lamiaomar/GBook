@@ -1,6 +1,7 @@
 package com.example.gbook.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,11 @@ private const val LISTNUM = "listNum"
 
 class BookDetailsFragment : Fragment() {
 
-    private val viewModel: BookDetailsViewModel by activityViewModels()
+    private val viewModel: BookViewmodel by activityViewModels()
 
-    private var displayPosition: Int = 0
-    private var numOfList: Int = 0
+
+    private var displayPosition: Int = 1
+    private var numOfList: Int = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,9 @@ class BookDetailsFragment : Fragment() {
         arguments?.let {
             displayPosition = it.getInt(POSITION)
             numOfList = it.getInt(LISTNUM)
+
+            Log.e("positionD", "$displayPosition")
+            Log.e("positionN", "$numOfList")
 
         }
     }
@@ -50,6 +55,7 @@ class BookDetailsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+
         return binding.root
 
     }
@@ -57,7 +63,9 @@ class BookDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         viewModel.displayBookDetails(displayPosition, numOfList)
+                Log.e("positionD", "${viewModel.displayBookDetails(displayPosition, numOfList)}")
 
     }
 }
