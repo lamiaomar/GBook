@@ -1,6 +1,5 @@
 package com.example.gbook.authentication.views
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -78,7 +77,7 @@ class HomeAuthenticationFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context , "Faild to retrive" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(context , "Failed to retrive" , Toast.LENGTH_SHORT).show()
 
             }
 

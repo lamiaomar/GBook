@@ -10,6 +10,8 @@ data class User(
     var userLists : List<String>? = listOf()
 ){}
 
+
+
 data class UserList(
     var link : String = "nono"
 ){}

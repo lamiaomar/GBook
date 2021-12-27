@@ -25,6 +25,10 @@ private val retrofit = Retrofit.Builder()
 interface BookApiService{
     @GET(BASE_URL+ENDPOINT)
     suspend fun getBook(@Query("q") q : String = DEFAULT , @Query("key") key: String = API_KEY) : BooksData
+
+//    https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9780545262101&num=10
+    @GET()
+    suspend fun getBookISBN()
 }
 
 object BooksApi {

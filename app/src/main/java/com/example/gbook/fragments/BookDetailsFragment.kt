@@ -55,8 +55,15 @@ class BookDetailsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        binding.animationView.pauseAnimation()
+
         binding.animationView.setOnClickListener {
 //            it.animation.cancel()
+
+             binding.animationView.playAnimation()
+
+//            if (binding.animationView.isAnimating) binding.animationView.pauseAnimation()
+
         }
         return binding.root
 
