@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import com.example.gbook.BookViewmodel
-import com.example.gbook.R
 import com.example.gbook.databinding.FragmentBookDetailsBinding
-import com.example.gbook.overview.BookDetailsViewModel
 
 private const val POSITION = "title"
 private const val LISTNUM = "listNum"

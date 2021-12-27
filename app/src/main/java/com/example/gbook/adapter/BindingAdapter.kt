@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.gbook.BooksApiStatus
 import com.example.gbook.R
 import com.example.gbook.data.ItemsItem
+import com.example.gbook.ui.BookItemUiState
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -31,7 +32,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 @BindingAdapter("listData")
 fun bindRecyclerView(
     recyclerView: RecyclerView,
-    data: List<ItemsItem>?
+    data: List<BookItemUiState>?
 ) {
     val adapter = recyclerView.adapter as BookGridAdapter
     adapter.submitList(data)
@@ -40,7 +41,7 @@ fun bindRecyclerView(
 @BindingAdapter("secListData")
 fun bindSecRecyclerView(
     recyclerView: RecyclerView,
-    data: List<ItemsItem>?
+    data: List<BookItemUiState>?
 ) {
     val adapter = recyclerView.adapter as SecondBookGridAdapter
     adapter.submitList(data)
@@ -49,7 +50,7 @@ fun bindSecRecyclerView(
 @BindingAdapter("thirdListData")
 fun bindThirdRecyclerView(
     recyclerView: RecyclerView,
-    data: List<ItemsItem>?
+    data: List<BookItemUiState>?
 ) {
     val adapter = recyclerView.adapter as ThirdBookGridAdapter
     adapter.submitList(data)

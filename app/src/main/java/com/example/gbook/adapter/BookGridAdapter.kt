@@ -3,15 +3,16 @@ package com.example.gbook.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gbook.data.ItemsItem
 import com.example.gbook.databinding.GridViewItemBinding
-import com.example.gbook.fragments.BookListFragmentDirections
+import com.example.gbook.ui.BookItemUiState
 
-class BookGridAdapter : ListAdapter<ItemsItem,
+
+class BookGridAdapter : ListAdapter<BookItemUiState,
         BookGridAdapter.BookViewHolder>(DiffCallback) {
 
     class BookViewHolder(
@@ -19,23 +20,27 @@ class BookGridAdapter : ListAdapter<ItemsItem,
         GridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bookItem: ItemsItem) {
+        fun bind(bookItem: BookItemUiState) {
             binding.result = bookItem
             binding.executePendingBindings()
 
         }
 
-        val bookThumb : ImageView = binding.bookThumb
+        //        val bookThumb : ImageView = binding.bookThumb
+//        val bookThumb: TextView = binding.bookThumb
 
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
-        override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return newItem.id == oldItem.id
+    companion object DiffCallback : DiffUtil.ItemCallback<BookItemUiState>() {
+        override fun areItemsTheSame(oldItem: BookItemUiState, newItem: BookItemUiState): Boolean {
+            return newItem.title == oldItem.title
         }
 
-        override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(
+            oldItem: BookItemUiState,
+            newItem: BookItemUiState
+        ): Boolean {
+            return oldItem.title == newItem.title
         }
     }
 
@@ -54,12 +59,13 @@ class BookGridAdapter : ListAdapter<ItemsItem,
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
 
-        holder.bookThumb.setOnClickListener{
-
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,1)
-            holder.bookThumb.findNavController().navigate(action)
-
-        }
+//        holder.bookThumb.setOnClickListener {
+//
+//            val action =
+//                BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position, 1)
+//            holder.bookThumb.findNavController().navigate(action)
+//
+//        }
 
     }
 

@@ -7,11 +7,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gbook.data.ItemsItem
 import com.example.gbook.databinding.ThirdGridViewItemBinding
 import com.example.gbook.fragments.BookListFragmentDirections
+import com.example.gbook.ui.BookItemUiState
 
-class ThirdBookGridAdapter : ListAdapter<ItemsItem,
+class ThirdBookGridAdapter : ListAdapter<BookItemUiState,
         ThirdBookGridAdapter.ThirdBookViewHolder>(DiffCallback) {
 
 
@@ -20,7 +20,7 @@ class ThirdBookGridAdapter : ListAdapter<ItemsItem,
         ThirdGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bookItem: ItemsItem) {
+        fun bind(bookItem: BookItemUiState) {
             binding.result = bookItem
             binding.executePendingBindings()
 
@@ -30,13 +30,12 @@ class ThirdBookGridAdapter : ListAdapter<ItemsItem,
 
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
-        override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return newItem.id == oldItem.id
-        }
+    companion object DiffCallback : DiffUtil.ItemCallback<BookItemUiState>() {
+        override fun areItemsTheSame(oldItem: BookItemUiState, newItem: BookItemUiState): Boolean {
+            return newItem.title == oldItem.title        }
 
-        override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: BookItemUiState, newItem: BookItemUiState): Boolean {
+            return oldItem.title == newItem.title
         }
     }
 

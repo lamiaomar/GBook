@@ -1,4 +1,3 @@
 package com.example.gbook.data
 
-class Book {
-}
+data class Book(var title : String , var isbn : String )

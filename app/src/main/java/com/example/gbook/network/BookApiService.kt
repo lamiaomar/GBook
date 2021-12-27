@@ -1,6 +1,7 @@
 package com.example.gbook.network
 
 import com.example.gbook.data.BooksData
+import com.example.gbook.ui.BooksDataUiState
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -26,9 +27,7 @@ interface BookApiService{
     @GET(BASE_URL+ENDPOINT)
     suspend fun getBook(@Query("q") q : String = DEFAULT , @Query("key") key: String = API_KEY) : BooksData
 
-//    https://www.google.com/search?tbo=p&tbm=bks&q=isbn:9780545262101&num=10
-    @GET()
-    suspend fun getBookISBN()
+
 }
 
 object BooksApi {
