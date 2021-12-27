@@ -1,5 +1,6 @@
 package com.example.gbook.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.databinding.GridViewItemBinding
+import com.example.gbook.fragments.BookListFragmentDirections
 import com.example.gbook.ui.BookItemUiState
 
 
@@ -26,8 +28,7 @@ class BookGridAdapter : ListAdapter<BookItemUiState,
 
         }
 
-        //        val bookThumb : ImageView = binding.bookThumb
-//        val bookThumb: TextView = binding.bookThumb
+                val bookThumb : ImageView = binding.bookThumb
 
     }
 
@@ -58,14 +59,14 @@ class BookGridAdapter : ListAdapter<BookItemUiState,
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
+        Log.e("position","$position")
 
-//        holder.bookThumb.setOnClickListener {
-//
-//            val action =
-//                BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position, 1)
-//            holder.bookThumb.findNavController().navigate(action)
-//
-//        }
+        holder.bookThumb.setOnClickListener {
+
+            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position, 1)
+            holder.bookThumb.findNavController().navigate(action)
+
+        }
 
     }
 

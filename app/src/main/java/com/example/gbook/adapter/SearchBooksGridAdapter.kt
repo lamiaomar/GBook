@@ -11,8 +11,9 @@ import com.example.gbook.data.ItemsItem
 import com.example.gbook.databinding.SearchGridViewItemBinding
 import com.example.gbook.fragments.BookListFragmentDirections
 import com.example.gbook.fragments.SearchFragmentDirections
+import com.example.gbook.ui.BookItemUiState
 
-class SearchBooksGridAdapter : ListAdapter<ItemsItem,
+class SearchBooksGridAdapter : ListAdapter<BookItemUiState,
         SearchBooksGridAdapter.SearchBookViewHolder>(DiffCallback) {
 
 
@@ -21,7 +22,7 @@ class SearchBooksGridAdapter : ListAdapter<ItemsItem,
         SearchGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bookItem: ItemsItem) {
+        fun bind(bookItem: BookItemUiState) {
             binding.result = bookItem
             binding.executePendingBindings()
 
@@ -31,13 +32,13 @@ class SearchBooksGridAdapter : ListAdapter<ItemsItem,
 
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
-        override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return newItem.volumeInfo!!.title == oldItem.volumeInfo!!.title
+    companion object DiffCallback : DiffUtil.ItemCallback<BookItemUiState>() {
+        override fun areItemsTheSame(oldItem: BookItemUiState, newItem: BookItemUiState): Boolean {
+            return newItem.title == oldItem.title
         }
 
-        override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: BookItemUiState, newItem: BookItemUiState): Boolean {
+            return oldItem.title == newItem.title
         }
     }
 

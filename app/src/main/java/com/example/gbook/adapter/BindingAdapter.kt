@@ -59,7 +59,7 @@ fun bindThirdRecyclerView(
 @BindingAdapter("searchListData")
 fun bindSearchRecyclerView(
     recyclerView: RecyclerView,
-    data: List<ItemsItem>?
+    data: List<BookItemUiState>?
 ) {
     val adapter = recyclerView.adapter as SearchBooksGridAdapter
     adapter.submitList(data)

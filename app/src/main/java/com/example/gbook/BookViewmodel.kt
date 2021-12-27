@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gbook.data.BooksData
 import com.example.gbook.data.ItemsItem
 import com.example.gbook.network.BooksApi
 import com.example.gbook.ui.BookItemUiState
@@ -30,10 +31,9 @@ class BookViewmodel : ViewModel() {
     private val _thirdResultUi = MutableStateFlow(BooksDataUiState())
     val thirdResultUi: StateFlow<BooksDataUiState> = _thirdResultUi.asStateFlow()
 
-    var result = MutableLiveData<List<ItemsItem?>>()
-    var secresult = MutableLiveData<List<ItemsItem?>>()
-    var thieresult = MutableLiveData<List<ItemsItem?>>()
-    var searchResult = MutableLiveData<List<ItemsItem?>>()
+    private val _searchResultUi = MutableStateFlow(BooksDataUiState())
+    val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
+
 
     var title = MutableLiveData<String?>()
     var bookCover = MutableLiveData<String?>()
@@ -60,127 +60,96 @@ class BookViewmodel : ViewModel() {
         viewModelScope.launch {
             try {
 
-                //  result.value = BooksApi.retrofitService.getBook(qApi1).items
 
                 val volume = BooksApi.retrofitService.getBook(qApi1)
-                val data = volume.items!!.map { item ->
-                    BookItemUiState(
-                        title = item.volumeInfo!!.title!!,
-                        bookCover = item.volumeInfo.imageLinks?.thumbnail!!,
-                        description = item.volumeInfo.description.toString(),
-                        averageRating = item.volumeInfo.averageRating.toString(),
-                        pageCount = item.volumeInfo.pageCount.toString(),
-                        publishedDate = item.volumeInfo.publishedDate!!
-                    )
-                }
-                _firstResultUi.update { it.copy(volume = data) }
+                _firstResultUi.update { it.copy(volume = setItemUiState(volume)) }
 
-
-
-//                secresult.value = BooksApi.retrofitService.getBook(qApi2).items
                 val secVolume = BooksApi.retrofitService.getBook(qApi2)
-                val secData = secVolume.items!!.map { item ->
-                    BookItemUiState(
-                        title = item.volumeInfo!!.title!!,
-                        bookCover = item.volumeInfo.imageLinks?.thumbnail!!,
-                        description = item.volumeInfo.description.toString(),
-                        averageRating = item.volumeInfo.averageRating.toString(),
-                        pageCount = item.volumeInfo.pageCount.toString(),
-                        publishedDate = item.volumeInfo.publishedDate.toString()
-                    )
-                }
-                _secondResultUi.update { it.copy(volume = secData) }
+                _secondResultUi.update { it.copy(volume = setItemUiState(secVolume)) }
 
-//                thieresult.value = BooksApi.retrofitService.getBook("kids").items
                 val thirdVolume = BooksApi.retrofitService.getBook("kids")
-                val thirData = thirdVolume.items!!.map { item ->
-                    BookItemUiState(
-                        title = item.volumeInfo!!.title!!,
-                        bookCover = item.volumeInfo.imageLinks?.thumbnail!!,
-                        description = item.volumeInfo.description.toString(),
-                        averageRating = item.volumeInfo.averageRating.toString(),
-                        pageCount = item.volumeInfo.pageCount.toString(),
-                        publishedDate = item.volumeInfo.publishedDate.toString()
-                    )
-                }
-                _thirdResultUi.update { it.copy(volume = thirData) }
+                _thirdResultUi.update { it.copy(volume = setItemUiState(thirdVolume)) }
+
 
                 _status.value = BooksApiStatus.DONE
 
             } catch (e: Exception) {
                 _status.value = BooksApiStatus.ERROR
-                result.value = listOf()
-                secresult.value = listOf()
-                thieresult.value = listOf()
-            }
 
-            //"inauthor:steve inauthor:jobs"
+            }
 
         }
     }
 
     fun displayBookDetails(displayPosition: Int, listNum: Int) {
-        Log.e("display", "${displayPosition}")
-        Log.e("display", "${listNum}")
 
         try {
             if (listNum == 1) {
-                val item = result.value?.get(displayPosition)
-                Log.e("link", "$item")
+
+                val item = firstResultUi.value.volume.get(displayPosition)
                 setBookDetails(item)
 
             } else if (listNum == 2) {
-                val item = secresult.value?.get(displayPosition)
+
+                val item = secondResultUi.value.volume.get(displayPosition)
                 setBookDetails(item)
-                Log.e("link", "$item")
 
             } else if (listNum == 3) {
-                val item = thieresult.value?.get(displayPosition)
-                setBookDetails(item)
-                Log.e("link", "$item")
 
+                val item = thirdResultUi.value.volume.get(displayPosition)
+                setBookDetails(item)
 
             } else if (listNum == 4) {
-                val item = searchResult.value?.get(displayPosition)
-                Log.e("display", "${item}")
+
+                val item = searchResultUi.value.volume.get(displayPosition)
                 setBookDetails(item)
-                Log.e("link", "$item")
 
             }
 
         } catch (e: Exception) {
-            title.value = "${e.message}"
+            _status.value = BooksApiStatus.ERROR
         }
 
     }
 
-    fun setBookDetails(item: ItemsItem?) {
-        title.value = item?.volumeInfo?.title
-        bookCover.value = item?.volumeInfo?.imageLinks?.thumbnail
-        description.value = item?.volumeInfo?.description
-        averageRating.value = item?.volumeInfo?.averageRating.toString()
-        pageCount.value = item?.volumeInfo?.pageCount.toString()
-        publishedDate.value = item?.volumeInfo?.publishedDate.toString()
+    fun setBookDetails(item: BookItemUiState?) {
+        title.value = item?.title
+        bookCover.value = item?.bookCover
+        description.value = item?.description
+        averageRating.value = item?.averageRating
+        pageCount.value = item?.pageCount
+        publishedDate.value = item?.publishedDate
 
     }
 
     fun getSearchBook(query: String?) {
 
-        Log.e("diplay", "$query")
         _status.value = BooksApiStatus.LOADING
         viewModelScope.launch {
             try {
-                searchResult.value = BooksApi.retrofitService.getBook(query!!).items
-                Log.e("display", "${searchResult.value}")
+                val volume = BooksApi.retrofitService.getBook(query!!)
+                _searchResultUi.update { it.copy(volume = setItemUiState(volume)) }
 
                 _status.value = BooksApiStatus.DONE
 
             } catch (e: Exception) {
                 _status.value = BooksApiStatus.ERROR
-//                searchResult.value = listOf()
             }
         }
     }
 
+  private fun setItemUiState(volume: BooksData) : List<BookItemUiState>{
+      val data = volume.items!!.map { item ->
+          BookItemUiState(
+              title = item.volumeInfo!!.title!!,
+              bookCover = item.volumeInfo.imageLinks?.thumbnail!!,
+              description = item.volumeInfo.description.toString(),
+              averageRating = item.volumeInfo.averageRating.toString(),
+              pageCount = item.volumeInfo.pageCount.toString(),
+              publishedDate = item.volumeInfo.publishedDate.toString()
+          )
+      }
+      return data
+}
 
 }
