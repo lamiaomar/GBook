@@ -17,13 +17,20 @@ import com.example.gbook.adapter.ThirdBookGridAdapter
 import com.example.gbook.databinding.FragmentBookListBinding
 import kotlinx.android.synthetic.main.fragment_book_list.*
 import androidx.appcompat.app.AppCompatActivity
-
-
+import com.example.gbook.BookViewModelFactory
+import com.example.gbook.data.BooksRemoteDataSource
+import com.example.gbook.data.BooksRepository
+import com.example.gbook.network.BooksApi
 
 
 class BookListFragment : Fragment() {
 
-    private val viewModel: BookViewmodel by activityViewModels()
+    private val viewModel: BookViewmodel by activityViewModels{
+        val bookApi = BooksApi.retrofitService
+        val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
+        val repo = BooksRepository(booksRemoteDataSource)
+        BookViewModelFactory(repo)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

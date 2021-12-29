@@ -7,11 +7,18 @@ data class User(
     var month : String? = "",
     var year : String? = "",
     var email : String? = "" ,
-    var userLists : List<String>? = listOf()
+ //   var userLists : List<BookList>? = listOf()
 ){}
 
 
 
-data class UserList(
-    var link : String = "nono"
-){}
+data class BookList(
+    val id : String = "",
+    val title: String = "",
+    val bookCover: String = "",
+    val description: String = "",
+    val averageRating: String ="",
+    val pageCount: String ="",
+    val publishedDate: String = ""
+)
+

@@ -8,10 +8,6 @@ data class BooksDataUiState(
     val volume: List<BookItemUiState> = listOf()
 )
 
-//data class BooksVolumeUiState(
-//    val item: List<BookItemUiState> = listOf()
-//)
-
 
 data class BookItemUiState(
     val title: String = "",

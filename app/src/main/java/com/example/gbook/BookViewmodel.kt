@@ -1,15 +1,19 @@
 package com.example.gbook
 
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gbook.authentication.BookList
+import com.example.gbook.authentication.User
 import com.example.gbook.data.BooksData
-import com.example.gbook.data.ItemsItem
-import com.example.gbook.network.BooksApi
+import com.example.gbook.data.BooksRepository
 import com.example.gbook.ui.BookItemUiState
 import com.example.gbook.ui.BooksDataUiState
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,8 +22,16 @@ import kotlinx.coroutines.launch
 
 enum class BooksApiStatus { LOADING, ERROR, DONE }
 
+class BookViewmodel(
 
-class BookViewmodel : ViewModel() {
+    private val booksRepository: BooksRepository
+
+) : ViewModel() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var user: User
+    private lateinit var uid: String
 
 
     private val _firstResultUi = MutableStateFlow(BooksDataUiState())
@@ -45,6 +57,9 @@ class BookViewmodel : ViewModel() {
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
+//     var itemUiState: BookItemUiState  =
+
+
 
     var qApi1 = "inauthor:Ann inauthor:M inauthor:Martin"
     var qApi2 = "classic"
@@ -54,22 +69,20 @@ class BookViewmodel : ViewModel() {
         getBook()
     }
 
-
     private fun getBook() {
         _status.value = BooksApiStatus.LOADING
         viewModelScope.launch {
             try {
 
-
-                val volume = BooksApi.retrofitService.getBook(qApi1)
+                val volume = booksRepository.getBooks(qApi1)
                 _firstResultUi.update { it.copy(volume = setItemUiState(volume)) }
 
-                val secVolume = BooksApi.retrofitService.getBook(qApi2)
+                val secVolume = booksRepository.getBooks(qApi2)
+//                    BooksApi.retrofitService.getBook(qApi2)
                 _secondResultUi.update { it.copy(volume = setItemUiState(secVolume)) }
 
-                val thirdVolume = BooksApi.retrofitService.getBook("kids")
+                val thirdVolume = booksRepository.getBooks("kids")
                 _thirdResultUi.update { it.copy(volume = setItemUiState(thirdVolume)) }
-
 
                 _status.value = BooksApiStatus.DONE
 
@@ -112,7 +125,7 @@ class BookViewmodel : ViewModel() {
 
     }
 
-    fun setBookDetails(item: BookItemUiState?) {
+    private fun setBookDetails(item: BookItemUiState?) {
         title.value = item?.title
         bookCover.value = item?.bookCover
         description.value = item?.description
@@ -127,7 +140,7 @@ class BookViewmodel : ViewModel() {
         _status.value = BooksApiStatus.LOADING
         viewModelScope.launch {
             try {
-                val volume = BooksApi.retrofitService.getBook(query!!)
+                val volume = booksRepository.getBooks(query!!)
                 _searchResultUi.update { it.copy(volume = setItemUiState(volume)) }
 
                 _status.value = BooksApiStatus.DONE
@@ -138,18 +151,32 @@ class BookViewmodel : ViewModel() {
         }
     }
 
-  private fun setItemUiState(volume: BooksData) : List<BookItemUiState>{
-      val data = volume.items!!.map { item ->
-          BookItemUiState(
-              title = item.volumeInfo!!.title!!,
-              bookCover = item.volumeInfo.imageLinks?.thumbnail!!,
-              description = item.volumeInfo.description.toString(),
-              averageRating = item.volumeInfo.averageRating.toString(),
-              pageCount = item.volumeInfo.pageCount.toString(),
-              publishedDate = item.volumeInfo.publishedDate.toString()
-          )
-      }
-      return data
-}
+    private fun setItemUiState(volume: BooksData): List<BookItemUiState> {
+        val data = volume.items!!.map { item ->
+            BookItemUiState(
+                title = item.volumeInfo!!.title!!,
+                bookCover = item.volumeInfo.imageLinks?.thumbnail!!,
+                description = item.volumeInfo.description.toString(),
+                averageRating = item.volumeInfo.averageRating.toString(),
+                pageCount = item.volumeInfo.pageCount.toString(),
+                publishedDate = item.volumeInfo.publishedDate.toString()
+            )
+        }
+        return data
+    }
 
+     fun addBookToReadList(displayPosition: Int, listNum: Int) {
+
+        auth = FirebaseAuth.getInstance()
+        uid = auth.currentUser?.uid.toString()
+        databaseReference = FirebaseDatabase.getInstance().getReference("users")
+
+        try {
+            databaseReference.child(uid).child("userLists").push().setValue({
+
+            })
+        } catch (e: Exception) {
+
+        }
+    }
 }

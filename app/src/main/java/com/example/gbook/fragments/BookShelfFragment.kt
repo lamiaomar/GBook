@@ -16,8 +16,6 @@ class BookShelfFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
-
-    //private lateinit var bookShelfArray : Array<String?>
     private lateinit var user: User
     private lateinit var uid: String
     private lateinit var binding: FragmentBookShelfBinding
@@ -56,15 +54,15 @@ class BookShelfFragment : Fragment() {
             databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
-                    for (post in snapshot.children) {
-                        var x = 0
-                        user = snapshot.getValue(User::class.java)!!
-                        for (item in user.userLists!! ){
-                        Log.e("list", "${user.userLists?.get(x)}")
-                        ++x
-                        }
-                        //                        binding.userName.setText(user.userLists?.[item.toInt()])
-                    }
+//                    for (post in snapshot.children) {
+//                        var x = 0
+//                        user = snapshot.getValue(User::class.java)!!
+//                        for (item in user.userLists!! ){
+//                        Log.e("list", "${user.userLists?.get(x)}")
+//                        ++x
+//                        }
+//                        //binding.userName.setText(user.userLists?.[item.toInt()])
+//                    }
 
                 }
 

@@ -165,6 +165,7 @@ class RegistrationFragment : Fragment() {
         userYear = year.text.toString().trim()
         userEmail = email.text.toString().trim()
 
+
         val user = User(
             userFirstName,
             userLastName,
@@ -172,7 +173,7 @@ class RegistrationFragment : Fragment() {
             userMonth,
             userYear,
             userEmail,
-            listOf("item1", "item2")
+            //listOf()
         )
         if (uid != null) {
             databaseReference.child(uid).setValue(user).addOnCompleteListener {
