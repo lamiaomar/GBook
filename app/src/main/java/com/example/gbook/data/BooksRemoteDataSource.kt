@@ -15,4 +15,8 @@ class BooksRemoteDataSource(
             bookApiService.getBook(category)
         }
 
+     suspend fun getCategoryBook(category : String) : List<BooksData> =
+         withContext(ioDispatcher) {
+             bookApiService.getCategoryBook(category)
+         }
 }

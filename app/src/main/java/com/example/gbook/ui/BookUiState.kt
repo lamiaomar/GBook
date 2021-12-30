@@ -1,23 +1,33 @@
 package com.example.gbook.ui
 
+import kotlinx.coroutines.flow.MutableStateFlow
+
+
+data class BookCategoryUiState (
+    val isSignedIn: Boolean = false,
+    val categoryList : List<BooksDataUiState> = listOf()
+        )
 
 
 data class BooksDataUiState(
-    val isSignedIn: Boolean = false,
+    val category : String = "" ,
 //    val isPremium: Boolean = false,
-    val volume: List<BookItemUiState> = listOf()
+    val books: List<BookDetailsUiState> = listOf()
+
 )
 
 
-data class BookItemUiState(
+data class BookDetailsUiState(
     val title: String = "",
     val bookCover: String = "",
     val description: String = "",
-    val averageRating: String ="",
-    val pageCount: String ="",
+    val averageRating: String = "",
+    val pageCount: String = "",
     val publishedDate: String = ""
 )
 
-
-
-
+/*
+! BookCategoryUiState( BooksDataUiState( category , BookDetailsUiState) ,
+!                      BooksDataUiState( category , BookDetailsUiState) ,
+!                      BooksDataUiState( category , BookDetailsUiState) )
+ */

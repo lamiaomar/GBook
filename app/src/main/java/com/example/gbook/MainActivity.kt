@@ -34,4 +34,3 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
-//buttom app bar with navigation host

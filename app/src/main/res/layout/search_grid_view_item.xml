@@ -8,7 +8,7 @@
 
         <variable
             name="result"
-            type="com.example.gbook.ui.BookItemUiState" />
+            type="com.example.gbook.ui.BookDetailsUiState" />
 
         <variable
             name="viewModel"

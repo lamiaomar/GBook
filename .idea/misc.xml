@@ -7,16 +7,19 @@
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.15833333333333333" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/loading_img.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/books_item.xml" value="0.20425724637681159" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/category_item.xml" value="0.1" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/category_list.xml" value="0.18614130434782608" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/dropdown_item.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_authentication.xml" value="0.4" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_book_details.xml" value="0.176" />
-        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_book_list.xml" value="0.264" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_book_list.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_book_shelf.xml" value="0.264" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_home_authentication.xml" value="0.2" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_log_in.xml" value="0.23443223443223443" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_registration.xml" value="0.4" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_search.xml" value="0.12" />
-        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/grid_view_item.xml" value="0.264" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/grid_view_item.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/grid_view_item1.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/search_grid_view_item.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/searchable.xml" value="0.25416666666666665" />

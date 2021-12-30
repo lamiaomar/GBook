@@ -10,17 +10,19 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.BookViewmodel
-import com.example.gbook.adapter.BookGridAdapter
-import com.example.gbook.adapter.SearchBooksGridAdapter
-import com.example.gbook.adapter.SecondBookGridAdapter
-import com.example.gbook.adapter.ThirdBookGridAdapter
 import com.example.gbook.databinding.FragmentBookListBinding
 import kotlinx.android.synthetic.main.fragment_book_list.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.gbook.BookViewModelFactory
+import com.example.gbook.adapter.*
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.network.BooksApi
+import com.example.gbook.ui.CategoryBooksAdapter
+import kotlinx.coroutines.launch
 
 
 class BookListFragment : Fragment() {
@@ -31,7 +33,7 @@ class BookListFragment : Fragment() {
         val repo = BooksRepository(booksRemoteDataSource)
         BookViewModelFactory(repo)
     }
-
+  lateinit  var ay7aga:FragmentBookListBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,23 +44,27 @@ class BookListFragment : Fragment() {
 
 
         val binding = FragmentBookListBinding.inflate(inflater)
-
+ay7aga=binding
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // Giving the binding access to the ViewModel
         binding.viewModel = viewModel
-
-        binding.photosGrid.adapter = BookGridAdapter()
-        binding.photosGrid2.adapter = SecondBookGridAdapter()
-        binding.photosGrid3.adapter = ThirdBookGridAdapter()
-
+        binding.categoryList.adapter= CategoryBooksAdapter()
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.bookCategoryResultUi.collect{
+                    val adapter = ay7aga.categoryList.adapter as CategoryBooksAdapter
+                    adapter.submitList(it.categoryList)
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

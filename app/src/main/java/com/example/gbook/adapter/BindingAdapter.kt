@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gbook.BooksApiStatus
 import com.example.gbook.R
-import com.example.gbook.data.ItemsItem
-import com.example.gbook.ui.BookItemUiState
+import com.example.gbook.ui.BookDetailsUiState
+import com.example.gbook.ui.BooksAdapter
+import com.example.gbook.ui.BooksDataUiState
+import com.example.gbook.ui.CategoryBooksAdapter
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -32,7 +34,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 @BindingAdapter("listData")
 fun bindRecyclerView(
     recyclerView: RecyclerView,
-    data: List<BookItemUiState>?
+    data: List<BookDetailsUiState>?
 ) {
     val adapter = recyclerView.adapter as BookGridAdapter
     adapter.submitList(data)
@@ -41,7 +43,7 @@ fun bindRecyclerView(
 @BindingAdapter("secListData")
 fun bindSecRecyclerView(
     recyclerView: RecyclerView,
-    data: List<BookItemUiState>?
+    data: List<BookDetailsUiState>?
 ) {
     val adapter = recyclerView.adapter as SecondBookGridAdapter
     adapter.submitList(data)
@@ -50,7 +52,7 @@ fun bindSecRecyclerView(
 @BindingAdapter("thirdListData")
 fun bindThirdRecyclerView(
     recyclerView: RecyclerView,
-    data: List<BookItemUiState>?
+    data: List<BookDetailsUiState>?
 ) {
     val adapter = recyclerView.adapter as ThirdBookGridAdapter
     adapter.submitList(data)
@@ -59,7 +61,7 @@ fun bindThirdRecyclerView(
 @BindingAdapter("searchListData")
 fun bindSearchRecyclerView(
     recyclerView: RecyclerView,
-    data: List<BookItemUiState>?
+    data: List<BookDetailsUiState>?
 ) {
     val adapter = recyclerView.adapter as SearchBooksGridAdapter
     adapter.submitList(data)
@@ -88,4 +90,24 @@ fun bindStatus(
         }
     }
 
+
+@BindingAdapter("bookList")
+fun bindBookList(
+        recyclerView: RecyclerView,
+        data: List<BooksDataUiState>?){
+
+        val adapter = recyclerView.adapter as CategoryBooksAdapter
+        adapter.submitList(data)
+
+    }
+
+@BindingAdapter("categoryList")
+fun bindCategoryList(
+        recyclerView: RecyclerView,
+        data: List<BooksDataUiState>?){
+
+        val adapter = recyclerView.adapter as CategoryBooksAdapter
+        adapter.submitList(data)
+
+    }
 }
