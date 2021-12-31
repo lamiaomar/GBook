@@ -1,6 +1,5 @@
 package com.example.gbook.ui
 
-import kotlinx.coroutines.flow.MutableStateFlow
 
 
 data class BookCategoryUiState (
@@ -18,6 +17,7 @@ data class BooksDataUiState(
 
 
 data class BookDetailsUiState(
+//    val id : IndustryIdentifiersItem  ,
     val title: String = "",
     val bookCover: String = "",
     val description: String = "",
@@ -25,6 +25,12 @@ data class BookDetailsUiState(
     val pageCount: String = "",
     val publishedDate: String = ""
 )
+
+//data class IndustryIdentifiersItem(
+//    val identifier : String = ""
+//)
+
+
 
 /*
 ! BookCategoryUiState( BooksDataUiState( category , BookDetailsUiState) ,

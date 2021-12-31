@@ -1,15 +1,17 @@
 package com.example.gbook.ui
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.ListAdapter
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.databinding.BooksItemBinding
-import com.example.gbook.fragments.BookListFragmentDirections
+import com.example.gbook.ui.fragments.BookDetailsFragment
+import com.example.gbook.ui.fragments.BookListFragmentDirections
 
 
 class BooksAdapter : ListAdapter<BookDetailsUiState,
@@ -26,7 +28,7 @@ class BooksAdapter : ListAdapter<BookDetailsUiState,
 
         }
 
-        val bookThumb: ImageView = binding.bookThumb
+        var bookThumb: ImageView = binding.bookThumb
 
     }
 
@@ -61,15 +63,19 @@ class BooksAdapter : ListAdapter<BookDetailsUiState,
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
-        Log.e("position", "$position")
+
+        Log.e("positionnnnn22222", "$position")
+        Log.e("positionnnnn22222","${bookPhoto.title}")
         holder.bookThumb.setOnClickListener {
             val action =
-                BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position, 1)
+                BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(title = position ,bookTitle = bookPhoto.title)
             holder.bookThumb.findNavController().navigate(action)
 
         }
 
+
     }
+
 }
 
 

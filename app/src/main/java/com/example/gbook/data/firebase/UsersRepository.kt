@@ -1,8 +1,7 @@
-package com.example.gbook.firebase
+package com.example.gbook.data.firebase
 
 import com.example.gbook.authentication.User
-import com.example.gbook.data.BooksRealTimeDataSource
-import kotlinx.coroutines.withContext
+import com.example.gbook.data.firebase.BooksRealTimeDataSource
 
 class UsersRepository(
     private val booksRealTimeDataSource: BooksRealTimeDataSource

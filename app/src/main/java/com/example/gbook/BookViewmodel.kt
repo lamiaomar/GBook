@@ -1,12 +1,10 @@
 package com.example.gbook
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gbook.authentication.User
-import com.example.gbook.data.Book
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.ui.BookCategoryUiState
@@ -15,11 +13,8 @@ import com.example.gbook.ui.BooksDataUiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 enum class BooksApiStatus { LOADING, ERROR, DONE }
 
@@ -35,18 +30,8 @@ class BookViewmodel(
     private lateinit var uid: String
 
 
-    private val _firstResultUi = MutableStateFlow(BooksDataUiState())
-    val firstResultUi: StateFlow<BooksDataUiState> = _firstResultUi.asStateFlow()
-
-    private val _secondResultUi = MutableStateFlow(BooksDataUiState())
-    val secondResultUi: StateFlow<BooksDataUiState> = _secondResultUi.asStateFlow()
-
-    private val _thirdResultUi = MutableStateFlow(BooksDataUiState())
-    val thirdResultUi: StateFlow<BooksDataUiState> = _thirdResultUi.asStateFlow()
-
     private val _searchResultUi = MutableStateFlow(BooksDataUiState())
     val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
-
 
     private val _bookCategoryResultUi = MutableStateFlow(BookCategoryUiState())
     val bookCategoryResultUi: StateFlow<BookCategoryUiState> = _bookCategoryResultUi.asStateFlow()
@@ -62,57 +47,50 @@ class BookViewmodel(
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
+    var category = listOf("Biography", "Music", "Art")
 
-    var categorcy1 = listOf("inauthor:Ann inauthor:M inauthor:Martin", "classic", "kids")
-
+//    inauthor:Ann inauthor:M inauthor:Martin
     init {
         getBooksDetail()
-        //   getBook()
-        // getBookData()
     }
-
-//    fun getBookData(): BookCategoryUiState {
-//        var x = listOf<MutableStateFlow<BookDetailsUiState>>(
-//            getBooksDetail(category1),
-//            getBooksDetail(category2),
-//            getBooksDetail(category3)
-//        )
-//        return BookCategoryUiState(x)
-//    }
 
 
     fun getBooksDetail() {
         viewModelScope.launch {
+            _status.value = BooksApiStatus.LOADING
             try {
 
-                //  val volume =
-
-                var data = withContext(Dispatchers.IO) {
-                    var list = mutableListOf<BooksDataUiState>()
-                    for (categor in categorcy1) {
-                        var singlda = async { booksRepository.getBooks(categor) }
-
+                val data = withContext(Dispatchers.IO) {
+                    val list = mutableListOf<BooksDataUiState>()
+                    for (categor in category) {
+                        val singlda = async { booksRepository.getBooks(categor) }
 
                         list.add(BooksDataUiState(categor, setItemUiState(singlda.await())))
                     }
                     return@withContext list
 
                 }
-
-                Log.d("TAG", "getBooksDetail: ${data.toString()}")
                 _bookCategoryResultUi.update { it.copy(categoryList = data) }
 
 
                 _status.value = BooksApiStatus.DONE
 
             } catch (e: Exception) {
+
                 _status.value = BooksApiStatus.ERROR
             }
         }
-        //return "_bookDetailResultUi"
     }
 
     private fun setItemUiState(volume: BooksData): List<BookDetailsUiState> {
+/*        val id = volume.items!!.map {
+//            IndustryIdentifiersItem(
+//                identifier = it.volumeInfo?.industryIdentifiers!![0]!!.identifier!!
+//            )
+//        }
+//
+ */
+
         val data = volume.items!!.map { item ->
             BookDetailsUiState(
                 title = item.volumeInfo!!.title!!,
@@ -126,58 +104,30 @@ class BookViewmodel(
         return data
     }
 
-//    private fun getBook() {
-//        _status.value = BooksApiStatus.LOADING
-//        viewModelScope.launch {
-//            try {
-//
-//                val volume = booksRepository.getBooks(category1)
-//                _firstResultUi.update { it.copy(books = setItemUiState(volume)) }
-//
-//                val secVolume = booksRepository.getBooks(category2)
-////                    BooksApi.retrofitService.getBook(qApi2)
-//                _secondResultUi.update { it.copy(books = setItemUiState(secVolume)) }
-//
-//                val thirdVolume = booksRepository.getBooks(category3)
-//                _thirdResultUi.update { it.copy(books = setItemUiState(thirdVolume)) }
-//
-//                _status.value = BooksApiStatus.DONE
-//
-//            } catch (e: Exception) {
-//                _status.value = BooksApiStatus.ERROR
-//
-//            }
-//
-//        }
-//    }
-
-    fun displayBookDetails(displayPosition: Int, listNum: Int) {
+    fun displayBookDetails(displayPosition: Int, bookTitle: String, search: Int) {
 
         try {
-            if (listNum == 1) {
-
-                val item = firstResultUi.value.books.get(displayPosition)
-                setBookDetails(item)
-
-            } else if (listNum == 2) {
-
-                val item = secondResultUi.value.books.get(displayPosition)
-                setBookDetails(item)
-
-            } else if (listNum == 3) {
-
-                val item = thirdResultUi.value.books.get(displayPosition)
-                setBookDetails(item)
-
-            } else if (listNum == 4) {
-
+            if (search == 1) {
                 val item = searchResultUi.value.books.get(displayPosition)
                 setBookDetails(item)
-
+            } else {
+                for (num in 0..3) {
+                    for (x in 0..displayPosition) {
+                        if (bookCategoryResultUi.value.categoryList[num].books[x].title.contains(
+                                bookTitle
+                            )
+                        ) {
+                            val item =
+                                bookCategoryResultUi.value.categoryList[num].books.get(
+                                    displayPosition
+                                )
+                            setBookDetails(item)
+                        }
+                    }
+                }
             }
-
         } catch (e: Exception) {
-            _status.value = BooksApiStatus.ERROR
+            _status.value = BooksApiStatus.LOADING
         }
 
     }
@@ -199,7 +149,7 @@ class BookViewmodel(
             try {
                 val volume = booksRepository.getBooks(query!!)
                 _searchResultUi.update { it.copy(books = setItemUiState(volume)) }
-
+                _searchResultUi.value.books
                 _status.value = BooksApiStatus.DONE
 
             } catch (e: Exception) {

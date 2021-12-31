@@ -9,6 +9,9 @@
             name="viewModel"
             type="com.example.gbook.BookViewmodel" />
 
+        <variable
+            name="resault"
+            type="com.example.gbook.ui.BooksDataUiState" />
 
     </data>
 
@@ -22,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:textColor="@color/blue"
+            android:textSize="24dp"
             android:padding="12sp"
-            android:text="firstCateg"
-            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,53 +44,12 @@
                 android:id="@+id/book_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                />
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
-<!--            app:bookList="@{viewModel.bookDetailResultUi}"-->
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>
 
-
-
-
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:orientation="vertical"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content">-->
-
-<!--    <data>-->
-
-<!--    </data>-->
-
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/parent_recyclerview"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.498"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.271" />-->
-
-
-
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--    </ScrollView>-->
-<!--</layout>-->

@@ -1,4 +1,4 @@
-package com.example.gbook.network
+package com.example.gbook.data.network
 
 import com.example.gbook.data.BooksData
 import com.example.gbook.ui.BooksDataUiState
@@ -24,11 +24,11 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface BookApiService{
-    @GET(BASE_URL+ENDPOINT)
+    @GET(BASE_URL + ENDPOINT)
     suspend fun getBook(@Query("q") q : String = DEFAULT , @Query("key") key: String = API_KEY) : BooksData
 
-    @GET(BASE_URL+ENDPOINT)
-    suspend fun getCategoryBook(@Query("q") q : String = DEFAULT , @Query("key") key: String = API_KEY) : List<BooksData>
+    @GET(BASE_URL + ENDPOINT)
+    suspend fun getSearchBook(@Query("q") q : String = DEFAULT, @Query("key") key: String = API_KEY) : BooksData
 
 }
 

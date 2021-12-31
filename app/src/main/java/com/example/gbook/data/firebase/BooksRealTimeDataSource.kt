@@ -1,4 +1,4 @@
-package com.example.gbook.data
+package com.example.gbook.data.firebase
 
 import com.example.gbook.authentication.User
 import com.example.gbook.firebase.BookRealTimeDBService

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/bookListFragment"
-        android:name="com.example.gbook.fragments.BookListFragment"
+        android:name="com.example.gbook.ui.fragments.BookListFragment"
         android:label="BookListFragment" >
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailsFragment"
@@ -15,28 +15,28 @@
     </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
-        android:name="com.example.gbook.fragments.BookDetailsFragment"
+        android:name="com.example.gbook.ui.fragments.BookDetailsFragment"
         android:label="fragment_book_details"
         tools:layout="@layout/fragment_book_details" >
         <argument
             android:name="title"
             app:argType="integer" />
         <argument
-            android:name="listNum"
-            app:argType="integer" />
+            android:name="bookTitle"
+            app:argType="string" />
+        <argument
+            android:name="search"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.gbook.fragments.SearchFragment"
+        android:name="com.example.gbook.ui.fragments.SearchFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/authenticationFragment"
-        android:name="com.example.gbook.fragments.AuthenticationFragment"
-        android:label="AuthenticationFragment" />
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.gbook.authentication.views.RegistrationFragment"
@@ -71,6 +71,6 @@
     </fragment>
     <fragment
         android:id="@+id/bookShelfFragment"
-        android:name="com.example.gbook.fragments.BookShelfFragment"
+        android:name="com.example.gbook.ui.fragments.BookShelfFragment"
         android:label="BookShelfFragment" />
 </navigation>

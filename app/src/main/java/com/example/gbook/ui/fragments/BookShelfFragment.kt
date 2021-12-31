@@ -1,4 +1,4 @@
-package com.example.gbook.fragments
+package com.example.gbook.ui.fragments
 
 import android.os.Bundle
 import android.util.Log

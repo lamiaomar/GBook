@@ -15,6 +15,10 @@
             name="result"
             type="com.example.gbook.data.ItemsItem" />
 
+        <variable
+            name="details"
+            type="com.example.gbook.ui.BookDetailsUiState" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -28,6 +32,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
@@ -37,6 +42,7 @@
 
 
                 <ImageView
+                    android:id="@+id/book_cover"
                     android:layout_width="200dp"
                     android:layout_height="280dp"
                     android:layout_marginStart="95dp"

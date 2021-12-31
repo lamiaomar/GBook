@@ -1,6 +1,5 @@
-package com.example.gbook.adapter
+package com.example.gbook.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -8,17 +7,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gbook.databinding.GridViewItemBinding
-import com.example.gbook.fragments.BookListFragmentDirections
+import com.example.gbook.databinding.SearchGridViewItemBinding
 import com.example.gbook.ui.BookDetailsUiState
+import com.example.gbook.ui.fragments.SearchFragmentDirections
+
+class SearchBooksGridAdapter : ListAdapter<BookDetailsUiState,
+        SearchBooksGridAdapter.SearchBookViewHolder>(DiffCallback) {
 
 
-class BookGridAdapter : ListAdapter<BookDetailsUiState,
-        BookGridAdapter.BookViewHolder>(DiffCallback) {
-
-    class BookViewHolder(
+    class SearchBookViewHolder(
         private var binding:
-        GridViewItemBinding
+        SearchGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bookDetails: BookDetailsUiState) {
@@ -27,7 +26,7 @@ class BookGridAdapter : ListAdapter<BookDetailsUiState,
 
         }
 
-                val bookThumb : ImageView = binding.bookThumb
+        val bookThumb: ImageView = binding.bookThumb
 
     }
 
@@ -36,33 +35,31 @@ class BookGridAdapter : ListAdapter<BookDetailsUiState,
             return newDetails.title == oldDetails.title
         }
 
-        override fun areContentsTheSame(
-            oldDetails: BookDetailsUiState,
-            newDetails: BookDetailsUiState
-        ): Boolean {
+        override fun areContentsTheSame(oldDetails: BookDetailsUiState, newDetails: BookDetailsUiState): Boolean {
             return oldDetails.title == newDetails.title
         }
     }
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BookViewHolder {
-        return BookViewHolder(
-            GridViewItemBinding.inflate(
+    ): SearchBookViewHolder {
+        return SearchBookViewHolder(
+            SearchGridViewItemBinding.inflate(
                 LayoutInflater.from(parent.context)
             )
         )
     }
 
-    override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
+
+    override fun onBindViewHolder(holder: SearchBookViewHolder, position: Int) {
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
-        Log.e("position","$position")
 
         holder.bookThumb.setOnClickListener {
-
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position, 1)
+            val action =
+                SearchFragmentDirections.actionSearchFragmentToBookDetailsFragment(position,"",1)
             holder.bookThumb.findNavController().navigate(action)
 
         }

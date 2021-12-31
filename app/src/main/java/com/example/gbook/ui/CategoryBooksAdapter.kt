@@ -1,12 +1,18 @@
 package com.example.gbook.ui
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.databinding.CategoryItemBinding
+import com.example.gbook.ui.fragments.BookDetailsFragment
+import com.example.gbook.ui.fragments.BookListFragmentDirections
 
 class CategoryBooksAdapter : ListAdapter<BooksDataUiState,
         CategoryBooksAdapter.BookViewHolder>(DiffCallback) {
@@ -21,17 +27,14 @@ class CategoryBooksAdapter : ListAdapter<BooksDataUiState,
 
             binding.booksCtegory.text = bookDetails.category
 
-            /*
-            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-             */
             val adapter = BooksAdapter()
             binding.bookList.adapter = adapter
             adapter.submitList(bookDetails.books)
-          /*
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          */
 
         }
+
+        var bookCategory: TextView = binding.booksCtegory
+
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<BooksDataUiState>() {
@@ -65,7 +68,11 @@ class CategoryBooksAdapter : ListAdapter<BooksDataUiState,
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val bookPhoto = getItem(position)
         holder.bind(bookPhoto)
-        Log.e("position", "$position")
+
+        val fragment = BookDetailsFragment()
+        var bundle = Bundle()
+        bundle.putInt("key", position)
+        fragment.setArguments(bundle)
     }
 }
 

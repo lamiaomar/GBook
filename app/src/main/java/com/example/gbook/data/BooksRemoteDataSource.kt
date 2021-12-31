@@ -1,12 +1,12 @@
 package com.example.gbook.data
 
-import com.example.gbook.network.BookApiService
+import com.example.gbook.data.network.BookApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class BooksRemoteDataSource(
-    private val bookApiService: BookApiService ,
+    private val bookApiService: BookApiService,
     private val ioDispatcher  : CoroutineDispatcher = Dispatchers.IO
 ) {
 
@@ -15,8 +15,4 @@ class BooksRemoteDataSource(
             bookApiService.getBook(category)
         }
 
-     suspend fun getCategoryBook(category : String) : List<BooksData> =
-         withContext(ioDispatcher) {
-             bookApiService.getCategoryBook(category)
-         }
 }

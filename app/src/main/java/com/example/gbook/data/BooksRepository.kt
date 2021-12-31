@@ -7,8 +7,8 @@ class BooksRepository (
     suspend fun getBooks(category : String) : BooksData =
         booksRemoteDataSource.getBooks(category)
 
-    suspend fun getCategoryBook(category : String) : List<BooksData> =
-        booksRemoteDataSource.getCategoryBook(category)
+//    suspend fun getCategoryBook(category : String) : List<BooksData> =
+//        booksRemoteDataSource.getCategoryBook(category)
 
 
 }
