@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         android:background="?android:attr/windowBackground"
         app:itemBackground="@color/blue"
         app:itemIconTint="@color/white"

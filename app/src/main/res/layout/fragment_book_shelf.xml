@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -12,9 +11,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:minHeight="400dp"
-        tools:context=".MovieDetailsFragment">
+        tools:context=".BookShelfFragment">
 
 
         <TextView
@@ -59,8 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="o"
-            android:textSize="50dp"
             android:textColor="@color/yellow"
+            android:textSize="50dp"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,52 +75,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="click to register!"
-            app:layout_constraintBottom_toTopOf="@+id/register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.45"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="181dp"
-            android:layout_height="62dp"
-            android:layout_marginStart="16dp"
-            android:text="Register"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="68dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.952" />
-
-        <Button
-            android:id="@+id/log_in"
-            android:layout_width="181dp"
-            android:layout_height="62dp"
-            android:layout_marginEnd="2dp"
-            android:text="Log in"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.548"
-            app:layout_constraintStart_toEndOf="@+id/register"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.952" />
-
-        <Button
-            android:id="@+id/custmize"
-            android:layout_width="181dp"
-            android:layout_height="62dp"
-            android:layout_marginEnd="2dp"
-            android:text="cust"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.677"
-            app:layout_constraintStart_toEndOf="@+id/register"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </layout>
+</layout>

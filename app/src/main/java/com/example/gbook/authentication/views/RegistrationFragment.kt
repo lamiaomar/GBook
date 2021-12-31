@@ -33,8 +33,8 @@ class RegistrationFragment : Fragment() {
     lateinit var userYear: String
 
 
-    lateinit var auth: FirebaseAuth
-    lateinit var databaseReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
     var createAccountInputsArray: Array<TextInputEditText?> = arrayOf(null, null, null)
 
 
@@ -165,7 +165,16 @@ class RegistrationFragment : Fragment() {
         userYear = year.text.toString().trim()
         userEmail = email.text.toString().trim()
 
-        val user = User(userFirstName, userLastName, userDay, userMonth, userYear, userEmail)
+
+        val user = User(
+            userFirstName,
+            userLastName,
+            userDay,
+            userMonth,
+            userYear,
+            userEmail,
+            //listOf()
+        )
         if (uid != null) {
             databaseReference.child(uid).setValue(user).addOnCompleteListener {
                 if (it.isSuccessful) {

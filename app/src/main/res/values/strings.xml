@@ -15,6 +15,8 @@
     <string name="month">Month</string>
     <string name="year">Year</string>
     <string name="registration">Registration</string>
+    <string name="published_date">Published Date</string>
+    <string name="pages">Pages</string>
 
 
     <string-array name="months">

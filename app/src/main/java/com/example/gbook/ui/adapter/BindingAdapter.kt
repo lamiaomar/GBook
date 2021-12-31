@@ -1,4 +1,4 @@
-package com.example.gbook.adapter
+package com.example.gbook.ui.adapter
 
 import android.util.Log
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gbook.BooksApiStatus
 import com.example.gbook.R
-import com.example.gbook.data.ItemsItem
+import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -28,42 +28,15 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-@BindingAdapter("listData")
-fun bindRecyclerView(
-    recyclerView: RecyclerView,
-    data: List<ItemsItem>?
-) {
-    val adapter = recyclerView.adapter as BookGridAdapter
-    adapter.submitList(data)
-}
-
-@BindingAdapter("secListData")
-fun bindSecRecyclerView(
-    recyclerView: RecyclerView,
-    data: List<ItemsItem>?
-) {
-    val adapter = recyclerView.adapter as SecondBookGridAdapter
-    adapter.submitList(data)
-}
-
-@BindingAdapter("thirdListData")
-fun bindThirdRecyclerView(
-    recyclerView: RecyclerView,
-    data: List<ItemsItem>?
-) {
-    val adapter = recyclerView.adapter as ThirdBookGridAdapter
-    adapter.submitList(data)
-}
 
 @BindingAdapter("searchListData")
 fun bindSearchRecyclerView(
     recyclerView: RecyclerView,
-    data: List<ItemsItem>?
+    data: List<BookDetailsUiState>?
 ) {
     val adapter = recyclerView.adapter as SearchBooksGridAdapter
     adapter.submitList(data)
 }
-
 
 
 @BindingAdapter("booksApiStatus")
@@ -87,5 +60,31 @@ fun bindStatus(
             statusImageView.visibility = View.GONE
         }
     }
+}
+
+
+@BindingAdapter("categoryList")
+fun bindCategoryList(
+    recyclerView: RecyclerView,
+    data: List<BooksDataUiState>?
+) {
+    val adapter = recyclerView.adapter as CategoryBooksAdapter
+    adapter.submitList(data)
 
 }
+
+
+/*@BindingAdapter("booklist")
+//fun bindBookList(
+//    recyclerView: RecyclerView,
+//    bookDetails: List<BookDetailsUiState>?
+//) {
+//    Log.e("data", "$bookDetails")
+//
+//    val adapter = recyclerView.adapter as BooksAdapter?
+//    Log.e("data", "$adapter")
+//
+//    adapter?.submitList(bookDetails)
+//
+//}
+*/

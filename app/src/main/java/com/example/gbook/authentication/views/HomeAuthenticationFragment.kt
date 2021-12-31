@@ -1,7 +1,7 @@
 package com.example.gbook.authentication.views
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.fragment_home_authentication.*
 
 class HomeAuthenticationFragment : Fragment() {
 
-   private lateinit var auth : FirebaseAuth
-   private lateinit var databaseReference: DatabaseReference
-   private lateinit var user: User
-   private lateinit var uid : String
-   private lateinit var binding: FragmentHomeAuthenticationBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var user: User
+    private lateinit var uid: String
+    private lateinit var binding: FragmentHomeAuthenticationBinding
 
 
     override fun onCreateView(
@@ -40,38 +40,19 @@ class HomeAuthenticationFragment : Fragment() {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-        if (uid.isNotEmpty()){
+        if (uid.isNotEmpty()) {
             getUserData()
-        }else{
-            Toast.makeText(this.context , "uid empty" , Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this.context, "uid empty", Toast.LENGTH_SHORT).show()
 
         }
 
-//        val user = Firebase.auth.currentUser
-//        if (user != null) {
-//            // User is signed in
-//            user?.let {
-//                // Name, email address, and profile photo Url
-//                val name = user.displayName
-//                val email = user.email
-//                val photoUrl = user.photoUrl
-//
-//                // Check if user's email is verified
-//                val emailVerified = user.isEmailVerified
-//
-//                // The user's ID, unique to the Firebase project. Do NOT use this value to
-//                // authenticate with your backend server, if you have one. Use
-//                // FirebaseUser.getToken() instead.
-//                val uid = user.uid
-//            }
-//
-//        } else {
-//            // No user is signed in
-//        }
+
 
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
-            val action = HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToRegistrationFragment()
+            val action =
+                HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToRegistrationFragment()
             btnSignOut.findNavController().navigate(action)
 
             Toast.makeText(this.context, "signed out", Toast.LENGTH_SHORT).show()
@@ -79,26 +60,28 @@ class HomeAuthenticationFragment : Fragment() {
 
         }
 
-          return binding.root
+        return binding.root
     }
 
     private fun getUserData() {
 
-        databaseReference.child(uid).addValueEventListener(object : ValueEventListener{
+        databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                user = snapshot.getValue(User::class.java)!!
-                binding.userName.setText(user.firstName + "\n  " + user.lastName)
-                binding.userEmail.setText(user.email)
-                binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
+                Log.d("user", "onDataChange: ${snapshot.toString()} ")
+                    user = snapshot.getValue(User::class.java)!!
+
+                    binding.userName.setText(user.firstName + "\n  " + user.lastName)
+                    binding.userEmail.setText(user.email)
+                    binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
 
 
 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context , "Faild to retrive" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failed to retrive", Toast.LENGTH_SHORT).show()
 
             }
 

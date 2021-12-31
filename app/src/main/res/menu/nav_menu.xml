@@ -14,9 +14,17 @@
         android:title="search"/>
 
     <item
+        android:id="@+id/bookShelfFragment"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="userList"/>
+
+    <item
         android:id="@+id/registrationFragment"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_baseline_person_24"
         android:title="profile"/>
+
+
+
 
 
 </menu>

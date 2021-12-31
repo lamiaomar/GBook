@@ -1,6 +1,7 @@
-package com.example.gbook.network
+package com.example.gbook.data.network
 
 import com.example.gbook.data.BooksData
+import com.example.gbook.ui.BooksDataUiState
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -23,8 +24,12 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface BookApiService{
-    @GET(BASE_URL+ENDPOINT)
+    @GET(BASE_URL + ENDPOINT)
     suspend fun getBook(@Query("q") q : String = DEFAULT , @Query("key") key: String = API_KEY) : BooksData
+
+    @GET(BASE_URL + ENDPOINT)
+    suspend fun getSearchBook(@Query("q") q : String = DEFAULT, @Query("key") key: String = API_KEY) : BooksData
+
 }
 
 object BooksApi {

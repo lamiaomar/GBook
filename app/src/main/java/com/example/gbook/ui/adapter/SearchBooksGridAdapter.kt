@@ -1,4 +1,4 @@
-package com.example.gbook.adapter
+package com.example.gbook.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,21 +7,21 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gbook.data.ItemsItem
-import com.example.gbook.databinding.SecGridViewItemBinding
-import com.example.gbook.fragments.BookListFragmentDirections
+import com.example.gbook.databinding.SearchGridViewItemBinding
+import com.example.gbook.ui.BookDetailsUiState
+import com.example.gbook.ui.fragments.SearchFragmentDirections
 
-class SecondBookGridAdapter : ListAdapter<ItemsItem,
-        SecondBookGridAdapter.SearchBookViewHolder>(DiffCallback) {
+class SearchBooksGridAdapter : ListAdapter<BookDetailsUiState,
+        SearchBooksGridAdapter.SearchBookViewHolder>(DiffCallback) {
 
 
     class SearchBookViewHolder(
         private var binding:
-        SecGridViewItemBinding
+        SearchGridViewItemBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(bookItem: ItemsItem) {
-            binding.result = bookItem
+        fun bind(bookDetails: BookDetailsUiState) {
+            binding.result = bookDetails
             binding.executePendingBindings()
 
         }
@@ -30,13 +30,13 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
 
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<ItemsItem>() {
-        override fun areItemsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return newItem.id == oldItem.id
+    companion object DiffCallback : DiffUtil.ItemCallback<BookDetailsUiState>() {
+        override fun areItemsTheSame(oldDetails: BookDetailsUiState, newDetails: BookDetailsUiState): Boolean {
+            return newDetails.title == oldDetails.title
         }
 
-        override fun areContentsTheSame(oldItem: ItemsItem, newItem: ItemsItem): Boolean {
-            return oldItem.id == newItem.id
+        override fun areContentsTheSame(oldDetails: BookDetailsUiState, newDetails: BookDetailsUiState): Boolean {
+            return oldDetails.title == newDetails.title
         }
     }
 
@@ -46,7 +46,7 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
         viewType: Int
     ): SearchBookViewHolder {
         return SearchBookViewHolder(
-            SecGridViewItemBinding.inflate(
+            SearchGridViewItemBinding.inflate(
                 LayoutInflater.from(parent.context)
             )
         )
@@ -58,12 +58,13 @@ class SecondBookGridAdapter : ListAdapter<ItemsItem,
         holder.bind(bookPhoto)
 
         holder.bookThumb.setOnClickListener {
-            val action = BookListFragmentDirections.actionBookListFragmentToBookDetailsFragment(position,2)
+            val action =
+                SearchFragmentDirections.actionSearchFragmentToBookDetailsFragment(position,"",1)
             holder.bookThumb.findNavController().navigate(action)
+
         }
 
     }
 
 }
 
-//splash screen

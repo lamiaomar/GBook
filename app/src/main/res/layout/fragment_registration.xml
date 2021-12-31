@@ -137,12 +137,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/EmailId"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="365dp"
+            android:layout_width="370dp"
             android:layout_height="55dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:hint="@string/email"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameId">
 
@@ -153,36 +155,6 @@
                 tools:layout_editor_absoluteX="50dp"
                 tools:layout_editor_absoluteY="120dp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
-        <!--    <EditText-->
-        <!--        android:id="@+id/etPassword"-->
-        <!--        android:layout_width="0dp"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginBottom="20dp"-->
-        <!--        android:hint="@string/password"-->
-        <!--        android:inputType="textPassword"-->
-        <!--        android:maxLength="8"-->
-        <!--        android:padding="10dp"-->
-        <!--        app:layout_constraintBottom_toTopOf="@id/etConfirmPassword"-->
-        <!--        app:layout_constraintEnd_toEndOf="@id/etEmail"-->
-        <!--        app:layout_constraintStart_toStartOf="@id/etEmail"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/etEmail" />-->
-
-        <!--    <EditText-->
-        <!--        android:id="@+id/etConfirmPassword"-->
-        <!--        android:layout_width="0dp"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginBottom="20dp"-->
-        <!--        android:hint="@string/confirm_password"-->
-        <!--        android:inputType="textPassword"-->
-        <!--        android:maxLength="8"-->
-        <!--        android:padding="10dp"-->
-        <!--        app:layout_constraintBottom_toTopOf="@id/btnCreateAccount"-->
-        <!--        app:layout_constraintEnd_toEndOf="@id/etPassword"-->
-        <!--        app:layout_constraintStart_toStartOf="@id/etPassword"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/etPassword" />-->
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passlId"
@@ -234,9 +206,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dayBirth"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="55dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
             android:hint="@string/day"
             app:layout_constraintStart_toStartOf="parent"
@@ -246,8 +218,8 @@
                 android:id="@+id/day"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="14dp"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textSize="14dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -255,7 +227,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/monthBirth"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="100dp"
+            android:layout_width="115dp"
             android:layout_height="55dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
@@ -277,7 +249,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/yearBirth"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="100dp"
+            android:layout_width="110dp"
             android:layout_height="55dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"

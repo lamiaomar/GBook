@@ -1,4 +1,4 @@
-package com.example.gbook.network.glidModule
+package com.example.gbook.data.network.glidModule
 
 import android.content.Context
 import com.bumptech.glide.GlideBuilder

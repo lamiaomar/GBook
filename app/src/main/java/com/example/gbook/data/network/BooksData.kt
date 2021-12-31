@@ -12,7 +12,7 @@ data class BooksData(
     val kind: String? = null,
 
     @Json(name="items")
-    val items: List<ItemsItem?>? = null
+    val items: List<ItemsItem>? = null
 )
 
 data class OffersItem(
