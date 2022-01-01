@@ -15,7 +15,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
+import com.example.gbook.data.firebase.BooksRealTimeDataSource
 import com.example.gbook.data.network.BooksApi
+import com.example.gbook.firebase.BookRealTimeDBService
 import com.example.gbook.ui.CategoryBooksAdapter
 import kotlinx.coroutines.launch
 
@@ -24,8 +26,11 @@ class BookListFragment : Fragment() {
 
     private val viewModel: BookViewmodel by activityViewModels {
         val bookApi = BooksApi.retrofitService
+
         val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
-        val repo = BooksRepository(booksRemoteDataSource)
+        val booksRealTimeDataSource = BooksRealTimeDataSource()
+
+        val repo = BooksRepository(booksRemoteDataSource , booksRealTimeDataSource)
         BookViewModelFactory(repo)
     }
     lateinit var ay7aga: FragmentBookListBinding
@@ -35,7 +40,7 @@ class BookListFragment : Fragment() {
     ): View? {
 
 
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
 
         val binding = FragmentBookListBinding.inflate(inflater)

@@ -1,5 +1,6 @@
 package com.example.gbook
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +15,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlin.reflect.jvm.internal.ReflectProperties
+
 
 enum class BooksApiStatus { LOADING, ERROR, DONE }
 
-class BookViewmodel(
 
+class BookViewmodel(
     private val booksRepository: BooksRepository
 
 ) : ViewModel() {
@@ -35,6 +38,8 @@ class BookViewmodel(
     private val _bookCategoryResultUi = MutableStateFlow(BookCategoryUiState())
     val bookCategoryResultUi: StateFlow<BookCategoryUiState> = _bookCategoryResultUi.asStateFlow()
 
+    private val _bookShelfResultUi = MutableStateFlow(BooksDataUiState())
+    val bookShelfResultUi: StateFlow<BooksDataUiState> = _bookShelfResultUi.asStateFlow()
 
     var title = MutableLiveData<String?>()
     var bookCover = MutableLiveData<String?>()
@@ -52,7 +57,6 @@ class BookViewmodel(
 
     var categoryNum = 0
     var books = 0
-    var booksNumber = 0
 
     init {
         getBooksDetail()
@@ -151,8 +155,8 @@ class BookViewmodel(
 
     fun getSearchBook(query: String?) {
 
-        _status.value = BooksApiStatus.LOADING
         viewModelScope.launch {
+//            _status.value = BooksApiStatus.LOADING
             try {
                 val volume = booksRepository.getBooks(query!!)
                 _searchResultUi.update { it.copy(books = setItemUiState(volume)) }
@@ -160,13 +164,12 @@ class BookViewmodel(
                 _status.value = BooksApiStatus.DONE
 
             } catch (e: Exception) {
-                _status.value = BooksApiStatus.ERROR
+                _status.value = BooksApiStatus.DONE
             }
         }
     }
 
     fun addBookToReadList() {
-
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
@@ -187,26 +190,83 @@ class BookViewmodel(
         }
     }
 
-    fun getNumOfBookList() : Int{
-        databaseReference.child(uid).addValueEventListener( object : ValueEventListener{
+    fun getNumOfBookList(): Int {
+
+        databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (item in snapshot.children) {
 
                     user = snapshot.getValue(User::class.java)!!
 
-                    booksNumber = user.booksNumberInList
-
+                    user.booksNumberInList
+                    Log.e("booksNumber1", "${user.booksNumberInList}")
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
-
         }
-
         )
-        return booksNumber
+        return user.booksNumberInList
     }
+
+
+//    fun getBooksToRead() {
+//
+//        auth = FirebaseAuth.getInstance()
+//        uid = auth.currentUser?.uid.toString()
+//        databaseReference = FirebaseDatabase.getInstance().getReference("users")
+//
+//        try {
+//            databaseReference.child(uid).child("toReadList").addValueEventListener(object : ValueEventListener {
+//
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    for (item in snapshot.children) {
+//                        user = snapshot.getValue(User::class.java)!!
+//
+//                        _bookShelfResultUi.update {
+//                            it?.copy(books = user?.toReadList?.map {
+//                                    BookDetailsUiState(
+//                                        title = it?.title,
+//                                        bookCover = it?.bookCover,
+//                                        description = it?.description,
+//                                        averageRating = it?.averageRating,
+//                                        pageCount = it?.pageCount,
+//                                        publishedDate = it?.publishedDate
+//                                    )!!
+//                                })
+//                        }
+//                        Log.e("data", "${_bookShelfResultUi.value}")
+////                    val data = user?.toReadList?.map {
+////                        BookDetailsUiState(
+////                            title = it?.title!!,
+////                            bookCover = it.bookCover,
+////                            description = it.description,
+////                            averageRating = it.averageRating,
+////                            pageCount = it.pageCount,
+////                            publishedDate = it.publishedDate)
+////                    }
+////                    Log.e("data" ,"$data")
+////
+////                    _bookShelfResultUi.update {
+////                        it.copy(books = data)
+////                    }
+////                    _bookShelfResultUi.value.books
+////
+//                    }
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//            }
+//
+//
+//            )
+//        } catch (e: Exception) {
+//            TODO("")
+//        }
+//    }
 
 }
 

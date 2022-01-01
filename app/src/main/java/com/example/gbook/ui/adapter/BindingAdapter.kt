@@ -86,3 +86,14 @@ fun bindCategoryList(
 //
 //}
 */
+
+@BindingAdapter("shelfList")
+fun bindShelfList(
+    recyclerView: RecyclerView,
+    data: List<BookDetailsUiState>?
+){
+    val adapter = recyclerView.adapter as BookShelfAdapter
+    adapter.submitList(data)
+
+    Log.e("shelf" , "$data")
+}
