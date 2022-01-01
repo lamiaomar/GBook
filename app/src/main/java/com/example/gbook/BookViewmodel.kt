@@ -11,8 +11,7 @@ import com.example.gbook.ui.BookCategoryUiState
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.BooksDataUiState
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
@@ -50,6 +49,11 @@ class BookViewmodel(
     var category = listOf("Biography", "Music", "Art")
 
 //    inauthor:Ann inauthor:M inauthor:Martin
+
+    var categoryNum = 0
+    var books = 0
+    var booksNumber = 0
+
     init {
         getBooksDetail()
     }
@@ -122,6 +126,8 @@ class BookViewmodel(
                                 bookCategoryResultUi.value.categoryList[num].books.get(
                                     displayPosition
                                 )
+                            categoryNum = num
+                            books = displayPosition
                             setBookDetails(item)
                         }
                     }
@@ -159,18 +165,48 @@ class BookViewmodel(
         }
     }
 
-    fun addBookToReadList(displayPosition: Int, listNum: Int) {
+    fun addBookToReadList() {
 
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
         try {
-            databaseReference.child(uid).child("userLists").push().setValue({
+            val x = getNumOfBookList() + 1
 
-            })
+            databaseReference.child(uid).child("toReadList").child(x.toString())
+                .setValue(
+                    bookCategoryResultUi.value.categoryList[categoryNum].books.get(
+                        books
+                    )
+                )
+            databaseReference.child(uid).child("booksNumberInList").setValue(x)
+
         } catch (e: Exception) {
 
         }
     }
+
+    fun getNumOfBookList() : Int{
+        databaseReference.child(uid).addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children) {
+
+                    user = snapshot.getValue(User::class.java)!!
+
+                    booksNumber = user.booksNumberInList
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        }
+
+        )
+        return booksNumber
+    }
+
 }
+

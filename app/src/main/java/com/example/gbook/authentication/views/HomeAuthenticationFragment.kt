@@ -1,5 +1,6 @@
 package com.example.gbook.authentication.views
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -69,15 +70,17 @@ class HomeAuthenticationFragment : Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                Log.d("user", "onDataChange: ${snapshot.toString()} ")
+
+                for (item in snapshot.children) {
+
                     user = snapshot.getValue(User::class.java)!!
 
                     binding.userName.setText(user.firstName + "\n  " + user.lastName)
                     binding.userEmail.setText(user.email)
                     binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
+                    binding.booksNumber.setText(user.booksNumberInList.toString())
 
-
-
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

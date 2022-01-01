@@ -68,12 +68,12 @@ class BookDetailsFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
 
-        binding.animationView.pauseAnimation()
+//        binding.animationView.pauseAnimation()
 
         binding.animationView.setOnClickListener {
             binding.animationView.playAnimation()
             if (uid.isNotEmpty()) {
-//             viewModel.addBookToReadList(displayPosition, numOfList)
+             viewModel.addBookToReadList()
             } else {
                 Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
 
@@ -90,7 +90,6 @@ class BookDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.displayBookDetails(displayPosition, bookTitle , numSearch)
-        Log.e("itemDisplay","$displayPosition")
 
     }
 
@@ -98,10 +97,8 @@ class BookDetailsFragment : Fragment() {
         super.onDestroy()
         bookTitle = ""
         displayPosition = 0
-
         binding.descriptionText.text = null
         binding.title.title = null
-//        binding.bookCover.image = null
 
     }
 }
