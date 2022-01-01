@@ -173,7 +173,8 @@ class RegistrationFragment : Fragment() {
             userMonth,
             userYear,
             userEmail,
-            //listOf()
+            listOf(),
+            0
         )
         if (uid != null) {
             databaseReference.child(uid).setValue(user).addOnCompleteListener {

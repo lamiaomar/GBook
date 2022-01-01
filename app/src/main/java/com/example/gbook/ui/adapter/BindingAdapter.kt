@@ -13,11 +13,9 @@ import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    Log.e("imgUrl", "$imgUrl")
 
     imgUrl.let {
         val imgUri = imgUrl?.toUri()?.buildUpon()?.build()
-        Log.e("imgUri", "$imgUri")
         Glide.with(imgView.context)
             .load(imgUri)
             .centerCrop() // scale image to fill the entire ImageView
