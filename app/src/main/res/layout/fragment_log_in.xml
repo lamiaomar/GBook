@@ -96,8 +96,8 @@
             android:layout_height="55dp"
             android:layout_marginTop="32dp"
             android:hint="@string/email"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11">
 

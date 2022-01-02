@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/bookListFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/bookListFragment"
@@ -72,5 +72,27 @@
     <fragment
         android:id="@+id/bookShelfFragment"
         android:name="com.example.gbook.ui.fragments.BookShelfFragment"
-        android:label="BookShelfFragment" />
+        android:label="BookShelfFragment" >
+        <action
+            android:id="@+id/action_bookShelfFragment_to_detailsUserBookFragment"
+            app:destination="@id/detailsUserBookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.gbook.ui.fragments.splashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_bookListFragment"
+            app:destination="@id/bookListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsUserBookFragment"
+        android:name="com.example.gbook.ui.fragments.DetailsUserBookFragment"
+        android:label="fragment_details_user_book"
+        tools:layout="@layout/fragment_details_user_book" >
+        <argument
+            android:name="title"
+            app:argType="integer" />
+    </fragment>
 </navigation>

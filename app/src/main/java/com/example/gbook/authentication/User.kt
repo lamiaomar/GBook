@@ -10,7 +10,7 @@ data class User(
     var year: String? = "",
     var email: String? = "",
     var toReadList: List<BookDetailsUiState> = listOf(),
-    var booksNumberInList : Int = 0
+    var booksNumberInList : Int = -1
 ) {}
 
 

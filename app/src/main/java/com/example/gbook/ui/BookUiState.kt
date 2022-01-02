@@ -11,7 +11,8 @@ data class BookCategoryUiState (
 data class BooksDataUiState(
     val category : String = "" ,
 //    val isPremium: Boolean = false,
-    val books: List<BookDetailsUiState> = listOf()
+    val books: List<BookDetailsUiState> = listOf(),
+    val numOfBooks : String = ""
 
 )
 
