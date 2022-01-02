@@ -61,7 +61,7 @@ class BookShelfFragment : Fragment() {
 
 
         if (uid.isNotEmpty()) {
-//            viewModel.getBooksToRead()
+            viewModel.getBooksToRead()
 
         } else {
             Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()

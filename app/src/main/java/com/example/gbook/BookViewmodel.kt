@@ -1,6 +1,5 @@
 package com.example.gbook
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,10 +14,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlin.reflect.jvm.internal.ReflectProperties
+import java.text.FieldPosition
 
 
 enum class BooksApiStatus { LOADING, ERROR, DONE }
+enum class BookDetailsStatus { DELETE, BOOKMARK }
 
 
 class BookViewmodel(
@@ -51,7 +51,7 @@ class BookViewmodel(
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
-    var category = listOf("Biography", "Music", "Art")
+    var categorys = listOf("Biography", "Music", "Art")
 
 //    inauthor:Ann inauthor:M inauthor:Martin
 
@@ -67,38 +67,26 @@ class BookViewmodel(
         viewModelScope.launch {
             _status.value = BooksApiStatus.LOADING
             try {
-
                 val data = withContext(Dispatchers.IO) {
                     val list = mutableListOf<BooksDataUiState>()
-                    for (categor in category) {
-                        val singlda = async { booksRepository.getBooks(categor) }
+                    for (category in categorys) {
+                        val singleResponse = async { booksRepository.getBooks(category) }
 
-                        list.add(BooksDataUiState(categor, setItemUiState(singlda.await())))
+                        list.add(BooksDataUiState(category, setItemUiState(singleResponse.await())))
                     }
                     return@withContext list
-
-
                 }
                 _bookCategoryResultUi.update { it.copy(categoryList = data) }
-
 
                 _status.value = BooksApiStatus.DONE
 
             } catch (e: Exception) {
-
                 _status.value = BooksApiStatus.ERROR
             }
         }
     }
 
     private fun setItemUiState(volume: BooksData): List<BookDetailsUiState> {
-/*        val id = volume.items!!.map {
-//            IndustryIdentifiersItem(
-//                identifier = it.volumeInfo?.industryIdentifiers!![0]!!.identifier!!
-//            )
-//        }
-//
- */
 
         val data = volume.items!!.map { item ->
             BookDetailsUiState(
@@ -199,7 +187,6 @@ class BookViewmodel(
                     user = snapshot.getValue(User::class.java)!!
 
                     user.booksNumberInList
-                    Log.e("booksNumber1", "${user.booksNumberInList}")
                 }
             }
 
@@ -210,63 +197,47 @@ class BookViewmodel(
         return user.booksNumberInList
     }
 
+    fun getBooksToRead() {
+        auth = FirebaseAuth.getInstance()
+        uid = auth.currentUser?.uid.toString()
+        databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
-//    fun getBooksToRead() {
-//
-//        auth = FirebaseAuth.getInstance()
-//        uid = auth.currentUser?.uid.toString()
-//        databaseReference = FirebaseDatabase.getInstance().getReference("users")
-//
-//        try {
-//            databaseReference.child(uid).child("toReadList").addValueEventListener(object : ValueEventListener {
-//
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    for (item in snapshot.children) {
-//                        user = snapshot.getValue(User::class.java)!!
-//
-//                        _bookShelfResultUi.update {
-//                            it?.copy(books = user?.toReadList?.map {
-//                                    BookDetailsUiState(
-//                                        title = it?.title,
-//                                        bookCover = it?.bookCover,
-//                                        description = it?.description,
-//                                        averageRating = it?.averageRating,
-//                                        pageCount = it?.pageCount,
-//                                        publishedDate = it?.publishedDate
-//                                    )!!
-//                                })
-//                        }
-//                        Log.e("data", "${_bookShelfResultUi.value}")
-////                    val data = user?.toReadList?.map {
-////                        BookDetailsUiState(
-////                            title = it?.title!!,
-////                            bookCover = it.bookCover,
-////                            description = it.description,
-////                            averageRating = it.averageRating,
-////                            pageCount = it.pageCount,
-////                            publishedDate = it.publishedDate)
-////                    }
-////                    Log.e("data" ,"$data")
-////
-////                    _bookShelfResultUi.update {
-////                        it.copy(books = data)
-////                    }
-////                    _bookShelfResultUi.value.books
-////
-//                    }
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-//                }
-//            }
-//
-//
-//            )
-//        } catch (e: Exception) {
-//            TODO("")
-//        }
-//    }
+        databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children) {
+                    user = snapshot.getValue(User::class.java)!!
+
+                    _bookShelfResultUi.update {
+                        it?.copy(books = user?.toReadList?.map {
+                            BookDetailsUiState(
+                                title = it?.title,
+                                bookCover = it?.bookCover,
+                                description = it?.description,
+                                averageRating = it?.averageRating,
+                                pageCount = it?.pageCount,
+                                publishedDate = it?.publishedDate
+                            )!!
+                        })
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                _status.value = BooksApiStatus.DONE
+            }
+        }
+        )
+    }
+
+    fun displayBookDetailsFromList(position: Int) {
+        title.value = _bookShelfResultUi.value.books[position].title
+        description.value = _bookShelfResultUi.value.books[position].description
+        bookCover.value = _bookShelfResultUi.value.books[position].bookCover
+        averageRating.value = _bookShelfResultUi.value.books[position].averageRating
+        pageCount.value = _bookShelfResultUi.value.books[position].pageCount
+        publishedDate.value = _bookShelfResultUi.value.books[position].publishedDate
+    }
 
 }
 

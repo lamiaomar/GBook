@@ -101,8 +101,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7"
             app:shelfList="@{viewModel.bookShelfResultUi.books}"
-            app:spanCount="2"
-            tools:itemCount="16"
+            app:spanCount="1"
             tools:listitem="@layout/shelf_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
