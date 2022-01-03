@@ -1,14 +1,11 @@
 package com.example.gbook.ui.adapter
 
-import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.gbook.BookDetailsStatus
 import com.example.gbook.BooksApiStatus
 import com.example.gbook.R
 import com.example.gbook.ui.*
@@ -97,6 +94,4 @@ fun bindShelfList(
 ){
     val adapter = recyclerView.adapter as BookShelfAdapter
     adapter.submitList(data)
-
-    Log.e("shelf" , "$data")
 }

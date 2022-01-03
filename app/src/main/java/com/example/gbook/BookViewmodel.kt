@@ -1,5 +1,6 @@
 package com.example.gbook
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,11 +15,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.text.FieldPosition
 
 
 enum class BooksApiStatus { LOADING, ERROR, DONE }
-enum class BookDetailsStatus { DELETE, BOOKMARK }
 
 
 class BookViewmodel(
@@ -209,15 +208,15 @@ class BookViewmodel(
                     user = snapshot.getValue(User::class.java)!!
 
                     _bookShelfResultUi.update {
-                        it?.copy(books = user?.toReadList?.map {
+                        it.copy(books = user.toReadList.map {
                             BookDetailsUiState(
-                                title = it?.title,
-                                bookCover = it?.bookCover,
-                                description = it?.description,
-                                averageRating = it?.averageRating,
-                                pageCount = it?.pageCount,
-                                publishedDate = it?.publishedDate
-                            )!!
+                                title = it.title,
+                                bookCover = it.bookCover,
+                                description = it.description,
+                                averageRating = it.averageRating,
+                                pageCount = it.pageCount,
+                                publishedDate = it.publishedDate
+                            )
                         })
                     }
                 }
@@ -238,6 +237,43 @@ class BookViewmodel(
         pageCount.value = _bookShelfResultUi.value.books[position].pageCount
         publishedDate.value = _bookShelfResultUi.value.books[position].publishedDate
     }
+
+    fun deleteBookFromList(book: BookDetailsUiState) {
+        databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children) {
+
+                    user = snapshot.getValue(User::class.java)!!
+                    try {
+                        var localList = user.toReadList
+
+                        for (item in 0..user.booksNumberInList) {
+                            if (book.title == user.toReadList[item].title) {
+                                localList.removeAt(item)
+                                databaseReference.child(uid).child("toReadList")
+                                    .removeValue()
+
+                                for (it in 0..localList.size) {
+                                    databaseReference.child(uid).child("toReadList")
+                                        .child(it.toString()).setValue(
+                                            localList[it]
+                                        )
+                                        databaseReference.child(uid).child("booksNumberInList")
+                                            .setValue(localList.size-1)
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        getBooksToRead()
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+        )
+    }
+
 
 }
 
