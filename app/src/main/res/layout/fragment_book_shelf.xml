@@ -90,7 +90,7 @@
             android:id="@+id/shelf_recycler"
             android:layout_width="419dp"
             android:layout_height="632dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:clipToPadding="true"
             android:padding="8dp"
             android:scrollbars="vertical"

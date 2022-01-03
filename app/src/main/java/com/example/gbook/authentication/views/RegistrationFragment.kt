@@ -173,7 +173,7 @@ class RegistrationFragment : Fragment() {
             userMonth,
             userYear,
             userEmail,
-            listOf(),
+            mutableListOf(),
             -1
         )
         if (uid != null) {

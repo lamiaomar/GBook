@@ -52,12 +52,14 @@ class BookShelfFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.shelfRecycler.adapter = BookShelfAdapter()
+        binding.shelfRecycler.adapter = BookShelfAdapter{viewModel.deleteBookFromList(it)}
 
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
+
+
 
 
         if (uid.isNotEmpty()) {
@@ -70,6 +72,8 @@ class BookShelfFragment : Fragment() {
 
         return binding.root
     }
+
+
 
 }
 

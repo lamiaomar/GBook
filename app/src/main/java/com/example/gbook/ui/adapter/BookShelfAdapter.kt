@@ -1,5 +1,6 @@
 package com.example.gbook.ui.adapter
 
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,7 +13,8 @@ import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.fragments.BookShelfFragmentDirections
 import kotlin.concurrent.fixedRateTimer
 
-class BookShelfAdapter : ListAdapter<BookDetailsUiState,
+class BookShelfAdapter(val delete : (item : BookDetailsUiState) -> Unit)
+    : ListAdapter<BookDetailsUiState,
         BookShelfAdapter.BookShelfViewHolder>(DiffCallback) {
 
 
@@ -26,6 +28,7 @@ class BookShelfAdapter : ListAdapter<BookDetailsUiState,
         }
 
         val bookThumb: ImageView = binding.bookThumb
+        val deleteBook : ImageView = binding.deleteBook
 
 
     }
@@ -56,6 +59,11 @@ class BookShelfAdapter : ListAdapter<BookDetailsUiState,
         holder.bookThumb.setOnClickListener {
             val action = BookShelfFragmentDirections.actionBookShelfFragmentToDetailsUserBookFragment(position)
             holder.bookThumb.findNavController().navigate(action)
+        }
+
+        holder.deleteBook.setOnClickListener {
+            delete(bookPhoto)
+            notifyItemRemoved(position)
         }
 
     }
