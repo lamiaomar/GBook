@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gbook.BooksApiStatus
 import com.example.gbook.R
+import com.example.gbook.SearchStatus
 import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
@@ -60,6 +61,24 @@ fun bindStatus(
 }
 
 
+@BindingAdapter("searchStatus")
+fun bindSearchStatus(
+    statusImageView: ImageView,
+    status: SearchStatus?
+) {
+
+    when (status) {
+        SearchStatus.DONE -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.gbook)
+        }
+
+        SearchStatus.SEARCHING-> {
+            statusImageView.visibility = View.GONE
+            statusImageView.setImageResource(R.drawable.gbook)
+        }
+    }
+}
 
 @BindingAdapter("categoryList")
 fun bindCategoryList(
@@ -91,7 +110,7 @@ fun bindCategoryList(
 fun bindShelfList(
     recyclerView: RecyclerView,
     data: List<BookDetailsUiState>?
-){
+) {
     val adapter = recyclerView.adapter as BookShelfAdapter
     adapter.submitList(data)
 }

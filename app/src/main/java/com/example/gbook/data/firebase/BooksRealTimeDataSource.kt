@@ -39,7 +39,7 @@ class BooksRealTimeDataSource(
                     user = snapshot.getValue(User::class.java)!!
 
                    user = User(user.firstName , user.lastName,
-                    user.day , user.month , user.year , user.email , user.toReadList ,
+                    user.day , user.month , user.year , user.email ,user.gender, user.toReadList ,
                     user.booksNumberInList)
 
                     Log.e("shelf" , "$user")

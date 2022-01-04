@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
 import com.example.gbook.R
+import com.example.gbook.SearchStatus
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.data.firebase.BooksRealTimeDataSource
@@ -54,8 +55,10 @@ private val viewModel: BookViewmodel by activityViewModels {
 
         binding.searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.searchView.clearFocus()
+                viewModel._searchStatus.value = SearchStatus.DONE
                 viewModel.getSearchBook(query)
 
                 return true
@@ -63,6 +66,7 @@ private val viewModel: BookViewmodel by activityViewModels {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 viewModel.getSearchBook(query)
+                viewModel._searchStatus.value = SearchStatus.DONE
 
                 return true
             }

@@ -17,6 +17,7 @@
     <string name="registration">Registration</string>
     <string name="published_date">Published Date</string>
     <string name="pages">Pages</string>
+    <string name="gender">Gender</string>
 
 
     <string-array name="months">
@@ -32,6 +33,11 @@
         <item>October</item>
         <item>November</item>
         <item>December</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Female</item>
+        <item>Male</item>
     </string-array>
 
 </resources>

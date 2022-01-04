@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.*
@@ -48,7 +49,20 @@ class HomeAuthenticationFragment : Fragment() {
 
         }
 
+        //region Picker
+        //Date picker builder
+       val builder = MaterialDatePicker.Builder.datePicker()
 
+        //Date Picker button on click listener
+        binding.calender.setOnClickListener {
+            val picker = builder.build()
+            picker.show(requireFragmentManager(),"Select data")
+
+            picker.addOnPositiveButtonClickListener {
+                binding.date.setText(picker.headerText)
+            }
+        }
+        //endregion
 
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
@@ -81,6 +95,7 @@ class HomeAuthenticationFragment : Fragment() {
                     binding.userEmail.setText(user.email)
                     binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
                     binding.booksNumber.setText(x.toString())
+                    binding.gender.setText(user.gender)
 
                 }
             }

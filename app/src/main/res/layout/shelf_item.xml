@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:padding="4dp"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="12dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true">
 
@@ -70,9 +70,9 @@
 
             <TextView
                 android:id="@+id/description_text"
-                android:layout_width="245dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:minHeight="129dp"
                 android:text="@{result.description}"

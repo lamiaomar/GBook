@@ -9,6 +9,7 @@ data class User(
     var month: String? = "",
     var year: String? = "",
     var email: String? = "",
+    var gender : String? = "",
     var toReadList: MutableList<BookDetailsUiState> = mutableListOf(),
     var booksNumberInList : Int = -1
 ) {}

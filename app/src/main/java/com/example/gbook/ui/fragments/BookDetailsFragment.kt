@@ -73,7 +73,11 @@ class BookDetailsFragment : Fragment() {
         binding.animationView.setOnClickListener {
             binding.animationView.playAnimation()
             if (uid.isNotEmpty()) {
-             viewModel.addBookToReadList()
+                if (numSearch==1){
+                    viewModel.addBookToReadList(1)
+                }else{
+                    viewModel.addBookToReadList()
+                }
             } else {
                 Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
 

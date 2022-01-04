@@ -93,7 +93,7 @@
             android:id="@+id/etemail"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="365dp"
-            android:layout_height="55dp"
+            android:layout_height="57dp"
             android:layout_marginTop="32dp"
             android:hint="@string/email"
             android:textSize="13sp"
