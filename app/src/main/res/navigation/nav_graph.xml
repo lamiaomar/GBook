@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_homeAuthenticationFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_homeAuthenticationFragment_to_calenderFragment"
+            app:destination="@id/calenderFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -95,4 +98,8 @@
             android:name="title"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/calenderFragment"
+        android:name="com.example.gbook.notification.CalenderFragment"
+        android:label="CalenderFragment" />
 </navigation>

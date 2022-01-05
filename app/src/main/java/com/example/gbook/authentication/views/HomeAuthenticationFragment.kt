@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
@@ -16,6 +17,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.*
+import java.util.*
 
 
 class HomeAuthenticationFragment : Fragment() {
@@ -54,14 +56,14 @@ class HomeAuthenticationFragment : Fragment() {
        val builder = MaterialDatePicker.Builder.datePicker()
 
         //Date Picker button on click listener
-        binding.calender.setOnClickListener {
-            val picker = builder.build()
-            picker.show(requireFragmentManager(),"Select data")
-
-            picker.addOnPositiveButtonClickListener {
-                binding.date.setText(picker.headerText)
-            }
-        }
+//        binding.calender.setOnClickListener {
+//            val picker = builder.build()
+//            picker.show(requireFragmentManager(),"Select data")
+//
+//            picker.addOnPositiveButtonClickListener {
+//                binding.date.setText(picker.headerText)
+//            }
+//        }
         //endregion
 
         binding.btnSignOut.setOnClickListener {
@@ -73,6 +75,11 @@ class HomeAuthenticationFragment : Fragment() {
             Toast.makeText(this.context, "signed out", Toast.LENGTH_SHORT).show()
 
 
+        }
+
+        binding.calender.setOnClickListener {
+            val action = HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToCalenderFragment()
+           calender.findNavController().navigate(action)
         }
 
         return binding.root

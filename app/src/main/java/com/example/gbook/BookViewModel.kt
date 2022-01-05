@@ -1,5 +1,6 @@
 package com.example.gbook
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -214,33 +215,49 @@ class BookViewmodel(
     }
 
     fun getBooksToRead() {
+        viewModelScope.launch {
+         var x = booksRepository.getBooksToRead()
+            Log.e("dataSource" , "$x")
+            _bookShelfResultUi.update { it ->
+                it.copy(books = x.toReadList.map {
+                    BookDetailsUiState(
+                        title = it.title,
+                        bookCover = it.bookCover,
+                        description = it.description,
+                        averageRating = it.averageRating,
+                        pageCount = it.pageCount,
+                        publishedDate = it.publishedDate)
+                })
 
-        databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children) {
-                    user = snapshot.getValue(User::class.java)!!
-
-                    _bookShelfResultUi.update { it ->
-                        it.copy(books = user.toReadList.map {
-                            BookDetailsUiState(
-                                title = it.title,
-                                bookCover = it.bookCover,
-                                description = it.description,
-                                averageRating = it.averageRating,
-                                pageCount = it.pageCount,
-                                publishedDate = it.publishedDate
-                            )
-                        })
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                _status.value = BooksApiStatus.DONE
             }
         }
-        )
+
+//        databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                for (item in snapshot.children) {
+//                    user = snapshot.getValue(User::class.java)!!
+//
+//                    _bookShelfResultUi.update { it ->
+//                        it.copy(books = user.toReadList.map {
+//                            BookDetailsUiState(
+//                                title = it.title,
+//                                bookCover = it.bookCover,
+//                                description = it.description,
+//                                averageRating = it.averageRating,
+//                                pageCount = it.pageCount,
+//                                publishedDate = it.publishedDate
+//                            )
+//                        })
+//                    }
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                _status.value = BooksApiStatus.DONE
+//            }
+//        }
+ //       )
     }
 
     fun displayBookDetailsFromList(position: Int) {
