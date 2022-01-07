@@ -170,7 +170,7 @@
                 app:srcCompat="@drawable/ic_baseline_delete_forever_24" />
 
             <ImageView
-                android:id="@+id/imageView12"
+                android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

@@ -13,8 +13,10 @@ import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.fragments.BookShelfFragmentDirections
 import kotlin.concurrent.fixedRateTimer
 
-class BookShelfAdapter(val delete : (item : BookDetailsUiState) -> Unit)
-    : ListAdapter<BookDetailsUiState,
+class BookShelfAdapter(
+    val delete: (item: BookDetailsUiState) -> Unit
+//    val share: (item: BookDetailsUiState) -> Unit
+) : ListAdapter<BookDetailsUiState,
         BookShelfAdapter.BookShelfViewHolder>(DiffCallback) {
 
 
@@ -28,7 +30,8 @@ class BookShelfAdapter(val delete : (item : BookDetailsUiState) -> Unit)
         }
 
         val bookThumb: ImageView = binding.bookThumb
-        val deleteBook : ImageView = binding.deleteBook
+        val deleteBook: ImageView = binding.deleteBook
+        val shareBook : ImageView = binding.share
 
 
     }
@@ -57,13 +60,20 @@ class BookShelfAdapter(val delete : (item : BookDetailsUiState) -> Unit)
 
 
         holder.bookThumb.setOnClickListener {
-            val action = BookShelfFragmentDirections.actionBookShelfFragmentToDetailsUserBookFragment(position)
+            val action =
+                BookShelfFragmentDirections.actionBookShelfFragmentToDetailsUserBookFragment(
+                    position
+                )
             holder.bookThumb.findNavController().navigate(action)
         }
 
         holder.deleteBook.setOnClickListener {
             delete(bookPhoto)
             notifyItemRemoved(position)
+        }
+
+        holder.shareBook.setOnClickListener {
+//            share(bookPhoto)
         }
 
     }

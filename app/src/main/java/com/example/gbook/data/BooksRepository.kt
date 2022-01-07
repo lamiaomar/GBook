@@ -22,11 +22,14 @@ class BooksRepository (
         booksRealTimeDataSource.deleteBookFromList(book)
 
 
-//    suspend fun getNumOfBookList() : Int =
-//        booksRealTimeDataSource.getNumOfBookList()
+    suspend fun addBookToReadList(book: BookDetailsUiState) =
+        booksRealTimeDataSource.addBookToReadList(book)
 
 
-    suspend fun setBookToReadList(book: BookDetailsUiState) =
-        booksRealTimeDataSource.setBookToReadList(book)
+    suspend fun isBookMarked(book : BookDetailsUiState): Boolean =
+        booksRealTimeDataSource.isBookMarked(book)
 
 }
+
+//    suspend fun getNumOfBookList() : Int =
+//        booksRealTimeDataSource.getNumOfBookList()

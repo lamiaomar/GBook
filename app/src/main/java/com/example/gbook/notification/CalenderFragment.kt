@@ -1,5 +1,7 @@
 package com.example.gbook.notification
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import com.example.gbook.R
 import com.example.gbook.databinding.FragmentCalenderBinding
 import com.example.gbook.notification.NotifyWork.Companion.NOTIFICATION_ID
 import com.example.gbook.notification.NotifyWork.Companion.NOTIFICATION_WORK
+import com.example.gbook.notification.receiver.AlarmService
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import com.google.android.material.snackbar.Snackbar.make
 import kotlinx.android.synthetic.main.fragment_calender.*
@@ -23,6 +26,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 class CalenderFragment : Fragment() {
 
     lateinit var binding : FragmentCalenderBinding
+    lateinit var alarmService: AlarmService
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +36,14 @@ class CalenderFragment : Fragment() {
 
         binding = FragmentCalenderBinding.inflate(inflater)
 
+        alarmService = AlarmService(requireContext())
+
         binding.lifecycleOwner = this
 
+        binding.setRepe.setOnClickListener {
+            setAlarm { alarmService.setRepetitiveAlarm(it) }
+
+        }
         userInterface()
 
         return binding.root
@@ -96,4 +106,34 @@ class CalenderFragment : Fragment() {
 //            val myOutputData = workInfo.outputData.getString(KEY_MY_DATA)
 //        }
 //    })
+private fun setAlarm(callback: (Long) -> Unit) {
+    Calendar.getInstance().apply {
+        this.set(Calendar.SECOND, 0)
+        this.set(Calendar.MILLISECOND, 0)
+        DatePickerDialog(
+            requireContext(),
+            0,
+            { _, year, month, day ->
+                this.set(Calendar.YEAR, year)
+                this.set(Calendar.MONTH, month)
+                this.set(Calendar.DAY_OF_MONTH, day)
+                TimePickerDialog(
+                    context,
+                    0,
+                    { _, hour, minute ->
+                        this.set(Calendar.HOUR_OF_DAY, hour)
+                        this.set(Calendar.MINUTE, minute)
+                        callback(this.timeInMillis)
+                    },
+                    this.get(Calendar.HOUR_OF_DAY),
+                    this.get(Calendar.MINUTE),
+                    false
+                ).show()
+            },
+            this.get(Calendar.YEAR),
+            this.get(Calendar.MONTH),
+            this.get(Calendar.DAY_OF_MONTH)
+        ).show()
+    }
+}
 }

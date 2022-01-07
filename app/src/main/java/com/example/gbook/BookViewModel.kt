@@ -91,7 +91,8 @@ class BookViewmodel(
                 description = item.volumeInfo.description.toString(),
                 averageRating = item.volumeInfo.averageRating.toString(),
                 pageCount = item.volumeInfo.pageCount.toString(),
-                publishedDate = item.volumeInfo.publishedDate.toString()
+                publishedDate = item.volumeInfo.publishedDate.toString(),
+                bookmarked = false
             )
         }
         return data
@@ -146,7 +147,7 @@ class BookViewmodel(
                 _searchResultUi.value.books
 
             } catch (e: Exception) {
-                Log.e("get search book" , "Exception $e")
+                Log.e("get search book", "Exception $e")
             }
         }
     }
@@ -156,21 +157,23 @@ class BookViewmodel(
 
     // region Firebase
     fun addBookToReadList(search: Int = 0) {
+
         viewModelScope.launch {
             try {
 
                 if (search == 1) {
-                    booksRepository.setBookToReadList(
+                    booksRepository.addBookToReadList(
                         searchResultUi.value.books.get(books)
                     )
+
                 } else {
-                    booksRepository.setBookToReadList(
+                    booksRepository.addBookToReadList(
                         bookCategoryResultUi.value.categoryList[categoryNum]
                             .books.get(books)
                     )
                 }
             } catch (e: Exception) {
-                Log.e("add book exception" , "Exception $e")
+                Log.e("add book exception", "Exception $e")
             }
         }
     }
@@ -213,9 +216,19 @@ class BookViewmodel(
         }
     }
 
-    /*suspend fun getNumOfBookList(): Int = viewModelScope.async {
-//    booksRepository.getNumOfBookList()
-//}.await()
+  suspend  fun isBookMarked(): Boolean
+  = viewModelScope.async { booksRepository.isBookMarked(
+      bookCategoryResultUi.value.categoryList[categoryNum]
+          .books.get(books)
+  ) }.await()
+
+    fun shareBook(book : BookDetailsUiState) {
+
+    }
+
+/*suspend fun getNumOfBookList(): Int = viewModelScope.async {
+booksRepository.getNumOfBookList()
+}.await()
 */
 
 //endregion

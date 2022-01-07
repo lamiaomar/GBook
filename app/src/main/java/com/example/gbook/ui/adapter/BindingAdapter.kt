@@ -63,7 +63,7 @@ fun bindStatus(
 @BindingAdapter("shelfList")
 fun bindShelfList(
     recyclerView: RecyclerView,
-    data: List<BookDetailsUiState>?
+    data: List<BookDetailsUiState>? ,
 ) {
     val adapter = recyclerView.adapter as BookShelfAdapter
     adapter.submitList(data)

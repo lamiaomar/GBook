@@ -1,7 +1,6 @@
 package com.example.gbook.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
-import com.example.gbook.UserViewModel
-import com.example.gbook.authentication.User
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.data.firebase.BooksRealTimeDataSource
@@ -34,7 +31,7 @@ class BookShelfFragment : Fragment() {
         val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
         val booksRealTimeDataSource = BooksRealTimeDataSource()
 
-        val repo = BooksRepository(booksRemoteDataSource , booksRealTimeDataSource)
+        val repo = BooksRepository(booksRemoteDataSource, booksRealTimeDataSource)
         BookViewModelFactory(repo)
     }
 
@@ -52,7 +49,9 @@ class BookShelfFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        binding.shelfRecycler.adapter = BookShelfAdapter{viewModel.deleteBookFromList(it)}
+        binding.shelfRecycler.adapter = BookShelfAdapter { viewModel.deleteBookFromList(it)
+//              viewModel.shareBook(it)
+        }
 
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
@@ -76,7 +75,6 @@ class BookShelfFragment : Fragment() {
 
 
     }
-
 
 
 }

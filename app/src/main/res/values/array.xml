@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="entities">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string-array name="values">
+        <item>Mo</item>
+        <item>Tu</item>
+        <item>We</item>
+        <item>Th</item>
+        <item>Fr</item>
+        <item>Sa</item>
+        <item>Su</item>
+    </string-array>
+
+    <string-array name="prio">
+        <item>High</item>
+        <item>Middle</item>
+        <item>Low</item>
+        <item>Default</item>
+    </string-array>
+
+    <string-array name="dark_mode">
+
+        <item>Light Mode Selected</item>
+        <item>Dark Mode Selected</item>
+        <item>Auto Battery Dark Mode</item>
+    </string-array>
+
+
+    <string-array name="dark_mode_vlues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    dark_mode_vlues
+
+</resources>

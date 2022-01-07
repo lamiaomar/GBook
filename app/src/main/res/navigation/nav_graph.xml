@@ -102,4 +102,9 @@
         android:id="@+id/calenderFragment"
         android:name="com.example.gbook.notification.CalenderFragment"
         android:label="CalenderFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.gbook.ui.fragments.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

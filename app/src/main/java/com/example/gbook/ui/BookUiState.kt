@@ -1,36 +1,29 @@
 package com.example.gbook.ui
 
 
-
-data class BookCategoryUiState (
+data class BookCategoryUiState(
     val isSignedIn: Boolean = false,
-    val categoryList : List<BooksDataUiState> = listOf()
-        )
+    val categoryList: List<BooksDataUiState> = listOf()
+)
 
 
 data class BooksDataUiState(
-    val category : String = "" ,
-//    val isPremium: Boolean = false,
+    val category: String = "",
     val books: List<BookDetailsUiState> = listOf(),
-    val numOfBooks : String = ""
+    val numOfBooks: String = ""
 
 )
 
 
 data class BookDetailsUiState(
-//    val id : IndustryIdentifiersItem  ,
     val title: String = "",
     val bookCover: String = "",
     val description: String = "",
     val averageRating: String = "",
     val pageCount: String = "",
-    val publishedDate: String = ""
+    val publishedDate: String = "" ,
+    val bookmarked : Boolean = false
 )
-
-//data class IndustryIdentifiersItem(
-//    val identifier : String = ""
-//)
-
 
 
 /*
