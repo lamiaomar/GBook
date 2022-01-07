@@ -96,12 +96,10 @@ class HomeAuthenticationFragment : Fragment() {
 
                     user = snapshot.getValue(User::class.java)!!
 
-                    var x = user.booksNumberInList + 1
-
                     binding.userName.setText(user.firstName + " " + user.lastName)
                     binding.userEmail.setText(user.email)
                     binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
-                    binding.booksNumber.setText(x.toString())
+                    binding.booksNumber.setText(user.booksNumberInList.toString())
                     binding.gender.setText(user.gender)
 
                 }

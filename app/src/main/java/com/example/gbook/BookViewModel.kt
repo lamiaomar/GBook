@@ -5,32 +5,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gbook.authentication.User
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.ui.BookCategoryUiState
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.BooksDataUiState
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
 
 enum class BooksApiStatus { LOADING, ERROR, DONE }
-enum class SearchStatus{SEARCHING , DONE}
-
 
 class BookViewmodel(
     private val booksRepository: BooksRepository
 ) : ViewModel() {
 
-    //region Firebase values
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private var databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-    private lateinit var user: User
-    private var uid: String =  auth.currentUser?.uid.toString()
-    //endregion
 
     private val _searchResultUi = MutableStateFlow(BooksDataUiState())
     val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
@@ -53,12 +43,10 @@ class BookViewmodel(
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
-     val _searchStatus = MutableLiveData<SearchStatus>()
-    val searchStatus: LiveData<SearchStatus> = _searchStatus
-
     private var categories = listOf("Biography", "Fiction", "Comic")
 
-//    inauthor:Ann inauthor:M inauthor:Martin
+    //    inauthor:Ann inauthor:M inauthor:Martin
+
     //region values for adding book to books list
     private var categoryNum = 0
     private var books = 0
@@ -151,16 +139,14 @@ class BookViewmodel(
     }
 
     fun getSearchBook(query: String?) {
-        _searchStatus.value = SearchStatus.SEARCHING
         viewModelScope.launch {
             try {
                 val volume = booksRepository.getBooks(query!!)
                 _searchResultUi.update { it.copy(books = setItemUiState(volume)) }
                 _searchResultUi.value.books
-                _searchStatus.value = SearchStatus.DONE
 
             } catch (e: Exception) {
-                _searchStatus.value = SearchStatus.SEARCHING
+                Log.e("get search book" , "Exception $e")
             }
         }
     }
@@ -168,96 +154,44 @@ class BookViewmodel(
     //endregion
 
 
-
     // region Firebase
     fun addBookToReadList(search: Int = 0) {
+        viewModelScope.launch {
+            try {
 
-        try {
-            val x = getNumOfBookList() + 1
-            if (search == 1) {
-                databaseReference.child(uid).child("toReadList").child(x.toString()).setValue(
-                    searchResultUi.value.books.get(books)
-                )
-            } else {
-                databaseReference.child(uid).child("toReadList").child(x.toString())
-                    .setValue(
-                        bookCategoryResultUi.value.categoryList[categoryNum].books.get(
-                            books
-                        )
+                if (search == 1) {
+                    booksRepository.setBookToReadList(
+                        searchResultUi.value.books.get(books)
                     )
-            }
-
-
-            databaseReference.child(uid).child("booksNumberInList").setValue(x)
-
-        } catch (e: Exception) {
-
-        }
-    }
-
-    private fun getNumOfBookList(): Int {
-
-        databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children) {
-
-                    user = snapshot.getValue(User::class.java)!!
-
-                    user.booksNumberInList
+                } else {
+                    booksRepository.setBookToReadList(
+                        bookCategoryResultUi.value.categoryList[categoryNum]
+                            .books.get(books)
+                    )
                 }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
+            } catch (e: Exception) {
+                Log.e("add book exception" , "Exception $e")
             }
         }
-        )
-        return user.booksNumberInList
     }
 
     fun getBooksToRead() {
         viewModelScope.launch {
-         var x = booksRepository.getBooksToRead()
-            Log.e("dataSource" , "$x")
+            val data = booksRepository.getBooksToRead()
             _bookShelfResultUi.update { it ->
-                it.copy(books = x.toReadList.map {
+                it.copy(books = data.toReadList.map {
                     BookDetailsUiState(
                         title = it.title,
                         bookCover = it.bookCover,
                         description = it.description,
                         averageRating = it.averageRating,
                         pageCount = it.pageCount,
-                        publishedDate = it.publishedDate)
+                        publishedDate = it.publishedDate
+                    )
                 })
 
             }
         }
-
-//        databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
-//
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                for (item in snapshot.children) {
-//                    user = snapshot.getValue(User::class.java)!!
-//
-//                    _bookShelfResultUi.update { it ->
-//                        it.copy(books = user.toReadList.map {
-//                            BookDetailsUiState(
-//                                title = it.title,
-//                                bookCover = it.bookCover,
-//                                description = it.description,
-//                                averageRating = it.averageRating,
-//                                pageCount = it.pageCount,
-//                                publishedDate = it.publishedDate
-//                            )
-//                        })
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                _status.value = BooksApiStatus.DONE
-//            }
-//        }
- //       )
     }
 
     fun displayBookDetailsFromList(position: Int) {
@@ -270,43 +204,21 @@ class BookViewmodel(
     }
 
     fun deleteBookFromList(book: BookDetailsUiState) {
-        databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children) {
-
-                    user = snapshot.getValue(User::class.java)!!
-                    try {
-                        val localList = user.toReadList
-
-                        for (item in 0..user.booksNumberInList) {
-                            if (book.title == user.toReadList[item].title) {
-                                localList.removeAt(item)
-                                databaseReference.child(uid).child("toReadList")
-                                    .removeValue()
-
-                                for (it in 0..localList.size) {
-                                    databaseReference.child(uid).child("toReadList")
-                                        .child(it.toString()).setValue(
-                                            localList[it]
-                                        )
-                                    databaseReference.child(uid).child("booksNumberInList")
-                                        .setValue(localList.size - 1)
-                                }
-                            }
-                        }
-                    } catch (e: Exception) {
-                        getBooksToRead()
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
+        viewModelScope.launch {
+            try {
+                booksRepository.deleteBookFromList(book)
+            } catch (e: Exception) {
+                getBooksToRead()
             }
         }
-        )
     }
 
-    //endregion
+    /*suspend fun getNumOfBookList(): Int = viewModelScope.async {
+//    booksRepository.getNumOfBookList()
+//}.await()
+*/
+
+//endregion
 
 }
 

@@ -8,6 +8,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        realse {
+            storeFile file('C:\\Users\\Lamia\\apk.jks')
+            storePassword '123456789'
+            keyAlias 'key0'
+            keyPassword '123456789'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -15,7 +23,7 @@ android {
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "1.0"
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,6 +32,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.realse
         }
     }
 

@@ -11,7 +11,7 @@ data class User(
     var email: String? = "",
     var gender : String? = "",
     var toReadList: MutableList<BookDetailsUiState> = mutableListOf(),
-    var booksNumberInList : Int = -1
+    var booksNumberInList : Int = 0
 ) {}
 
 

@@ -60,8 +60,6 @@ class BookShelfFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
 
-
-
         if (uid.isNotEmpty()) {
             viewModel.getBooksToRead()
 
@@ -71,6 +69,12 @@ class BookShelfFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
 
