@@ -60,38 +60,11 @@ fun bindStatus(
 }
 
 
-
-@BindingAdapter("categoryList")
-fun bindCategoryList(
-    recyclerView: RecyclerView,
-    data: List<BooksDataUiState>?
-) {
-    val adapter = recyclerView.adapter as CategoryBooksAdapter
-    adapter.submitList(data)
-
-}
-
-
-/*@BindingAdapter("booklist")
-//fun bindBookList(
-//    recyclerView: RecyclerView,
-//    bookDetails: List<BookDetailsUiState>?
-//) {
-//    Log.e("data", "$bookDetails")
-//
-//    val adapter = recyclerView.adapter as BooksAdapter?
-//    Log.e("data", "$adapter")
-//
-//    adapter?.submitList(bookDetails)
-//
-//}
-*/
-
 @BindingAdapter("shelfList")
 fun bindShelfList(
     recyclerView: RecyclerView,
-    data: List<BookDetailsUiState>?
-){
+    data: List<BookDetailsUiState>? ,
+) {
     val adapter = recyclerView.adapter as BookShelfAdapter
     adapter.submitList(data)
 }

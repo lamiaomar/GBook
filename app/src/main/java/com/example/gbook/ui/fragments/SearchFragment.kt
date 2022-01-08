@@ -9,24 +9,17 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
-import com.example.gbook.R
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.data.firebase.BooksRealTimeDataSource
 import com.example.gbook.data.network.BooksApi
 import com.example.gbook.ui.adapter.SearchBooksGridAdapter
-import com.example.gbook.databinding.FragmentBookListBinding
 import com.example.gbook.databinding.FragmentSearchBinding
 
 
 class SearchFragment : Fragment() {
 
-//    private val viewModel: BookViewmodel by activityViewModels{
-//        val bookApi = BooksApi.retrofitService
-//        val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
-//        val repo = BooksRepository(booksRemoteDataSource)
-//        BookViewModelFactory(repo)
-//    }
+
 private val viewModel: BookViewmodel by activityViewModels {
     val bookApi = BooksApi.retrofitService
 
@@ -36,26 +29,28 @@ private val viewModel: BookViewmodel by activityViewModels {
     val repo = BooksRepository(booksRemoteDataSource , booksRealTimeDataSource)
     BookViewModelFactory(repo)
 }
+    private var binding : FragmentSearchBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentSearchBinding.inflate(inflater)
+    ): View {
+         binding = FragmentSearchBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
-        binding.lifecycleOwner = this
+        binding!!.lifecycleOwner = this
 
         // Giving the binding access to the ViewModel
-        binding.viewModel = viewModel
+        binding!!.viewModel = viewModel
 
-        binding.photosGridSearch.adapter = SearchBooksGridAdapter()
+        binding!!.photosGridSearch.adapter = SearchBooksGridAdapter()
 
 
-        binding.searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener,
+        binding!!.searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String?): Boolean {
-                binding.searchView.clearFocus()
+                binding!!.searchView.clearFocus()
                 viewModel.getSearchBook(query)
 
                 return true
@@ -70,16 +65,13 @@ private val viewModel: BookViewmodel by activityViewModels {
         })
 
 
-        return binding.root
+        return binding!!.root
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
 

@@ -19,7 +19,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_home_authentication.*
 import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.android.synthetic.main.fragment_registration.gender
 
 
 class RegistrationFragment : Fragment() {
@@ -31,6 +33,7 @@ class RegistrationFragment : Fragment() {
     lateinit var userDay: String
     lateinit var userMonth: String
     lateinit var userYear: String
+    lateinit var userGender : String
 
 
     private lateinit var auth: FirebaseAuth
@@ -69,6 +72,13 @@ class RegistrationFragment : Fragment() {
         val items = resources.getStringArray(R.array.months)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, items)
         binding.month.setAdapter(adapter)
+
+
+
+        val item = resources.getStringArray(R.array.gender)
+        val adapter2 = ArrayAdapter(requireContext() , R.layout.dropdown_item,item)
+        binding.gender.setAdapter(adapter2)
+
 
         return binding.root
     }
@@ -164,6 +174,7 @@ class RegistrationFragment : Fragment() {
         userMonth = month.text.toString().trim()
         userYear = year.text.toString().trim()
         userEmail = email.text.toString().trim()
+        userGender = gender.text.toString().trim()
 
 
         val user = User(
@@ -173,8 +184,9 @@ class RegistrationFragment : Fragment() {
             userMonth,
             userYear,
             userEmail,
+            userGender,
             mutableListOf(),
-            -1
+            0
         )
         if (uid != null) {
             databaseReference.child(uid).setValue(user).addOnCompleteListener {

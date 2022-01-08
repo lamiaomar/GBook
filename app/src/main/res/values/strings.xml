@@ -17,6 +17,7 @@
     <string name="registration">Registration</string>
     <string name="published_date">Published Date</string>
     <string name="pages">Pages</string>
+    <string name="gender">Gender</string>
 
 
     <string-array name="months">
@@ -33,5 +34,23 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <string-array name="gender">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
+    <string name="notification_title">Reminder</string>
+    <string name="notification_subtitle">It is time to read (:</string>
+
+    <string name="notification_schedule_title">Schedule notification:\u00a0</string>
+    <string name="notification_schedule_pattern">dd.MM.yy \u00B7 HH:mm</string>
+    <string name="notification_schedule_error">
+        Schedule notification: Incorrect Date and Time
+    </string>
+
+
+
+
 
 </resources>

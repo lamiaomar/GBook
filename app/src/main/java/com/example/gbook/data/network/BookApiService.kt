@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 private const val BASE_URL = "https://www.googleapis.com"
 private const val ENDPOINT = "/books/v1/volumes"
-private const val DEFAULT = "search+terms"
+private const val DEFAULT = "search+terms&maxResults=40"
 private const val API_KEY = "AIzaSyBlkY49AJ-dhEZCULByKv5Gh1C62WPicCE"
 
 private val moshi = Moshi.Builder()

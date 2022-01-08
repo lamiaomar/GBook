@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.*
+import java.util.*
 
 
 class HomeAuthenticationFragment : Fragment() {
@@ -48,7 +51,20 @@ class HomeAuthenticationFragment : Fragment() {
 
         }
 
+        //region Picker
+        //Date picker builder
+       val builder = MaterialDatePicker.Builder.datePicker()
 
+        //Date Picker button on click listener
+//        binding.calender.setOnClickListener {
+//            val picker = builder.build()
+//            picker.show(requireFragmentManager(),"Select data")
+//
+//            picker.addOnPositiveButtonClickListener {
+//                binding.date.setText(picker.headerText)
+//            }
+//        }
+        //endregion
 
         binding.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
@@ -59,6 +75,11 @@ class HomeAuthenticationFragment : Fragment() {
             Toast.makeText(this.context, "signed out", Toast.LENGTH_SHORT).show()
 
 
+        }
+
+        binding.calender.setOnClickListener {
+            val action = HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToCalenderFragment()
+           calender.findNavController().navigate(action)
         }
 
         return binding.root
@@ -75,12 +96,11 @@ class HomeAuthenticationFragment : Fragment() {
 
                     user = snapshot.getValue(User::class.java)!!
 
-                    var x = user.booksNumberInList + 1
-
                     binding.userName.setText(user.firstName + " " + user.lastName)
                     binding.userEmail.setText(user.email)
                     binding.userDate.setText(user.day + "/" + user.month + "/" + user.year)
-                    binding.booksNumber.setText(x.toString())
+                    binding.booksNumber.setText(user.booksNumberInList.toString())
+                    binding.gender.setText(user.gender)
 
                 }
             }
