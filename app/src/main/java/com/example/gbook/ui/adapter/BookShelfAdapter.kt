@@ -14,8 +14,8 @@ import com.example.gbook.ui.fragments.BookShelfFragmentDirections
 import kotlin.concurrent.fixedRateTimer
 
 class BookShelfAdapter(
-    val delete: (item: BookDetailsUiState) -> Unit
-//    val share: (item: BookDetailsUiState) -> Unit
+    val delete: (item: BookDetailsUiState) -> Unit ,
+    val share :  (item: BookDetailsUiState) -> Unit
 ) : ListAdapter<BookDetailsUiState,
         BookShelfAdapter.BookShelfViewHolder>(DiffCallback) {
 
@@ -73,7 +73,8 @@ class BookShelfAdapter(
         }
 
         holder.shareBook.setOnClickListener {
-//            share(bookPhoto)
+            share(bookPhoto)
+
         }
 
     }

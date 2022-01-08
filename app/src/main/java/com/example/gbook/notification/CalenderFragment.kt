@@ -86,26 +86,22 @@ class CalenderFragment : Fragment() {
     }
 
     private fun scheduleNotification(delay: Long, data: Data) {
-       val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.DAYS , delay,TimeUnit.DAYS)
         val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java)
             .setInitialDelay(delay, MILLISECONDS).setInputData(data).build()
 
         val instanceWorkManager = WorkManager.getInstance(requireContext())
         instanceWorkManager.beginUniqueWork(NOTIFICATION_WORK,
             ExistingWorkPolicy.KEEP, notificationWork).enqueue()
-    }
 
-//    val myPeriodicWorkRequest =
-//        PeriodicWorkRequestBuilder<MyPeriodicWorker>(1, TimeUnit.HOURS).build()
-//    WorkManager.getInstance(context).enqueue(myPeriodicWorkRequest)
-//    WorkManager.getInstance()
-//    .getWorkInfoByIdLiveData(myPeriodicWorkRequest.id)
-//    .observe(lifecycleOwner, Observer { workInfo ->
-//        if ((workInfo != null) &&
-//            (workInfo.state == WorkInfo.State.ENQUEEDED)) {
-//            val myOutputData = workInfo.outputData.getString(KEY_MY_DATA)
-//        }
-//    })
+        val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.MINUTES , delay,TimeUnit.MINUTES).build()
+        WorkManager.getInstance(requireContext()).enqueue(x)
+        WorkManager.getInstance().getWorkInfoByIdLiveData(x.id)
+            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { workInfo ->
+                if ((workInfo != null) && (workInfo.state == WorkInfo.State.ENQUEUED)){
+               val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
+                }
+            })}
+
 private fun setAlarm(callback: (Long) -> Unit) {
     Calendar.getInstance().apply {
         this.set(Calendar.SECOND, 0)

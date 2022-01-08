@@ -1,5 +1,6 @@
 package com.example.gbook
 
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -222,14 +223,12 @@ class BookViewmodel(
           .books.get(books)
   ) }.await()
 
-    fun shareBook(book : BookDetailsUiState) {
-
-    }
 
 /*suspend fun getNumOfBookList(): Int = viewModelScope.async {
 booksRepository.getNumOfBookList()
 }.await()
 */
+
 
 //endregion
 
