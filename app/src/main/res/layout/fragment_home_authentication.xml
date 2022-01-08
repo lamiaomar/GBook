@@ -218,7 +218,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.966"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+            app:layout_constraintTop_toBottomOf="@+id/edit" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -262,7 +262,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView13"
+            android:id="@+id/edit"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginTop="56dp"

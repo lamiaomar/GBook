@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GBook</string>
+    <string name="description">الوصف :</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="password">كلمة المرور</string>
+    <string name="create_account">انشاء حساب</string>
+    <string name="or">أو</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="first_name">الاسم الاول</string>
+    <string name="day">يوم</string>
+    <string name="month">شهر</string>
+    <string name="year">سنة</string>
+    <string name="registration">التسجيل</string>
+    <string name="published_date">تاريخ الاصدار</string>
+    <string name="pages">صفحة</string>
+    <string name="gender">نوع</string>
+    <string name="done">تم</string>
+    <string name="edit_profile">تعديل الصفحة الشخصية</string>
+    <string name="track">Track and organize the books \n you\'ve read or want to read</string>
+    <string name="sign_up">SIGN UP</string>
+</resources>

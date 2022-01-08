@@ -159,6 +159,24 @@ class BooksRealTimeDataSource(
     }
 
 
+    suspend fun editUserProfile(userEdit : User)
+    = withContext(ioDispatcher){
+        uid = auth.currentUser?.uid.toString()
+        databaseReference.child(uid).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                    databaseReference.child(uid).child("firstName")
+                        .setValue(userEdit.firstName)
+                    databaseReference.child(uid).child("lastName")
+                        .setValue(userEdit.lastName)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }
+
 
     //region adding book by better way
 /*   suspend fun addBookToReadList(book: BookDetailsUiState, bookNum: Int) =

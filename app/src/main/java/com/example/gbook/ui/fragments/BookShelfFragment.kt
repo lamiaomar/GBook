@@ -1,5 +1,6 @@
 package com.example.gbook.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.gbook.BookShelfSplashFragmentDirections
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
 import com.example.gbook.MainActivity
@@ -24,9 +28,8 @@ import com.google.firebase.database.*
 class BookShelfFragment : Fragment() {
 
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var uid: String
+    var auth = FirebaseAuth.getInstance()
+   var uid = auth.currentUser?.uid.toString()
 
     private val viewModel: BookViewmodel by activityViewModels {
         val bookApi = BooksApi.retrofitService
@@ -40,11 +43,15 @@ class BookShelfFragment : Fragment() {
 
     private lateinit var binding: FragmentBookShelfBinding
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
 
         binding = FragmentBookShelfBinding.inflate(inflater)
 
@@ -53,14 +60,18 @@ class BookShelfFragment : Fragment() {
         binding.viewModel = viewModel
 
 
+        viewModel.title.observe(viewLifecycleOwner, Observer { user ->
+            if ( uid.isEmpty()) {
+                val action = BookShelfFragmentDirections.actionBookShelfFragmentToBookShelfSplashFragment()
+                findNavController().navigate(action)
+            }
+        })
+
+
         binding.shelfRecycler.adapter =
             BookShelfAdapter({ viewModel.deleteBookFromList(book = it) },
                 { shareBook(book = it) })
 
-        auth = FirebaseAuth.getInstance()
-        uid = auth.currentUser?.uid.toString()
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
 
         if (uid.isNotEmpty()) {

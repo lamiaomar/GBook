@@ -42,6 +42,16 @@
         <item>3</item>
     </string-array>
 
-    dark_mode_vlues
 
+    <string-array name="language">
+        <item>English</item>
+        <item>Arabic</item>
+    </string-array>
+
+
+
+    <string-array name="language_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

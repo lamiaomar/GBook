@@ -82,6 +82,11 @@ class HomeAuthenticationFragment : Fragment() {
            calender.findNavController().navigate(action)
         }
 
+        binding.edit.setOnClickListener {
+            val action = HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToEditProfileFragment()
+            edit.findNavController().navigate(action)
+        }
+
         return binding.root
     }
 

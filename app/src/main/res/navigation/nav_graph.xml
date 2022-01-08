@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_homeAuthenticationFragment_to_calenderFragment"
             app:destination="@id/calenderFragment" />
+        <action
+            android:id="@+id/action_homeAuthenticationFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -79,6 +82,9 @@
         <action
             android:id="@+id/action_bookShelfFragment_to_detailsUserBookFragment"
             app:destination="@id/detailsUserBookFragment" />
+        <action
+            android:id="@+id/action_bookShelfFragment_to_bookShelfSplashFragment"
+            app:destination="@id/bookShelfSplashFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -107,4 +113,21 @@
         android:name="com.example.gbook.ui.fragments.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.gbook.ui.fragments.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_homeAuthenticationFragment"
+            app:destination="@id/homeAuthenticationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookShelfSplashFragment"
+        android:name="com.example.gbook.BookShelfSplashFragment"
+        android:label="fragment_book_shelf_splash"
+        tools:layout="@layout/fragment_book_shelf_splash" >
+        <action
+            android:id="@+id/action_bookShelfSplashFragment_to_bookShelfFragment"
+            app:destination="@id/bookShelfFragment" />
+    </fragment>
 </navigation>

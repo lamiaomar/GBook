@@ -1,32 +1,34 @@
 package com.example.gbook.notification
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.work.*
 import com.example.gbook.R
 import com.example.gbook.databinding.FragmentCalenderBinding
 import com.example.gbook.notification.NotifyWork.Companion.NOTIFICATION_ID
-import com.example.gbook.notification.NotifyWork.Companion.NOTIFICATION_WORK
-import com.example.gbook.notification.receiver.AlarmService
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import com.google.android.material.snackbar.Snackbar.make
 import kotlinx.android.synthetic.main.fragment_calender.*
+import timber.log.Timber
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalTime
+import java.time.ZonedDateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.TimeUnit.MILLISECONDS
+import javax.xml.datatype.DatatypeConstants.SECONDS
 
 
 class CalenderFragment : Fragment() {
 
     lateinit var binding : FragmentCalenderBinding
-    lateinit var alarmService: AlarmService
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,14 +38,8 @@ class CalenderFragment : Fragment() {
 
         binding = FragmentCalenderBinding.inflate(inflater)
 
-        alarmService = AlarmService(requireContext())
-
         binding.lifecycleOwner = this
 
-        binding.setRepe.setOnClickListener {
-            setAlarm { alarmService.setRepetitiveAlarm(it) }
-
-        }
         userInterface()
 
         return binding.root
@@ -86,50 +82,59 @@ class CalenderFragment : Fragment() {
     }
 
     private fun scheduleNotification(delay: Long, data: Data) {
-        val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java)
-            .setInitialDelay(delay, MILLISECONDS).setInputData(data).build()
+//        val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java)
+//            .setInitialDelay(delay, MILLISECONDS).setInputData(data).build()
+//
+//        val instanceWorkManager = WorkManager.getInstance(requireContext())
+//        instanceWorkManager.beginUniqueWork(NOTIFICATION_WORK,
+//            ExistingWorkPolicy.KEEP, notificationWork).enqueue()
 
-        val instanceWorkManager = WorkManager.getInstance(requireContext())
-        instanceWorkManager.beginUniqueWork(NOTIFICATION_WORK,
-            ExistingWorkPolicy.KEEP, notificationWork).enqueue()
 
-        val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.MINUTES , delay,TimeUnit.MINUTES).build()
-        WorkManager.getInstance(requireContext()).enqueue(x)
-        WorkManager.getInstance().getWorkInfoByIdLiveData(x.id)
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { workInfo ->
-                if ((workInfo != null) && (workInfo.state == WorkInfo.State.ENQUEUED)){
-               val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
-                }
-            })}
+//        val periodicWorkRequest = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.MINUTES)
+//            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
+//        WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
 
-private fun setAlarm(callback: (Long) -> Unit) {
-    Calendar.getInstance().apply {
-        this.set(Calendar.SECOND, 0)
-        this.set(Calendar.MILLISECOND, 0)
-        DatePickerDialog(
-            requireContext(),
-            0,
-            { _, year, month, day ->
-                this.set(Calendar.YEAR, year)
-                this.set(Calendar.MONTH, month)
-                this.set(Calendar.DAY_OF_MONTH, day)
-                TimePickerDialog(
-                    context,
-                    0,
-                    { _, hour, minute ->
-                        this.set(Calendar.HOUR_OF_DAY, hour)
-                        this.set(Calendar.MINUTE, minute)
-                        callback(this.timeInMillis)
-                    },
-                    this.get(Calendar.HOUR_OF_DAY),
-                    this.get(Calendar.MINUTE),
-                    false
-                ).show()
-            },
-            this.get(Calendar.YEAR),
-            this.get(Calendar.MONTH),
-            this.get(Calendar.DAY_OF_MONTH)
-        ).show()
+
+        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.DAYS)
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .build()
+
+        WorkManager.getInstance(requireContext())
+            .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
+//        scheduleNotification(cal.timeInMillis, data)
+
+
+
+//        val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.MINUTES , delay,TimeUnit.MINUTES)
+//            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
+//        WorkManager.getInstance(requireContext()).enqueue(x)
+//        WorkManager.getInstance().getWorkInfoByIdLiveData(x.id)
+//            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { workInfo ->
+//                if ((workInfo != null) && (workInfo.state == WorkInfo.State.ENQUEUED)){
+//               val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
+//                }
+//            })
+
     }
-}
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun Context.enqueueReminderWorker(
+        localTime: LocalTime
+    ) {
+        val now = ZonedDateTime.now()
+        val trigger = now.with(localTime)
+        val realTrigger = when {
+            trigger <= now -> trigger.plusDays(1)
+            else -> trigger
+        }
+
+        val initialDelay = maxOf(1, realTrigger.toEpochSecond() - Instant.now().epochSecond)
+
+        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.MINUTES)
+            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
+            .build()
+
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
+    }
 }

@@ -6,11 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gbook.authentication.User
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.ui.BookCategoryUiState
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.BooksDataUiState
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -22,6 +24,9 @@ class BookViewmodel(
     private val booksRepository: BooksRepository
 ) : ViewModel() {
 
+
+    var auth = FirebaseAuth.getInstance()
+    var uid = auth.currentUser?.uid.toString()
 
     private val _searchResultUi = MutableStateFlow(BooksDataUiState())
     val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
@@ -217,13 +222,19 @@ class BookViewmodel(
         }
     }
 
-  suspend  fun isBookMarked(): Boolean
-  = viewModelScope.async { booksRepository.isBookMarked(
-      bookCategoryResultUi.value.categoryList[categoryNum]
-          .books.get(books)
-  ) }.await()
+    suspend fun isBookMarked(): Boolean = viewModelScope.async {
+        booksRepository.isBookMarked(
+            bookCategoryResultUi.value.categoryList[categoryNum]
+                .books.get(books)
+        )
+    }.await()
 
 
+    fun editUserProfile(userEdit : User) {
+        viewModelScope.launch {
+            booksRepository.editUserProfile(userEdit)
+        }
+    }
 /*suspend fun getNumOfBookList(): Int = viewModelScope.async {
 booksRepository.getNumOfBookList()
 }.await()
