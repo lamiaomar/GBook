@@ -16,12 +16,12 @@ data class User(
 
 
 data class BookList(
-    val id: String = "",
     val title: String = "",
     val bookCover: String = "",
     val description: String = "",
     val averageRating: String = "",
     val pageCount: String = "",
-    val publishedDate: String = ""
+    val publishedDate: String = "" ,
+    val bookmarked : Boolean = false
 )
 

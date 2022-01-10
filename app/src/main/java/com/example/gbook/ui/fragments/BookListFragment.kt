@@ -31,14 +31,13 @@ class BookListFragment : Fragment() {
         val repo = BooksRepository(booksRemoteDataSource , booksRealTimeDataSource)
         BookViewModelFactory(repo)
     }
+
     lateinit var binding: FragmentBookListBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
 
         binding = FragmentBookListBinding.inflate(inflater)

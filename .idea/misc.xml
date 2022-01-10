@@ -9,6 +9,7 @@
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.2703125" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.2703125" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_baseline_language_24.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2703125" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.15833333333333333" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/drawable/ic_schedule_black_24dp.xml" value="0.1925925925925926" />
@@ -28,9 +29,9 @@
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_calender.xml" value="0.152" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_details_user_book.xml" value="0.8800000000000001" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_edit_profile.xml" value="0.2" />
-        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_home_authentication.xml" value="0.1655450874831763" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_home_authentication.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_log_in.xml" value="0.10276679841897234" />
-        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_registration.xml" value="0.264" />
+        <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_registration.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_search.xml" value="0.1" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_setting.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Lamia/GBook/app/src/main/res/layout/fragment_splash.xml" value="0.2" />

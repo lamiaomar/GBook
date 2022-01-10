@@ -6,6 +6,9 @@
 
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.example.gbook.UserViewModel" />
 
     </data>
 
@@ -272,6 +275,37 @@
             app:srcCompat="@drawable/ic_baseline_edit_24" />
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/challenge"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="108dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="24dp"
+            android:hint="@string/number_of_books"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/num_of_books"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal"
+                android:textSize="14dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+<!--        <com.androidplot.pie.PieChart-->
+<!--            android:id="@+id/pie_chart"-->
+<!--            android:layout_width="195dp"-->
+<!--            android:layout_height="160dp"-->
+<!--            android:layout_marginStart="84dp"-->
+<!--            android:layout_marginTop="14dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/challenge"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/btnSignOut" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

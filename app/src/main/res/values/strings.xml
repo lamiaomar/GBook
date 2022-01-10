@@ -52,6 +52,7 @@
     <string name="track">Track and organize the books \n you\'ve read or want to read</string>
     <string name="sign_up">SIGN UP</string>
     <string name="bookshelf">BookShelf</string>
+    <string name="number_of_books">Number Of Books</string>
 
 
 </resources>
