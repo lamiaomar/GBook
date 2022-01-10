@@ -1,6 +1,7 @@
 package com.example.gbook.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -68,16 +69,14 @@ class BookDetailsFragment : Fragment() {
             binding.animationView.playAnimation()
             if (uid.isNotEmpty()) {
                 lifecycleScope.launch {
-                    if (!viewModel.isBookMarked()){
                         if (numSearch == 1) {
                             viewModel.addBookToReadList(1)
                         } else {
                             viewModel.addBookToReadList()
                         }
-                    }else{
-                        Toast.makeText(context, "book already in the list ", Toast.LENGTH_SHORT).show()
-                    }
                 }
+            }else{
+                Toast.makeText(context, "You have to sign in to add the book", Toast.LENGTH_SHORT).show()
             }
         }
         return binding.root

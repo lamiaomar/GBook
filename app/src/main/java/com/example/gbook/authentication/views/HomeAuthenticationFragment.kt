@@ -72,9 +72,6 @@ class HomeAuthenticationFragment : Fragment() {
                 HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToRegistrationFragment()
             btnSignOut.findNavController().navigate(action)
 
-            Toast.makeText(this.context, "signed out", Toast.LENGTH_SHORT).show()
-
-
         }
 
         binding.calender.setOnClickListener {

@@ -14,17 +14,14 @@
         android:title="search"/>
 
     <item
-        android:id="@+id/bookShelfFragment"
+        android:id="@+id/bookShelfIsSignFragment"
         android:icon="@drawable/ic_baseline_menu_book_24"
-        android:title="userList"/>
+        android:title="@string/bookshelf"/>
 
     <item
         android:id="@+id/registrationFragment"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="profile"/>
-
-
-
 
 
 </menu>

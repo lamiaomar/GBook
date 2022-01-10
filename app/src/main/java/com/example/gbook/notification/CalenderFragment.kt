@@ -15,7 +15,6 @@ import com.example.gbook.notification.NotifyWork.Companion.NOTIFICATION_ID
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import com.google.android.material.snackbar.Snackbar.make
 import kotlinx.android.synthetic.main.fragment_calender.*
-import timber.log.Timber
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -23,7 +22,6 @@ import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.xml.datatype.DatatypeConstants.SECONDS
 
 
 class CalenderFragment : Fragment() {

@@ -19,5 +19,6 @@
     <string name="done">تم</string>
     <string name="edit_profile">تعديل الصفحة الشخصية</string>
     <string name="track">Track and organize the books \n you\'ve read or want to read</string>
-    <string name="sign_up">SIGN UP</string>
+    <string name="sign_up">تسجيل الدخول</string>
+    <string name="bookshelf">BookShelf</string>
 </resources>

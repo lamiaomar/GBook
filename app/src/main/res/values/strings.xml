@@ -49,8 +49,9 @@
     </string>
     <string name="done">Done</string>
     <string name="edit_profile">Edit Profile</string>
-    <string name="track">Track and organize the books \n youve read or want to read</string>
+    <string name="track">Track and organize the books \n you\'ve read or want to read</string>
     <string name="sign_up">SIGN UP</string>
+    <string name="bookshelf">BookShelf</string>
 
 
 </resources>

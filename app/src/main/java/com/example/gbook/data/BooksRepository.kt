@@ -26,13 +26,7 @@ class BooksRepository (
         booksRealTimeDataSource.addBookToReadList(book)
 
 
-    suspend fun isBookMarked(book : BookDetailsUiState): Boolean =
-        booksRealTimeDataSource.isBookMarked(book)
-
-
     suspend fun editUserProfile(userEdit : User) =
         booksRealTimeDataSource.editUserProfile(userEdit)
 }
 
-//    suspend fun getNumOfBookList() : Int =
-//        booksRealTimeDataSource.getNumOfBookList()

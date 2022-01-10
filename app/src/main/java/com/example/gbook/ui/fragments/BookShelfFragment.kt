@@ -1,6 +1,5 @@
 package com.example.gbook.ui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.example.gbook.BookShelfSplashFragmentDirections
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
-import com.example.gbook.MainActivity
+import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.data.firebase.BooksRealTimeDataSource
@@ -23,7 +19,7 @@ import com.example.gbook.databinding.FragmentBookShelfBinding
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.adapter.BookShelfAdapter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseUser
 
 class BookShelfFragment : Fragment() {
 
@@ -43,8 +39,6 @@ class BookShelfFragment : Fragment() {
 
     private lateinit var binding: FragmentBookShelfBinding
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,19 +54,23 @@ class BookShelfFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        viewModel.title.observe(viewLifecycleOwner, Observer { user ->
-            if ( uid.isEmpty()) {
-                val action = BookShelfFragmentDirections.actionBookShelfFragmentToBookShelfSplashFragment()
-                findNavController().navigate(action)
-            }
-        })
-
-
         binding.shelfRecycler.adapter =
             BookShelfAdapter({ viewModel.deleteBookFromList(book = it) },
                 { shareBook(book = it) })
 
 
+
+
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.lifecycleOwner = this
+
+        binding.viewModel = viewModel
 
         if (uid.isNotEmpty()) {
             viewModel.getBooksToRead()
@@ -81,15 +79,8 @@ class BookShelfFragment : Fragment() {
             Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
 
         }
-
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
 
     private fun shareBook(book : BookDetailsUiState) {

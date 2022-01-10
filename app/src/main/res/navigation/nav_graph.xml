@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_bookShelfFragment_to_bookShelfSplashFragment"
             app:destination="@id/bookShelfSplashFragment" />
+        <action
+            android:id="@+id/action_bookShelfFragment_to_bookShelfIsSignFragment"
+            app:destination="@id/bookShelfIsSignFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -129,5 +132,16 @@
         <action
             android:id="@+id/action_bookShelfSplashFragment_to_bookShelfFragment"
             app:destination="@id/bookShelfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookShelfIsSignFragment"
+        android:name="com.example.gbook.ui.fragments.BookShelfIsSignFragment"
+        android:label="BookShelfIsSignFragment" >
+        <action
+            android:id="@+id/action_bookShelfIsSignFragment_to_bookShelfFragment"
+            app:destination="@id/bookShelfFragment" />
+        <action
+            android:id="@+id/action_bookShelfIsSignFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
 </navigation>
