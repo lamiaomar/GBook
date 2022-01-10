@@ -72,14 +72,16 @@ class HomeAuthenticationFragment : Fragment() {
                 HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToRegistrationFragment()
             btnSignOut.findNavController().navigate(action)
 
-            Toast.makeText(this.context, "signed out", Toast.LENGTH_SHORT).show()
-
-
         }
 
         binding.calender.setOnClickListener {
             val action = HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToCalenderFragment()
            calender.findNavController().navigate(action)
+        }
+
+        binding.edit.setOnClickListener {
+            val action = HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToEditProfileFragment()
+            edit.findNavController().navigate(action)
         }
 
         return binding.root

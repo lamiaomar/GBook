@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
-import com.example.gbook.MainActivity
+import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.data.firebase.BooksRealTimeDataSource
@@ -19,14 +19,13 @@ import com.example.gbook.databinding.FragmentBookShelfBinding
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.adapter.BookShelfAdapter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseUser
 
 class BookShelfFragment : Fragment() {
 
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var uid: String
+    var auth = FirebaseAuth.getInstance()
+   var uid = auth.currentUser?.uid.toString()
 
     private val viewModel: BookViewmodel by activityViewModels {
         val bookApi = BooksApi.retrofitService
@@ -46,6 +45,8 @@ class BookShelfFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
         binding = FragmentBookShelfBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
@@ -57,11 +58,19 @@ class BookShelfFragment : Fragment() {
             BookShelfAdapter({ viewModel.deleteBookFromList(book = it) },
                 { shareBook(book = it) })
 
-        auth = FirebaseAuth.getInstance()
-        uid = auth.currentUser?.uid.toString()
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("users")
 
+
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.lifecycleOwner = this
+
+        binding.viewModel = viewModel
 
         if (uid.isNotEmpty()) {
             viewModel.getBooksToRead()
@@ -70,15 +79,8 @@ class BookShelfFragment : Fragment() {
             Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
 
         }
-
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
 
     private fun shareBook(book : BookDetailsUiState) {

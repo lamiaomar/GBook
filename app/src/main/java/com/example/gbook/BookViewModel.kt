@@ -6,11 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gbook.authentication.User
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.ui.BookCategoryUiState
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.BooksDataUiState
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -22,6 +24,9 @@ class BookViewmodel(
     private val booksRepository: BooksRepository
 ) : ViewModel() {
 
+
+    var auth = FirebaseAuth.getInstance()
+    var uid = auth.currentUser?.uid.toString()
 
     private val _searchResultUi = MutableStateFlow(BooksDataUiState())
     val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
@@ -83,6 +88,7 @@ class BookViewmodel(
         }
     }
 
+
     private fun setItemUiState(volume: BooksData): List<BookDetailsUiState> {
 
         val data = volume.items!!.map { item ->
@@ -98,6 +104,7 @@ class BookViewmodel(
         }
         return data
     }
+
 
     fun displayBookDetails(displayPosition: Int, bookTitle: String, search: Int) {
 
@@ -130,6 +137,7 @@ class BookViewmodel(
 
     }
 
+
     private fun setBookDetails(details: BookDetailsUiState?) {
         title.value = details?.title
         bookCover.value = details?.bookCover
@@ -139,6 +147,7 @@ class BookViewmodel(
         publishedDate.value = details?.publishedDate
 
     }
+
 
     fun getSearchBook(query: String?) {
         viewModelScope.launch {
@@ -157,6 +166,8 @@ class BookViewmodel(
 
 
     // region Firebase
+
+
     fun addBookToReadList(search: Int = 0) {
 
         viewModelScope.launch {
@@ -179,6 +190,7 @@ class BookViewmodel(
         }
     }
 
+
     fun getBooksToRead() {
         viewModelScope.launch {
             val data = booksRepository.getBooksToRead()
@@ -198,6 +210,7 @@ class BookViewmodel(
         }
     }
 
+
     fun displayBookDetailsFromList(position: Int) {
         title.value = _bookShelfResultUi.value.books[position].title
         description.value = _bookShelfResultUi.value.books[position].description
@@ -206,6 +219,7 @@ class BookViewmodel(
         pageCount.value = _bookShelfResultUi.value.books[position].pageCount
         publishedDate.value = _bookShelfResultUi.value.books[position].publishedDate
     }
+
 
     fun deleteBookFromList(book: BookDetailsUiState) {
         viewModelScope.launch {
@@ -217,20 +231,15 @@ class BookViewmodel(
         }
     }
 
-  suspend  fun isBookMarked(): Boolean
-  = viewModelScope.async { booksRepository.isBookMarked(
-      bookCategoryResultUi.value.categoryList[categoryNum]
-          .books.get(books)
-  ) }.await()
+
+    fun editUserProfile(userEdit: User) {
+        viewModelScope.launch {
+            booksRepository.editUserProfile(userEdit)
+        }
+    }
 
 
-/*suspend fun getNumOfBookList(): Int = viewModelScope.async {
-booksRepository.getNumOfBookList()
-}.await()
-*/
-
-
-//endregion
+    //endregion
 
 }
 

@@ -25,7 +25,6 @@
             </intent-filter>
 
         </activity>
-        <receiver android:name=".notification.receiver.AlarmReceiver" />
 
     </application>
 

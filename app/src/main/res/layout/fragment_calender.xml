@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/black"
+            app:contentScrim="@color/light_blue"
             app:expandedTitleMarginBottom="32dp"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
+                android:background="@color/blue"
                 android:contentDescription="@string/app_name"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
@@ -51,11 +51,6 @@
                 app:elevation="8dp"
                 app:layout_collapseMode="pin" />
 
-            <Button
-                android:id="@+id/done_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -101,17 +96,19 @@
                 android:layout_below="@+id/date_p"
                 android:timePickerMode="spinner" />
 
+
             <Button
-                android:id="@+id/setRepe"
+                android:id="@+id/done_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="308dp"
-                android:layout_marginBottom="14dp"
-                android:text="Button" />
+                android:layout_marginStart="160dp"
+                android:layout_marginEnd="157dp"
+                android:layout_marginBottom="6dp"
+                android:text="@string/done" />
+
 
         </RelativeLayout>
 
