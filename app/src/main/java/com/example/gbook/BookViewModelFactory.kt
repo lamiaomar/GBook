@@ -15,8 +15,8 @@ class BookViewModelFactory constructor(
             modelClass.isAssignableFrom(BookViewmodel::class.java) ->
                 BookViewmodel(booksRepository) as T
 
-            modelClass.isAssignableFrom(UserViewModel::class.java) ->
-                UserViewModel(booksRepository) as T
+//            modelClass.isAssignableFrom(UserViewModel::class.java) ->
+//                UserViewModel(booksRepository) as T
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class")
 

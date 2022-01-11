@@ -3,6 +3,7 @@ package com.example.gbook.notification
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,7 @@ class CalenderFragment : Fragment() {
             if (customTime > currentTime){
                 val data = Data.Builder().putInt(NOTIFICATION_ID , 0).build()
                 val delay = customTime - currentTime
+                Log.e("TAG", "userInterface: $delay", )
                 scheduleNotification(delay, data)
 
                 val titleNotificationSchedule = getString(R.string.notification_schedule_title)
@@ -93,18 +95,19 @@ class CalenderFragment : Fragment() {
 //        WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
 
 
-        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.DAYS)
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 60, TimeUnit.MINUTES)
+            .setInitialDelay(3000, TimeUnit.MILLISECONDS)
             .build()
 
-        WorkManager.getInstance(requireContext())
-            .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
+//        WorkManager.getInstance(requireContext())
+//            .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
 //        scheduleNotification(cal.timeInMillis, data)
 
 
 
 //        val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.MINUTES , delay,TimeUnit.MINUTES)
 //            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
+//
 //        WorkManager.getInstance(requireContext()).enqueue(x)
 //        WorkManager.getInstance().getWorkInfoByIdLiveData(x.id)
 //            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { workInfo ->

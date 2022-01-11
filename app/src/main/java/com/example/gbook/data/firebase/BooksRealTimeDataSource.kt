@@ -1,6 +1,7 @@
 package com.example.gbook.data.firebase
 
 import android.util.Log
+import android.widget.Toast
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils
 import com.example.gbook.ui.BookDetailsUiState
@@ -8,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 class BooksRealTimeDataSource(
@@ -116,11 +118,6 @@ class BooksRealTimeDataSource(
     }
 
 
-    suspend fun addUserToDB(newUser: User) = withContext(ioDispatcher) {
-        databaseReference.child(uid).setValue(newUser)
-    }
-
-
     suspend fun signInUser(
         signInEmail: String, signInPassword: String
     ) = withContext(ioDispatcher) {
@@ -128,30 +125,30 @@ class BooksRealTimeDataSource(
             .signInWithEmailAndPassword(
                 signInEmail,
                 signInPassword
-            )
+            ).addOnSuccessListener {
+                uid = auth.currentUser?.uid.toString()
+            }
 
     }
 
 
-//    suspend fun getUser
+    suspend fun signIn(newUser: User , password : String)
+    = withContext(ioDispatcher){
 
+        if (newUser.email != null){
+            val userEmail = newUser.email
+            FirebaseUtils.firebaseAuth.createUserWithEmailAndPassword(userEmail!!, password)
+                .addOnCompleteListener { task ->
+                    val uid = auth.currentUser?.uid.toString()
+                    if (task.isSuccessful) {
+                        if (uid.isNotEmpty()) {
+                            databaseReference.child(uid).setValue(newUser)
+                        }
 
-/*    suspend fun signIn(newUser: User , password : String)
-//    = withContext(ioDispatcher){
-//        if (newUser.email != null){
-//            FirebaseUtils.firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-//                .addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//
-//                        addUserDataToDB(newUser)
-//
-//                        operationState = true
-//
-//                        sendEmailVerification()
-//                    }
-//                }
-//        }}
-*/
+                    }
+                }
+        }}
+
 
 
 }

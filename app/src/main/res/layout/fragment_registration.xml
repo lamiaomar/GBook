@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gbook.UserViewModel" />
+            type="com.example.gbook.BookViewmodel" />
 
     </data>
 
@@ -313,8 +313,6 @@
             app:layout_constraintHorizontal_bias="0.018"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/genders" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

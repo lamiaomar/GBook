@@ -7,11 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gbook.authentication.User
+import com.example.gbook.authentication.utils.FirebaseUtils
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRepository
 import com.example.gbook.ui.BookCategoryUiState
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.BooksDataUiState
+import com.example.gbook.ui.UserUiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.*
@@ -36,6 +38,11 @@ class BookViewmodel(
 
     private val _bookShelfResultUi = MutableStateFlow(BooksDataUiState())
     val bookShelfResultUi: StateFlow<BooksDataUiState> = _bookShelfResultUi.asStateFlow()
+
+
+    private val _userResultUi = MutableStateFlow(UserUiState())
+    val userResultUi: StateFlow<UserUiState> = _userResultUi.asStateFlow()
+
 
     //region values to display books details
     var title = MutableLiveData<String?>()
@@ -235,6 +242,55 @@ class BookViewmodel(
     fun editUserProfile(userEdit: User) {
         viewModelScope.launch {
             booksRepository.editUserProfile(userEdit)
+        }
+    }
+
+
+    var operationState = false
+
+    fun signIn(newUser: User, password: String) {
+        viewModelScope.launch {
+
+            booksRepository.signIn(newUser, password)
+            operationState = true
+            sendEmailVerification()
+
+        }
+
+    }
+
+
+    private fun sendEmailVerification() {
+        FirebaseUtils.firebaseUser?.sendEmailVerification()
+    }
+
+    fun signInUser(signInEmail: String, signInPassword: String) {
+        viewModelScope.launch {
+            booksRepository.signInUser(signInEmail, signInPassword)
+        }
+    }
+
+
+    fun onSuccesses(): Boolean {
+        return operationState
+    }
+
+    fun getUserData() {
+        viewModelScope.launch {
+            val user = booksRepository.getBooksToRead()
+            _userResultUi.update {
+                it.copy(
+                    booksNumberInList = user.booksNumberInList,
+                    firstName = user.firstName,
+                    lastName = user.lastName,
+                    day = user.day,
+                    month = user.month,
+                    year = user.year,
+                    email = user.email,
+                    gender = user.gender,
+//                    booksNumberInList = user.booksNumberInList
+                )
+            }
         }
     }
 

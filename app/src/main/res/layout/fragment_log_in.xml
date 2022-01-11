@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.gbook.UserViewModel" />
+            type="com.example.gbook.BookViewmodel" />
 
     </data>
 

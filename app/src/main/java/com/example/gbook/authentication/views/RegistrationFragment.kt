@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.gbook.BookViewModelFactory
+import com.example.gbook.BookViewmodel
 import com.example.gbook.R
-import com.example.gbook.UserViewModel
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.data.BooksRemoteDataSource
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_registration.gender
 class RegistrationFragment : Fragment() {
 
 
-    private val viewModel: UserViewModel by activityViewModels {
+    private val viewModel: BookViewmodel by activityViewModels {
         val bookApi = BooksApi.retrofitService
 
         val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
@@ -81,9 +81,10 @@ class RegistrationFragment : Fragment() {
                         RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
                     btnSignIn2.findNavController().navigate(action)
 
-                }else{
-                    Toast.makeText(context, "Failed registration", Toast.LENGTH_SHORT).show()
                 }
+//                else{
+//                    Toast.makeText(context, "Failed registration", Toast.LENGTH_SHORT).show()
+//                }
 
             }
         }

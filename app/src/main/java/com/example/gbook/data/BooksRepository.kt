@@ -31,11 +31,12 @@ class BooksRepository(
         booksRealTimeDataSource.editUserProfile(userEdit)
 
 
-    suspend fun addUserToDB(newUser: User) =
-        booksRealTimeDataSource.addUserToDB(newUser)
+    suspend fun signInUser(signInEmail: String, signInPassword: String) =
+        booksRealTimeDataSource.signInUser(signInEmail, signInPassword)
 
-    suspend fun signInUser(
-        signInEmail: String, signInPassword: String)=
-        booksRealTimeDataSource.signInUser(signInEmail , signInPassword)
+
+    suspend fun signIn(newUser: User, password: String) =
+        booksRealTimeDataSource.signIn(newUser, password)
+
 }
 
