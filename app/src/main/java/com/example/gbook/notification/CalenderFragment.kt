@@ -81,61 +81,15 @@ class CalenderFragment : Fragment() {
         }
     }
 
+
     private fun scheduleNotification(delay: Long, data: Data) {
-//        val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java)
-//            .setInitialDelay(delay, MILLISECONDS).setInputData(data).build()
-//
-//        val instanceWorkManager = WorkManager.getInstance(requireContext())
-//        instanceWorkManager.beginUniqueWork(NOTIFICATION_WORK,
-//            ExistingWorkPolicy.KEEP, notificationWork).enqueue()
 
-
-//        val periodicWorkRequest = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.MINUTES)
-//            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
-//        WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
-
-
-        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 60, TimeUnit.MINUTES)
-            .setInitialDelay(3000, TimeUnit.MILLISECONDS)
+        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.DAYS)
             .build()
-
-//        WorkManager.getInstance(requireContext())
-//            .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
-//        scheduleNotification(cal.timeInMillis, data)
-
-
-
-//        val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.MINUTES , delay,TimeUnit.MINUTES)
-//            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
-//
-//        WorkManager.getInstance(requireContext()).enqueue(x)
-//        WorkManager.getInstance().getWorkInfoByIdLiveData(x.id)
-//            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { workInfo ->
-//                if ((workInfo != null) && (workInfo.state == WorkInfo.State.ENQUEUED)){
-//               val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
-//                }
-//            })
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun Context.enqueueReminderWorker(
-        localTime: LocalTime
-    ) {
-        val now = ZonedDateTime.now()
-        val trigger = now.with(localTime)
-        val realTrigger = when {
-            trigger <= now -> trigger.plusDays(1)
-            else -> trigger
-        }
-
-        val initialDelay = maxOf(1, realTrigger.toEpochSecond() - Instant.now().epochSecond)
-
-        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.MINUTES)
-            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
-            .build()
-
-        WorkManager.getInstance(this)
+        WorkManager.getInstance(requireContext())
             .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
+       // scheduleNotification(cal.timeInMillis, data)
+
     }
+
 }

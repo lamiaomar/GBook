@@ -23,7 +23,8 @@ class BooksRealTimeDataSource(
     private var uid: String = auth.currentUser?.uid.toString()
 
 
-    suspend fun getBooksToRead(): User = withContext(ioDispatcher) {
+    suspend fun getBooksToRead(): User
+    = withContext(ioDispatcher) {
         uid = auth.currentUser?.uid.toString()
         databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -48,7 +49,8 @@ class BooksRealTimeDataSource(
     }
 
 
-    suspend fun addBookToReadList(book: BookDetailsUiState) = withContext(ioDispatcher) {
+    suspend fun addBookToReadList(book: BookDetailsUiState)
+    = withContext(ioDispatcher) {
         uid = auth.currentUser?.uid.toString()
         databaseReference.child(uid).addListenerForSingleValueEvent(
             object : ValueEventListener {
@@ -75,7 +77,8 @@ class BooksRealTimeDataSource(
     }
 
 
-    suspend fun deleteBookFromList(book: BookDetailsUiState) = withContext(ioDispatcher) {
+    suspend fun deleteBookFromList(book: BookDetailsUiState)
+    = withContext(ioDispatcher) {
         uid = auth.currentUser?.uid.toString()
         databaseReference.child(uid).addListenerForSingleValueEvent(
             object : ValueEventListener {
@@ -99,7 +102,8 @@ class BooksRealTimeDataSource(
     }
 
 
-    suspend fun editUserProfile(userEdit: User) = withContext(ioDispatcher) {
+    suspend fun editUserProfile(userEdit: User)
+    = withContext(ioDispatcher) {
         uid = auth.currentUser?.uid.toString()
         databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -118,9 +122,8 @@ class BooksRealTimeDataSource(
     }
 
 
-    suspend fun signInUser(
-        signInEmail: String, signInPassword: String
-    ) = withContext(ioDispatcher) {
+    suspend fun signInUser(signInEmail: String, signInPassword: String)
+    = withContext(ioDispatcher) {
         FirebaseUtils.firebaseAuth
             .signInWithEmailAndPassword(
                 signInEmail,

@@ -25,16 +25,24 @@ import com.example.gbook.MainActivity
 import com.example.gbook.R
 import com.example.gbook.notification.extension.vectorToBitmap
 
+
+object  Id{
+    var i=0
+    get() =
+        field++
+
+}
 class NotifyWork (context: Context, params: WorkerParameters) : Worker(context, params) {
 
 
     override fun doWork(): Result {
 
-        val id = inputData.getLong(NOTIFICATION_ID , 0 ).toInt()
+        val id = Id.i
         sendNotification(id)
 
         return Result.success()
     }
+
 
     private fun sendNotification(id: Int) {
         val intent = Intent(applicationContext ,MainActivity::class.java)
@@ -76,11 +84,13 @@ class NotifyWork (context: Context, params: WorkerParameters) : Worker(context, 
 
     }
 
+
     companion object {
         const val NOTIFICATION_ID = "appName_notification_id"
         const val NOTIFICATION_NAME = "appName"
         const val NOTIFICATION_CHANNEL = "appName_channel_01"
         const val NOTIFICATION_WORK = "appName_notification_work"
     }
+
 
 }

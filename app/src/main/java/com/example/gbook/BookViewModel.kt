@@ -26,7 +26,6 @@ class BookViewmodel(
     private val booksRepository: BooksRepository
 ) : ViewModel() {
 
-
     var auth = FirebaseAuth.getInstance()
     var uid = auth.currentUser?.uid.toString()
 
@@ -201,6 +200,18 @@ class BookViewmodel(
     fun getBooksToRead() {
         viewModelScope.launch {
             val data = booksRepository.getBooksToRead()
+//            _userResultUi.update { it ->
+//                it.copy(toReadList = data.toReadList.map {
+//                    BookDetailsUiState(
+//                        title = it.title,
+//                        bookCover = it.bookCover,
+//                        description = it.description,
+//                        averageRating = it.averageRating,
+//                        pageCount = it.pageCount,
+//                        publishedDate = it.publishedDate
+//                    )
+//                } as MutableList<BookDetailsUiState>)
+//            }
             _bookShelfResultUi.update { it ->
                 it.copy(books = data.toReadList.map {
                     BookDetailsUiState(
@@ -248,9 +259,9 @@ class BookViewmodel(
 
     var operationState = false
 
+
     fun signIn(newUser: User, password: String) {
         viewModelScope.launch {
-
             booksRepository.signIn(newUser, password)
             operationState = true
             sendEmailVerification()
@@ -264,6 +275,7 @@ class BookViewmodel(
         FirebaseUtils.firebaseUser?.sendEmailVerification()
     }
 
+
     fun signInUser(signInEmail: String, signInPassword: String) {
         viewModelScope.launch {
             booksRepository.signInUser(signInEmail, signInPassword)
@@ -275,12 +287,12 @@ class BookViewmodel(
         return operationState
     }
 
+
     fun getUserData() {
         viewModelScope.launch {
             val user = booksRepository.getBooksToRead()
             _userResultUi.update {
                 it.copy(
-                    booksNumberInList = user.booksNumberInList,
                     firstName = user.firstName,
                     lastName = user.lastName,
                     day = user.day,
@@ -288,7 +300,7 @@ class BookViewmodel(
                     year = user.year,
                     email = user.email,
                     gender = user.gender,
-//                    booksNumberInList = user.booksNumberInList
+                    booksNumberInList = user.booksNumberInList
                 )
             }
         }

@@ -67,8 +67,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <!--                android:text="@{viewModel.userResultUi.booksNumberInList}"-->
-
                 <TextView
                     android:id="@+id/books_number"
                     android:layout_width="wrap_content"
@@ -81,14 +79,12 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageView4" />
-                <!--                android:text="@{viewModel.userResultUi.booksNumberInList}"-->
 
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -210,16 +206,37 @@
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="36dp"
+            android:text="-"
+            app:layout_constraintBottom_toTopOf="@+id/gender"
+            app:layout_constraintStart_toEndOf="@+id/userMonth" />
+
+        <TextView
+            android:id="@+id/score1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="36dp"
+            android:text="-"
+            app:layout_constraintBottom_toTopOf="@+id/gender"
+            app:layout_constraintStart_toEndOf="@+id/userDate" />
+
         <TextView
             android:id="@+id/userMonth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="28dp"
             android:text="@{viewModel.userResultUi.month}"
             android:textColor="@color/black"
             android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@+id/userDate"
+            app:layout_constraintStart_toEndOf="@+id/score1"
             app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
 
@@ -227,12 +244,12 @@
             android:id="@+id/userYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="28dp"
             android:text="@{viewModel.userResultUi.year}"
             android:textColor="@color/black"
             android:textSize="15dp"
-            app:layout_constraintStart_toEndOf="@+id/userMonth"
+            app:layout_constraintStart_toEndOf="@+id/score"
             app:layout_constraintTop_toBottomOf="@+id/userEmail" />
 
         <TextView
@@ -337,16 +354,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!--        <com.androidplot.pie.PieChart-->
-        <!--            android:id="@+id/pie_chart"-->
-        <!--            android:layout_width="195dp"-->
-        <!--            android:layout_height="160dp"-->
-        <!--            android:layout_marginStart="84dp"-->
-        <!--            android:layout_marginTop="14dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/challenge"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/btnSignOut" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
