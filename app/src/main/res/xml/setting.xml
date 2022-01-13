@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    <PreferenceCategory android:title="Reminder Options">-->
+
+<!--        <EditTextPreference-->
+<!--            android:defaultValue="Default value"-->
+<!--            android:key="edit_text_preference_1"-->
+<!--            android:selectAllOnFocus="true"-->
+<!--            android:singleLine="true"-->
+<!--            android:title="set time " />-->
+<!--        <MultiSelectListPreference-->
+<!--            android:defaultValue="@array/entities"-->
+<!--            android:entries="@array/entities"-->
+<!--            android:entryValues="@array/values"-->
+<!--            android:key="multi_pref_1"-->
+<!--            android:title="Select Days" />-->
+<!--        <SwitchPreference-->
+<!--            android:defaultValue="true"-->
+<!--            android:key="switch_preference_1"-->
+<!--            android:title="Alarm Active" />-->
+<!--    </PreferenceCategory>-->
+<!--    <PreferenceCategory android:title="Other Settings">-->
+
+<!--        <CheckBoxPreference-->
+<!--            android:defaultValue="false"-->
+<!--            android:key="check_box_preference_1"-->
+<!--            android:title="Show Notification" />-->
+<!--        <ListPreference-->
+<!--            android:entries="@array/prio"-->
+<!--            android:entryValues="@array/prio"-->
+<!--            android:key="list_preference_1"-->
+<!--            android:title="Choose Priority" />-->
+<!--    </PreferenceCategory>-->
+    <PreferenceCategory android:title="Setting">
+
+        <SwitchPreference
+            app:title="Background"
+            app:key="background"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_baseline_lightbulb_24"
+           />
+
+
+        <ListPreference android:title="Dark Mode"
+            android:key="dark_mode"
+            app:useSimpleSummaryProvider="true"
+            android:defaultValue="1"
+            android:entries="@array/dark_mode"
+            android:entryValues="@array/dark_mode_vlues"
+            android:icon="@drawable/ic_baseline_dark_mode_24"/>
+
+
+        <ListPreference android:title="Language"
+            android:key="language"
+            app:useSimpleSummaryProvider="true"
+            android:defaultValue="1"
+            android:entries="@array/language"
+            android:entryValues="@array/language_values"
+            android:icon="@drawable/ic_baseline_language_24"
+            />
+
+
+    </PreferenceCategory>
+</PreferenceScreen>

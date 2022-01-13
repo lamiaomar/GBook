@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.gbook.BookViewmodel
-import com.example.gbook.authentication.BookList
-import com.example.gbook.authentication.User
 import com.example.gbook.databinding.FragmentBookDetailsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 private const val POSITION = "title"
 private const val LISTNUM = "bookTitle"
@@ -25,8 +26,6 @@ class BookDetailsFragment : Fragment() {
     private val viewModel: BookViewmodel by activityViewModels()
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var user: User
     private lateinit var uid: String
 
     private var displayPosition: Int = 0
@@ -34,12 +33,12 @@ class BookDetailsFragment : Fragment() {
     private var numSearch: Int = 0
 
 
-    lateinit var binding : FragmentBookDetailsBinding
+    lateinit var binding: FragmentBookDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
         arguments?.let {
             displayPosition = it.getInt(POSITION)
@@ -57,7 +56,7 @@ class BookDetailsFragment : Fragment() {
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
-         binding = FragmentBookDetailsBinding.inflate(inflater)
+        binding = FragmentBookDetailsBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
@@ -65,32 +64,29 @@ class BookDetailsFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
-        databaseReference = FirebaseDatabase.getInstance().getReference("users")
-
-
-        binding.animationView.pauseAnimation()
 
         binding.animationView.setOnClickListener {
             binding.animationView.playAnimation()
             if (uid.isNotEmpty()) {
-//             viewModel.addBookToReadList(displayPosition, numOfList)
-            } else {
-                Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
-
+                lifecycleScope.launch {
+                        if (numSearch == 1) {
+                            viewModel.addBookToReadList(1)
+                        } else {
+                            viewModel.addBookToReadList()
+                        }
+                }
+            }else{
+                Toast.makeText(context, "You have to sign in to add the book", Toast.LENGTH_SHORT).show()
             }
-
         }
-
         return binding.root
-
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.displayBookDetails(displayPosition, bookTitle , numSearch)
-        Log.e("itemDisplay","$displayPosition")
+        viewModel.displayBookDetails(displayPosition, bookTitle, numSearch)
 
     }
 
@@ -98,10 +94,8 @@ class BookDetailsFragment : Fragment() {
         super.onDestroy()
         bookTitle = ""
         displayPosition = 0
-
         binding.descriptionText.text = null
         binding.title.title = null
-//        binding.bookCover.image = null
 
     }
 }

@@ -107,8 +107,8 @@
                         app:layout_constraintHorizontal_bias="0.92"
                         app:layout_constraintStart_toEndOf="@+id/textView"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
+                        app:lottie_autoPlay="false"
+                        app:lottie_loop="false"
                         app:lottie_rawRes="@raw/colorbookmark" />
 
                     <TextView

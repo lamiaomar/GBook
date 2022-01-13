@@ -1,23 +1,42 @@
 package com.example.gbook.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.gbook.authentication.User
+import androidx.fragment.app.activityViewModels
+import com.example.gbook.BookViewModelFactory
+import com.example.gbook.BookViewmodel
+import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
+import com.example.gbook.data.BooksRemoteDataSource
+import com.example.gbook.data.BooksRepository
+import com.example.gbook.data.firebase.BooksRealTimeDataSource
+import com.example.gbook.data.network.BooksApi
 import com.example.gbook.databinding.FragmentBookShelfBinding
+import com.example.gbook.ui.BookDetailsUiState
+import com.example.gbook.ui.adapter.BookShelfAdapter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseUser
 
 class BookShelfFragment : Fragment() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var user: User
-    private lateinit var uid: String
+
+    var auth = FirebaseAuth.getInstance()
+   var uid = auth.currentUser?.uid.toString()
+
+    private val viewModel: BookViewmodel by activityViewModels {
+        val bookApi = BooksApi.retrofitService
+
+        val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
+        val booksRealTimeDataSource = BooksRealTimeDataSource()
+
+        val repo = BooksRepository(booksRemoteDataSource, booksRealTimeDataSource)
+        BookViewModelFactory(repo)
+    }
+
     private lateinit var binding: FragmentBookShelfBinding
 
     override fun onCreateView(
@@ -26,59 +45,54 @@ class BookShelfFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
         binding = FragmentBookShelfBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
-        auth = FirebaseAuth.getInstance()
-        uid = auth.currentUser?.uid.toString()
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("users")
+        binding.viewModel = viewModel
 
 
-        if (uid.isNotEmpty()) {
-            getUserData()
-        } else {
-            Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
+        binding.shelfRecycler.adapter =
+            BookShelfAdapter({ viewModel.deleteBookFromList(book = it) },
+                { shareBook(book = it) })
 
-        }
+
+
+
 
         return binding.root
     }
 
-    private fun getUserData() {
-        try {
-//            databaseReference.addChildEventListener({
-//
-//            })
-            databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
+    override fun onResume() {
+        super.onResume()
 
-//                    for (post in snapshot.children) {
-//                        var x = 0
-//                        user = snapshot.getValue(User::class.java)!!
-//                        for (item in user.userLists!! ){
-//                        Log.e("list", "${user.userLists?.get(x)}")
-//                        ++x
-//                        }
-//                        //binding.userName.setText(user.userLists?.[item.toInt()])
-//                    }
+        binding.lifecycleOwner = this
 
-                }
+        binding.viewModel = viewModel
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-                }
-            })
-        } catch (e: Exception) {
-            Toast.makeText(this.context, "uid1 is empty", Toast.LENGTH_SHORT).show()
+        if (uid.isNotEmpty()) {
+            viewModel.getBooksToRead()
+
+        } else {
+            Toast.makeText(this.context, "uid is empty", Toast.LENGTH_SHORT).show()
+
         }
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//    }
+
+
+    private fun shareBook(book : BookDetailsUiState) {
+        val intent = Intent(Intent.ACTION_SEND).putExtra(
+            Intent.EXTRA_TEXT ,
+            "I'm reading ${book.title} ,great book" +
+                    ",it is about.. ${book.description}"
+        ).setType("text/plain")
+        val shareIntent = Intent.createChooser(intent, "GBook")
+        context?.startActivity(shareIntent)
+
+    }
 
 
 }

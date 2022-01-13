@@ -1,6 +1,5 @@
 package com.example.gbook.ui.adapter
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -13,11 +12,9 @@ import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    Log.e("imgUrl", "$imgUrl")
 
     imgUrl.let {
         val imgUri = imgUrl?.toUri()?.buildUpon()?.build()
-        Log.e("imgUri", "$imgUri")
         Glide.with(imgView.context)
             .load(imgUri)
             .centerCrop() // scale image to fill the entire ImageView
@@ -63,28 +60,11 @@ fun bindStatus(
 }
 
 
-@BindingAdapter("categoryList")
-fun bindCategoryList(
+@BindingAdapter("shelfList")
+fun bindShelfList(
     recyclerView: RecyclerView,
-    data: List<BooksDataUiState>?
+    data: List<BookDetailsUiState>? ,
 ) {
-    val adapter = recyclerView.adapter as CategoryBooksAdapter
+    val adapter = recyclerView.adapter as BookShelfAdapter
     adapter.submitList(data)
-
 }
-
-
-/*@BindingAdapter("booklist")
-//fun bindBookList(
-//    recyclerView: RecyclerView,
-//    bookDetails: List<BookDetailsUiState>?
-//) {
-//    Log.e("data", "$bookDetails")
-//
-//    val adapter = recyclerView.adapter as BooksAdapter?
-//    Log.e("data", "$adapter")
-//
-//    adapter?.submitList(bookDetails)
-//
-//}
-*/
