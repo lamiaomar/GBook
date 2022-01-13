@@ -85,7 +85,6 @@ class CalenderFragment : Fragment() {
             .build()
         WorkManager.getInstance(requireContext())
             .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
-       // scheduleNotification(cal.timeInMillis, data)
 
     }
 
