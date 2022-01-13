@@ -74,11 +74,24 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginBottom="80dp"
                     android:textColor="@color/black"
+                    android:text="0"
                     android:textSize="22dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/imageView4" />
+
+
+<!--                android:text="@{viewModel.userResultUi.booksNumberInList}"-->
+
+                <TextView
+                    android:id="@+id/numBooks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="84dp"
+                    android:layout_marginBottom="88dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView8" />
 
                 <TextView
                     android:id="@+id/date"
@@ -87,6 +100,7 @@
                     android:layout_marginStart="8dp"
                     android:textColor="@color/black"
                     android:textSize="15dp"
+                    android:text="@string/notification"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/calender"
                     app:layout_constraintTop_toBottomOf="@+id/books_number" />
@@ -275,7 +289,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="152dp"
             android:layout_marginEnd="24dp"
-            android:text="sign out"
+            android:text="@string/sign_out"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.966"
             app:layout_constraintStart_toStartOf="parent"
@@ -333,25 +347,25 @@
             app:srcCompat="@drawable/ic_baseline_edit_24" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/challenge"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="108dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="24dp"
-            android:hint="@string/number_of_books"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/challenge"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="108dp"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_marginStart="24dp"-->
+<!--            android:hint="@string/number_of_books"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageView">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/num_of_books"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="numberDecimal"
-                android:textSize="14dp" />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/num_of_books"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:inputType="numberDecimal"-->
+<!--                android:textSize="14dp" />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

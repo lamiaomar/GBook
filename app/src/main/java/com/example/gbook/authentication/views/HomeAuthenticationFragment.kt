@@ -61,6 +61,8 @@ class HomeAuthenticationFragment : Fragment() {
 
         if (uid.isNotEmpty()) {
           viewModel.getUserData()
+//            binding.numBooks.setText(viewModel.getUserData())
+
         } else {
             Toast.makeText(this.context, "uid empty", Toast.LENGTH_SHORT).show()
 
@@ -87,9 +89,9 @@ class HomeAuthenticationFragment : Fragment() {
             edit.findNavController().navigate(action)
         }
 
-        if (!(binding.challenge.num_of_books.text!!.isNotEmpty())){
-            userChallenge()
-        }
+//        if (!(binding.challenge.num_of_books.text!!.isNotEmpty())){
+//            userChallenge()
+//        }
 
         return binding.root
     }

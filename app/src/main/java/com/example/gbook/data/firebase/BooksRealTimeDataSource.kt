@@ -105,13 +105,34 @@ class BooksRealTimeDataSource(
     suspend fun editUserProfile(userEdit: User)
     = withContext(ioDispatcher) {
         uid = auth.currentUser?.uid.toString()
-        databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                databaseReference.child(uid).child("firstName")
-                    .setValue(userEdit.firstName)
+                if (userEdit.firstName!=""){
+                    databaseReference.child(uid).child("firstName")
+                        .setValue(userEdit.firstName)
+                }
+                if (userEdit.lastName!=""){
                 databaseReference.child(uid).child("lastName")
                     .setValue(userEdit.lastName)
+                }
+                if (userEdit.day!=""){
+                    databaseReference.child(uid).child("day")
+                        .setValue(userEdit.day)
+                }
+                if (userEdit.month!=""){
+                    databaseReference.child(uid).child("month")
+                        .setValue(userEdit.month)
+                }
+                if (userEdit.year!=""){
+                    databaseReference.child(uid).child("year")
+                        .setValue(userEdit.year)
+                }
+                if (userEdit.gender!=""){
+                    databaseReference.child(uid).child("gender")
+                        .setValue(userEdit.gender)
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {

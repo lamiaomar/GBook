@@ -1,14 +1,12 @@
 package com.example.gbook.notification
 
-import android.content.Context
-import android.os.Build
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.work.*
 import com.example.gbook.R
 import com.example.gbook.databinding.FragmentCalenderBinding
@@ -18,9 +16,6 @@ import com.google.android.material.snackbar.Snackbar.make
 import kotlinx.android.synthetic.main.fragment_calender.*
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalTime
-import java.time.ZonedDateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -28,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class CalenderFragment : Fragment() {
 
     lateinit var binding : FragmentCalenderBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,10 +81,16 @@ class CalenderFragment : Fragment() {
     private fun scheduleNotification(delay: Long, data: Data) {
 
         val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.DAYS)
+            .setInitialDelay(delay , TimeUnit.MILLISECONDS)
             .build()
         WorkManager.getInstance(requireContext())
             .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
        // scheduleNotification(cal.timeInMillis, data)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
 
     }
 

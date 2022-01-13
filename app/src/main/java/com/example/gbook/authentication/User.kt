@@ -3,15 +3,15 @@ package com.example.gbook.authentication
 import com.example.gbook.ui.BookDetailsUiState
 
 data class User(
-    var firstName: String? = "",
-    var lastName: String? = "",
-    var day: String? = "",
-    var month: String? = "",
-    var year: String? = "",
-    var email: String? = "",
-    var gender : String? = "",
-    var toReadList: MutableList<BookDetailsUiState> = mutableListOf(),
-    var booksNumberInList : Int = 0
+    val firstName: String? = "",
+    val lastName: String? = "",
+    val day: String? = "",
+    val month: String? = "",
+    val year: String? = "",
+    val email: String? = "",
+    val gender : String? = "",
+    val toReadList: MutableList<BookDetailsUiState> = mutableListOf(),
+    val booksNumberInList : Int = 0
 ) {}
 
 

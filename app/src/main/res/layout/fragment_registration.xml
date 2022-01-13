@@ -86,7 +86,7 @@
             android:layout_width="164dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -96,16 +96,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameId"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="172dp"
+            android:layout_width="176dp"
             android:layout_height="55dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:hint="@string/first_name"
-            app:layout_constraintEnd_toStartOf="@+id/id_name"
+            app:layout_constraintEnd_toStartOf="@+id/last_name_textinput"
             app:layout_constraintHorizontal_bias="0.406"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10">
@@ -122,13 +121,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/id_name"
+            android:id="@+id/last_name_textinput"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="172dp"
+            android:layout_width="176dp"
             android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:hint="last name"
+            android:hint="@string/last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10">
 
@@ -146,7 +145,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/EmailId"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="374dp"
+            android:layout_width="379dp"
             android:layout_height="57dp"
             android:layout_marginTop="16dp"
             android:hint="@string/email"
@@ -165,13 +164,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passlId"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="172dp"
+            android:layout_width="176dp"
             android:layout_height="55dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:hint="@string/password"
             app:layout_constraintEnd_toStartOf="@+id/repasslId"
-            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EmailId">
 
@@ -189,7 +187,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/repasslId"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="172dp"
+            android:layout_width="176dp"
             android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
@@ -275,7 +273,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/genders"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="374dp"
+            android:layout_width="379dp"
             android:layout_height="55dp"
             android:layout_marginTop="16dp"
             android:hint="@string/gender"
@@ -307,7 +305,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
-            android:text="Sign in instead"
+            android:text="@string/sign_in_instead"
             android:textColor="@color/blue"
             app:layout_constraintEnd_toStartOf="@+id/btnCreateAccount"
             app:layout_constraintHorizontal_bias="0.018"
