@@ -51,7 +51,12 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="track">Track and organize the books \n you\'ve read or want to read</string>
     <string name="sign_up">SIGN UP</string>
-    <string name="bookshelf">BookShelf</string>
+    <string name="bookshelf" translatable="false">BookShelf</string>
+    <string name="number_of_books">Number Of Books</string>
+    <string name="notification">Notification</string>
+    <string name="last_name">last name</string>
+    <string name="sign_in_instead">Sign in instead</string>
+    <string name="sign_out">sign out</string>
 
 
 </resources>

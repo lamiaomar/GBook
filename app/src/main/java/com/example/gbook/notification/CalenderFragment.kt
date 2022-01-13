@@ -1,13 +1,12 @@
 package com.example.gbook.notification
 
-import android.content.Context
-import android.os.Build
+
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.work.*
 import com.example.gbook.R
 import com.example.gbook.databinding.FragmentCalenderBinding
@@ -17,9 +16,6 @@ import com.google.android.material.snackbar.Snackbar.make
 import kotlinx.android.synthetic.main.fragment_calender.*
 import java.lang.System.currentTimeMillis
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalTime
-import java.time.ZonedDateTime
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -27,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class CalenderFragment : Fragment() {
 
     lateinit var binding : FragmentCalenderBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +57,7 @@ class CalenderFragment : Fragment() {
             if (customTime > currentTime){
                 val data = Data.Builder().putInt(NOTIFICATION_ID , 0).build()
                 val delay = customTime - currentTime
+                Log.e("TAG", "userInterface: $delay", )
                 scheduleNotification(delay, data)
 
                 val titleNotificationSchedule = getString(R.string.notification_schedule_title)
@@ -79,60 +77,20 @@ class CalenderFragment : Fragment() {
         }
     }
 
+
     private fun scheduleNotification(delay: Long, data: Data) {
-//        val notificationWork = OneTimeWorkRequest.Builder(NotifyWork::class.java)
-//            .setInitialDelay(delay, MILLISECONDS).setInputData(data).build()
-//
-//        val instanceWorkManager = WorkManager.getInstance(requireContext())
-//        instanceWorkManager.beginUniqueWork(NOTIFICATION_WORK,
-//            ExistingWorkPolicy.KEEP, notificationWork).enqueue()
-
-
-//        val periodicWorkRequest = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.MINUTES)
-//            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
-//        WorkManager.getInstance(requireContext()).enqueue(periodicWorkRequest)
-
 
         val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.DAYS)
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .setInitialDelay(delay , TimeUnit.MILLISECONDS)
             .build()
-
         WorkManager.getInstance(requireContext())
             .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
-//        scheduleNotification(cal.timeInMillis, data)
-
-
-
-//        val x = PeriodicWorkRequestBuilder<NotifyWork>(delay,TimeUnit.MINUTES , delay,TimeUnit.MINUTES)
-//            .setInitialDelay(delay,TimeUnit.MILLISECONDS).build()
-//        WorkManager.getInstance(requireContext()).enqueue(x)
-//        WorkManager.getInstance().getWorkInfoByIdLiveData(x.id)
-//            .observe(viewLifecycleOwner, androidx.lifecycle.Observer { workInfo ->
-//                if ((workInfo != null) && (workInfo.state == WorkInfo.State.ENQUEUED)){
-//               val myOutputData = workInfo.outputData.getString("KEY_MY_DATA")
-//                }
-//            })
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun Context.enqueueReminderWorker(
-        localTime: LocalTime
-    ) {
-        val now = ZonedDateTime.now()
-        val trigger = now.with(localTime)
-        val realTrigger = when {
-            trigger <= now -> trigger.plusDays(1)
-            else -> trigger
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
 
-        val initialDelay = maxOf(1, realTrigger.toEpochSecond() - Instant.now().epochSecond)
-
-        val notificationWork = PeriodicWorkRequest.Builder(NotifyWork::class.java, 1, TimeUnit.MINUTES)
-            .setInitialDelay(initialDelay, TimeUnit.MILLISECONDS)
-            .build()
-
-        WorkManager.getInstance(this)
-            .enqueueUniquePeriodicWork(NotifyWork.NOTIFICATION_NAME, ExistingPeriodicWorkPolicy.REPLACE, notificationWork)
     }
+
 }

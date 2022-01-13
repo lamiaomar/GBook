@@ -25,6 +25,18 @@ data class BookDetailsUiState(
     val bookmarked : Boolean = false
 )
 
+data class UserUiState(
+    val firstName: String? = "",
+    val lastName: String? = "",
+    val day: String? = "",
+    val month: String? = "",
+    val year: String? = "",
+    val email: String? = "",
+    val gender : String? = "",
+    val toReadList: MutableList<BookDetailsUiState> = mutableListOf(),
+    val booksNumberInList : Int = 0
+)
+
 
 /*
 ! BookCategoryUiState( BooksDataUiState( category , BookDetailsUiState) ,

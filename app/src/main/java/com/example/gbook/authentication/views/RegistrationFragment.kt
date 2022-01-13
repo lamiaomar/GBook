@@ -8,36 +8,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.example.gbook.BookViewModelFactory
+import com.example.gbook.BookViewmodel
 import com.example.gbook.R
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
-import com.example.gbook.authentication.utils.FirebaseUtils.firebaseUser
+import com.example.gbook.data.BooksRemoteDataSource
+import com.example.gbook.data.BooksRepository
+import com.example.gbook.data.firebase.BooksRealTimeDataSource
+import com.example.gbook.data.network.BooksApi
 import com.example.gbook.databinding.FragmentRegistrationBinding
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.fragment_home_authentication.*
 import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlinx.android.synthetic.main.fragment_registration.gender
 
 
 class RegistrationFragment : Fragment() {
 
-    lateinit var userEmail: String
-    lateinit var userPassword: String
-    lateinit var userFirstName: String
-    lateinit var userLastName: String
-    lateinit var userDay: String
-    lateinit var userMonth: String
-    lateinit var userYear: String
-    lateinit var userGender : String
+
+    private val viewModel: BookViewmodel by activityViewModels {
+        val bookApi = BooksApi.retrofitService
+
+        val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
+        val booksRealTimeDataSource = BooksRealTimeDataSource()
+
+        val repo = BooksRepository(booksRemoteDataSource, booksRealTimeDataSource)
+        BookViewModelFactory(repo)
+    }
 
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
     var createAccountInputsArray: Array<TextInputEditText?> = arrayOf(null, null, null)
 
 
@@ -57,9 +59,34 @@ class RegistrationFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
+        binding.viewModel = viewModel
+
 
         binding.btnCreateAccount.setOnClickListener {
-            signIn()
+            val user = User(
+                first_name.text.toString().trim(),
+                lastname.text.toString().trim(),
+                day.text.toString().trim(),
+                month.text.toString().trim(),
+                year.text.toString().trim(),
+                email.text.toString().trim(),
+                gender.text.toString().trim(),
+                mutableListOf(),
+                0)
+
+            if (identicalPassword()) {
+                viewModel.signIn(user , password.text.toString())
+                if (viewModel.onSuccesses()){
+                    val action =
+                        RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
+                    btnSignIn2.findNavController().navigate(action)
+
+                }
+//                else{
+//                    Toast.makeText(context, "Failed registration", Toast.LENGTH_SHORT).show()
+//                }
+
+            }
         }
 
         binding.btnSignIn2.setOnClickListener {
@@ -74,9 +101,8 @@ class RegistrationFragment : Fragment() {
         binding.month.setAdapter(adapter)
 
 
-
         val item = resources.getStringArray(R.array.gender)
-        val adapter2 = ArrayAdapter(requireContext() , R.layout.dropdown_item,item)
+        val adapter2 = ArrayAdapter(requireContext(), R.layout.dropdown_item, item)
         binding.gender.setAdapter(adapter2)
 
 
@@ -93,12 +119,12 @@ class RegistrationFragment : Fragment() {
             val action =
                 RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
             btnSignIn2.findNavController().navigate(action)
-
-            Toast.makeText(this.context, "welcome back", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun notEmpty(): Boolean = email.text.toString().trim().isNotEmpty() &&
+
+    private fun notEmpty(): Boolean
+    = email.text.toString().trim().isNotEmpty() &&
             password.text.toString().trim().isNotEmpty() &&
             re_password.text.toString().trim().isNotEmpty() &&
             first_name.text.toString().trim().isNotEmpty() &&
@@ -127,91 +153,5 @@ class RegistrationFragment : Fragment() {
         return identical
     }
 
-    private fun signIn() {
-        if (identicalPassword()) {
-            // identicalPassword() returns true only  when inputs are not empty and passwords are identical
-            userEmail = email.text.toString().trim()
-            userPassword = password.text.toString().trim()
-
-
-            /*create a user*/
-            firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            this.context,
-                            "created account successfully !",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        addUserDataToDB()
-
-                        sendEmailVerification()
-
-
-                        val action =
-                            RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
-                        btnSignIn2.findNavController().navigate(action)
-
-                    } else {
-                        Toast.makeText(this.context, "failed to Authenticate !", Toast.LENGTH_SHORT)
-                            .show()
-
-                    }
-                }
-        }
-    }
-
-
-    private fun addUserDataToDB() {
-        auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
-        databaseReference = FirebaseDatabase.getInstance().getReference("users")
-
-        userFirstName = first_name.text.toString().trim()
-        userLastName = lastname.text.toString().trim()
-        userDay = day.text.toString().trim()
-        userMonth = month.text.toString().trim()
-        userYear = year.text.toString().trim()
-        userEmail = email.text.toString().trim()
-        userGender = gender.text.toString().trim()
-
-
-        val user = User(
-            userFirstName,
-            userLastName,
-            userDay,
-            userMonth,
-            userYear,
-            userEmail,
-            userGender,
-            mutableListOf(),
-            0
-        )
-        if (uid != null) {
-            databaseReference.child(uid).setValue(user).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    Toast.makeText(this.context, "add to database succ", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
-
-    /* send verification email to the new user. This will only
-    *  work if the firebase user is not null.
-    */
-
-    private fun sendEmailVerification() {
-        firebaseUser?.let {
-            it.sendEmailVerification().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this.context, "email sent to $userEmail", Toast.LENGTH_SHORT)
-                        .show()
-
-                }
-            }
-        }
-    }
 }
 
