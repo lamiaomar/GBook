@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
+import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
@@ -24,6 +25,7 @@ import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.core.view.DataEvent
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.view.*
 
@@ -61,7 +63,7 @@ class HomeAuthenticationFragment : Fragment() {
         binding.viewModel = viewModel
 
         if (uid.isNotEmpty()) {
-          viewModel.getUserData()
+            viewModel.getUserData()
 //            binding.numBooks.setText(viewModel.getUserData())
 
         } else {
@@ -94,7 +96,6 @@ class HomeAuthenticationFragment : Fragment() {
     }
 
 
-
     override fun onResume() {
         super.onResume()
         viewModel.getUserData()
@@ -104,13 +105,32 @@ class HomeAuthenticationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.progressBar.max = 1000
-        val currentProgress = viewModel.userResultUi.value.booksChallenge?.toInt()
 
-        ObjectAnimator.ofInt(progressBar, "progress" , currentProgress!!)
+        binding.progressBar.max = viewModel.userResultUi.value.maxBooksChallenge!!.toInt()
+        var currentProgress = viewModel.userResultUi.value.booksChallenge?.toInt()
+        ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
             .setDuration(2000).start()
 
+
+        binding.plus.setOnClickListener {
+            currentProgress = currentProgress!!.plus(1)
+            binding.booksChallenge.setText(currentProgress.toString())
+            viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
+         binding.progressBar.refreshDrawableState()
+        }
+
+
+        binding.minus.setOnClickListener {
+            currentProgress = currentProgress!!.minus(1)
+            binding.booksChallenge.setText(currentProgress.toString())
+            viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
+            ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
+                .setDuration(1000).start()
+        }
+
+
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
 //        binding = null

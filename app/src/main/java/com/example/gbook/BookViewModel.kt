@@ -299,12 +299,12 @@ class BookViewmodel(
                     month = user.month,
                     year = user.year,
                     email = user.email,
-                    gender = user.gender ,
+                    gender = user.gender,
                     booksNumberInList = user.booksNumberInList,
-                    booksChallenge = user.booksChallenge
+                    booksChallenge = user.booksChallenge,
+                    maxBooksChallenge = user.maxBooksChallenge
                 )
             }
-            Log.e("_userResultUi","${_userResultUi.value.booksChallenge}")
         }
     }
 

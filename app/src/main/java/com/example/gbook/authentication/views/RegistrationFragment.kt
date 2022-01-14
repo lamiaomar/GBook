@@ -73,11 +73,13 @@ class RegistrationFragment : Fragment() {
                 gender.text.toString().trim(),
                 mutableListOf(),
                 0,
-            "0")
+                "0",
+                "50"
+            )
 
             if (identicalPassword()) {
-                viewModel.signIn(user , password.text.toString())
-                if (viewModel.onSuccesses()){
+                viewModel.signIn(user, password.text.toString())
+                if (viewModel.onSuccesses()) {
                     val action =
                         RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
                     btnSignIn2.findNavController().navigate(action)
@@ -124,8 +126,7 @@ class RegistrationFragment : Fragment() {
     }
 
 
-    private fun notEmpty(): Boolean
-    = email.text.toString().trim().isNotEmpty() &&
+    private fun notEmpty(): Boolean = email.text.toString().trim().isNotEmpty() &&
             password.text.toString().trim().isNotEmpty() &&
             re_password.text.toString().trim().isNotEmpty() &&
             first_name.text.toString().trim().isNotEmpty() &&
