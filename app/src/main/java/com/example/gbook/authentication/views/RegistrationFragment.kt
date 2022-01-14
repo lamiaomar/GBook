@@ -72,7 +72,8 @@ class RegistrationFragment : Fragment() {
                 email.text.toString().trim(),
                 gender.text.toString().trim(),
                 mutableListOf(),
-                0)
+                0,
+            "0")
 
             if (identicalPassword()) {
                 viewModel.signIn(user , password.text.toString())

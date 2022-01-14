@@ -35,7 +35,7 @@ class BooksRealTimeDataSource(
                         user.firstName, user.lastName,
                         user.day, user.month, user.year, user.email,
                         user.gender, user.toReadList,
-                        user.booksNumberInList
+                        user.booksNumberInList , user.booksChallenge
                     )
                     Log.e("user", "${user.booksNumberInList}")
                 }
@@ -131,6 +131,11 @@ class BooksRealTimeDataSource(
                 if (userEdit.gender!=""){
                     databaseReference.child(uid).child("gender")
                         .setValue(userEdit.gender)
+                }
+
+                if (userEdit.booksChallenge!=""){
+                    databaseReference.child(uid).child("booksChallenge")
+                        .setValue(userEdit.booksChallenge)
                 }
 
             }

@@ -300,9 +300,11 @@ class BookViewmodel(
                     year = user.year,
                     email = user.email,
                     gender = user.gender ,
-                    booksNumberInList = user.booksNumberInList
+                    booksNumberInList = user.booksNumberInList,
+                    booksChallenge = user.booksChallenge
                 )
             }
+            Log.e("_userResultUi","${_userResultUi.value.booksChallenge}")
         }
     }
 

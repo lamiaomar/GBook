@@ -1,6 +1,7 @@
 package com.example.gbook.authentication.views
 
 
+import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -89,10 +90,6 @@ class HomeAuthenticationFragment : Fragment() {
             edit.findNavController().navigate(action)
         }
 
-//        if (!(binding.challenge.num_of_books.text!!.isNotEmpty())){
-//            userChallenge()
-//        }
-
         return binding.root
     }
 
@@ -104,32 +101,16 @@ class HomeAuthenticationFragment : Fragment() {
     }
 
 
-    private fun userChallenge(){
-//        val arrayList = ArrayList<Int>()
-//
-//        arrayList?.add(Integer.valueOf(50.toString()))
-//
-//        arrayList?.add(Integer.valueOf(20.toString()))
-//
-//        val s = Segment("Books",arrayList?.get(0))
-//        val s2 = Segment("Books",arrayList?.get(1))
-//
-//        val sf = SegmentFormatter(Color.BLUE)
-//        val sf2 = SegmentFormatter(Color.CYAN)
-//
-//
-//        pie_chart.addSegment(s,sf)
-//        pie_chart.addSegment(s2,sf2)
-//
-//        val salary = listOf(200,400,300,600)
-//        val dataPieChart : MutableList<String> = mutableListOf()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        binding.progressBar.max = 1000
+        val currentProgress = viewModel.userResultUi.value.booksChallenge?.toInt()
 
-//        val pieEntries = arrayListOf<PieE>()
-
+        ObjectAnimator.ofInt(progressBar, "progress" , currentProgress!!)
+            .setDuration(2000).start()
 
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
 //        binding = null

@@ -34,7 +34,9 @@ data class UserUiState(
     val email: String? = "",
     val gender : String? = "",
     val toReadList: MutableList<BookDetailsUiState> = mutableListOf(),
-    val booksNumberInList : Int = 0
+    val booksNumberInList : Int = 0,
+    val booksChallenge: String? = "0"
+
 )
 
 

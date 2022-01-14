@@ -44,7 +44,7 @@ class CalenderFragment : Fragment() {
     private fun userInterface(){
 
         val titleNotification = getString(R.string.notification_title)
-        collapsing_toolbar_l?.title = titleNotification
+//        collapsing_toolbar_l?.title = titleNotification
 
         binding.doneFab.setOnClickListener {
             val customCalendar = Calendar.getInstance()
