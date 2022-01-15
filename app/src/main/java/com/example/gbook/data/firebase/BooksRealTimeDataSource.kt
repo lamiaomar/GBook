@@ -35,9 +35,9 @@ class BooksRealTimeDataSource(
                         user.firstName, user.lastName,
                         user.day, user.month, user.year, user.email,
                         user.gender, user.toReadList,
-                        user.booksNumberInList
+                        user.booksNumberInList , user.booksChallenge ,
+                        user.maxBooksChallenge
                     )
-                    Log.e("user", "${user.booksNumberInList}")
                 }
             }
 
@@ -131,6 +131,15 @@ class BooksRealTimeDataSource(
                 if (userEdit.gender!=""){
                     databaseReference.child(uid).child("gender")
                         .setValue(userEdit.gender)
+                }
+
+                if (userEdit.maxBooksChallenge!="50"){
+                    databaseReference.child(uid).child("maxBooksChallenge")
+                        .setValue(userEdit.maxBooksChallenge)
+                }
+                if (userEdit.booksChallenge!="0"){
+                    databaseReference.child(uid).child("booksChallenge")
+                        .setValue(userEdit.booksChallenge)
                 }
 
             }

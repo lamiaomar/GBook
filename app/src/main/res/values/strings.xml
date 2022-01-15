@@ -57,6 +57,15 @@
     <string name="last_name">last name</string>
     <string name="sign_in_instead">Sign in instead</string>
     <string name="sign_out">sign out</string>
+    <string name="_2022_reading_challenge">2022 Reading challenge</string>
+    <string name="k">k</string>
+    <string name="o">o</string>
+    <string name="b">B</string>
+    <string name="g">G</string>
+    <string name="of">Of</string>
+    <string name="decrease">decrease</string>
+    <string name="books">books</string>
+    <string name="score">-</string>
 
 
 </resources>
