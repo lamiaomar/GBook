@@ -23,10 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="152dp"
-            android:layout_marginTop="16dp"
-            android:text="G"
-            android:textColor="@color/blue"
-            android:textSize="50dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/g"
+            style="@style/go_blue"
             app:layout_constraintEnd_toStartOf="@+id/textView8"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,10 +35,9 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="B"
-            android:textColor="@color/red"
-            android:textSize="50dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/b"
+            style="@style/b_red"
             app:layout_constraintEnd_toStartOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,10 +45,9 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="o"
-            android:textSize="50dp"
-            android:textColor="@color/blue"
+            android:layout_marginTop="24dp"
+            android:text="@string/o"
+            style="@style/go_blue"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,10 +55,9 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="o"
-            android:textColor="@color/yellow"
-            android:textSize="50dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/o"
+            style="@style/o_yellow"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,13 +65,13 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="140dp"
-            android:text="k"
-            android:textColor="@color/green"
-            android:textSize="50dp"
+            android:text="@string/k"
+            style="@style/k_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <ScrollView
             android:layout_width="match_parent"

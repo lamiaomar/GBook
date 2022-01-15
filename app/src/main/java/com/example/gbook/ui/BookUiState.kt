@@ -14,7 +14,6 @@ data class BooksDataUiState(
 
 )
 
-
 data class BookDetailsUiState(
     val title: String = "",
     val bookCover: String = "",
@@ -39,7 +38,6 @@ data class UserUiState(
     val maxBooksChallenge : String? = "0"
 
 )
-
 
 /*
 ! BookCategoryUiState( BooksDataUiState( category , BookDetailsUiState) ,

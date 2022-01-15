@@ -25,4 +25,13 @@
     <string name="sign_in_instead">تسجيل الدخول</string>
     <string name="sign_out">تسجيل الخروج</string>
     <string name="notification">الاشعارات</string>
+    <string name="_2022_reading_challenge">تحدي القراءة ل 2022</string>
+    <string name="k">k</string>
+    <string name="o">o</string>
+    <string name="b">B</string>
+    <string name="g">G</string>
+    <string name="of">من</string>
+    <string name="decrease">decrease</string>
+    <string name="books">كتاب</string>
+    <string name="score">-</string>
 </resources>

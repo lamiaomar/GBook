@@ -64,7 +64,6 @@ class HomeAuthenticationFragment : Fragment() {
 
         if (uid.isNotEmpty()) {
             viewModel.getUserData()
-//            binding.numBooks.setText(viewModel.getUserData())
 
         } else {
             Toast.makeText(this.context, "uid empty", Toast.LENGTH_SHORT).show()
@@ -105,6 +104,8 @@ class HomeAuthenticationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.booksNumber.setText(viewModel.userResultUi.value.booksNumberInList.toString())
+
 
         binding.progressBar.max = viewModel.userResultUi.value.maxBooksChallenge!!.toInt()
         var currentProgress = viewModel.userResultUi.value.booksChallenge?.toInt()
@@ -116,7 +117,8 @@ class HomeAuthenticationFragment : Fragment() {
             currentProgress = currentProgress!!.plus(1)
             binding.booksChallenge.setText(currentProgress.toString())
             viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
-         binding.progressBar.refreshDrawableState()
+            ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
+                .setDuration(1000).start()
         }
 
 

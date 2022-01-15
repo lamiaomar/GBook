@@ -113,7 +113,6 @@ class BookViewmodel(
 
 
     fun displayBookDetails(displayPosition: Int, bookTitle: String, search: Int) {
-
         try {
             if (search == 1) {
                 val item = searchResultUi.value.books.get(displayPosition)
