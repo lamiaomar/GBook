@@ -61,6 +61,9 @@ class EditProfileFragment : Fragment() {
             if (genders != null) {
                 viewModel.editUserProfile(User(gender = gender?.text.toString().trim()))
             }
+            if (book_challenge != null){
+                viewModel.editUserProfile(User(maxBooksChallenge = booksNum?.text.toString()))
+            }
 
             val action =
                 EditProfileFragmentDirections.actionEditProfileFragmentToHomeAuthenticationFragment()

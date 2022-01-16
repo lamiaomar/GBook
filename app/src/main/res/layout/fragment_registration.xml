@@ -25,9 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="152dp"
             android:layout_marginTop="24dp"
-            android:text="G"
-            android:textColor="@color/blue"
-            android:textSize="50dp"
+            android:text="@string/g"
+            style="@style/go_blue"
             app:layout_constraintEnd_toStartOf="@+id/textView8"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="B"
-            android:textColor="@color/red"
-            android:textSize="50dp"
+            android:text="@string/b"
+            style="@style/b_red"
             app:layout_constraintEnd_toStartOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,9 +47,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="o"
-            android:textColor="@color/blue"
-            android:textSize="50dp"
+            android:text="@string/o"
+            style="@style/go_blue"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,9 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="o"
-            android:textColor="@color/yellow"
-            android:textSize="50dp"
+            android:text="@string/o"
+            style="@style/o_yellow"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,9 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="140dp"
-            android:text="k"
-            android:textColor="@color/green"
-            android:textSize="50dp"
+            android:text="@string/k"
+            style="@style/k_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +83,7 @@
             android:layout_marginTop="100dp"
             android:text="@string/create_account"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            style="@style/black_text"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.064"

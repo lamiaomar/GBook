@@ -14,4 +14,28 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="b_red">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="go_blue">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="o_yellow">
+        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="k_green">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+    <style name="black_text">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

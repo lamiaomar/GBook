@@ -27,16 +27,13 @@ class BookViewmodel(
 ) : ViewModel() {
 
     var auth = FirebaseAuth.getInstance()
-    var uid = auth.currentUser?.uid.toString()
 
     private val _searchResultUi = MutableStateFlow(BooksDataUiState())
     val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
 
+
     private val _bookCategoryResultUi = MutableStateFlow(BookCategoryUiState())
     val bookCategoryResultUi: StateFlow<BookCategoryUiState> = _bookCategoryResultUi.asStateFlow()
-
-    private val _bookShelfResultUi = MutableStateFlow(BooksDataUiState())
-    val bookShelfResultUi: StateFlow<BooksDataUiState> = _bookShelfResultUi.asStateFlow()
 
 
     private val _userResultUi = MutableStateFlow(UserUiState())
@@ -55,7 +52,7 @@ class BookViewmodel(
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
-    private var categories = listOf("Biography", "Fiction", "Comic")
+    private var categories = listOf("Biography", "Cinema", "Comic")
 
     //    inauthor:Ann inauthor:M inauthor:Martin
 
@@ -113,7 +110,6 @@ class BookViewmodel(
 
 
     fun displayBookDetails(displayPosition: Int, bookTitle: String, search: Int) {
-
         try {
             if (search == 1) {
                 val item = searchResultUi.value.books.get(displayPosition)
@@ -145,6 +141,7 @@ class BookViewmodel(
 
 
     private fun setBookDetails(details: BookDetailsUiState?) {
+
         title.value = details?.title
         bookCover.value = details?.bookCover
         description.value = details?.description
@@ -200,20 +197,8 @@ class BookViewmodel(
     fun getBooksToRead() {
         viewModelScope.launch {
             val data = booksRepository.getBooksToRead()
-//            _userResultUi.update { it ->
-//                it.copy(toReadList = data.toReadList.map {
-//                    BookDetailsUiState(
-//                        title = it.title,
-//                        bookCover = it.bookCover,
-//                        description = it.description,
-//                        averageRating = it.averageRating,
-//                        pageCount = it.pageCount,
-//                        publishedDate = it.publishedDate
-//                    )
-//                } as MutableList<BookDetailsUiState>)
-//            }
-            _bookShelfResultUi.update { it ->
-                it.copy(books = data.toReadList.map {
+            _userResultUi.update { it ->
+                it.copy(toReadList = data.toReadList.map {
                     BookDetailsUiState(
                         title = it.title,
                         bookCover = it.bookCover,
@@ -222,20 +207,9 @@ class BookViewmodel(
                         pageCount = it.pageCount,
                         publishedDate = it.publishedDate
                     )
-                })
-
+                } as MutableList<BookDetailsUiState>)
             }
         }
-    }
-
-
-    fun displayBookDetailsFromList(position: Int) {
-        title.value = _bookShelfResultUi.value.books[position].title
-        description.value = _bookShelfResultUi.value.books[position].description
-        bookCover.value = _bookShelfResultUi.value.books[position].bookCover
-        averageRating.value = _bookShelfResultUi.value.books[position].averageRating
-        pageCount.value = _bookShelfResultUi.value.books[position].pageCount
-        publishedDate.value = _bookShelfResultUi.value.books[position].publishedDate
     }
 
 
@@ -299,8 +273,10 @@ class BookViewmodel(
                     month = user.month,
                     year = user.year,
                     email = user.email,
-                    gender = user.gender ,
-                    booksNumberInList = user.booksNumberInList
+                    gender = user.gender,
+                    booksNumberInList = user.booksNumberInList,
+                    booksChallenge = user.booksChallenge,
+                    maxBooksChallenge = user.maxBooksChallenge
                 )
             }
         }

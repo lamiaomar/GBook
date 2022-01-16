@@ -1,6 +1,7 @@
 package com.example.gbook.authentication.views
 
 
+import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import androidx.navigation.findNavController
 
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
+import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
@@ -23,6 +25,7 @@ import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.core.view.DataEvent
+import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.*
 import kotlinx.android.synthetic.main.fragment_home_authentication.view.*
 
@@ -60,8 +63,7 @@ class HomeAuthenticationFragment : Fragment() {
         binding.viewModel = viewModel
 
         if (uid.isNotEmpty()) {
-          viewModel.getUserData()
-//            binding.numBooks.setText(viewModel.getUserData())
+            viewModel.getUserData()
 
         } else {
             Toast.makeText(this.context, "uid empty", Toast.LENGTH_SHORT).show()
@@ -89,13 +91,8 @@ class HomeAuthenticationFragment : Fragment() {
             edit.findNavController().navigate(action)
         }
 
-//        if (!(binding.challenge.num_of_books.text!!.isNotEmpty())){
-//            userChallenge()
-//        }
-
         return binding.root
     }
-
 
 
     override fun onResume() {
@@ -104,28 +101,34 @@ class HomeAuthenticationFragment : Fragment() {
     }
 
 
-    private fun userChallenge(){
-//        val arrayList = ArrayList<Int>()
-//
-//        arrayList?.add(Integer.valueOf(50.toString()))
-//
-//        arrayList?.add(Integer.valueOf(20.toString()))
-//
-//        val s = Segment("Books",arrayList?.get(0))
-//        val s2 = Segment("Books",arrayList?.get(1))
-//
-//        val sf = SegmentFormatter(Color.BLUE)
-//        val sf2 = SegmentFormatter(Color.CYAN)
-//
-//
-//        pie_chart.addSegment(s,sf)
-//        pie_chart.addSegment(s2,sf2)
-//
-//        val salary = listOf(200,400,300,600)
-//        val dataPieChart : MutableList<String> = mutableListOf()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.booksNumber.setText(viewModel.userResultUi.value.booksNumberInList.toString())
 
 
-//        val pieEntries = arrayListOf<PieE>()
+        binding.progressBar.max = viewModel.userResultUi.value.maxBooksChallenge!!.toInt()
+        var currentProgress = viewModel.userResultUi.value.booksChallenge?.toInt()
+        ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
+            .setDuration(2000).start()
+
+
+        binding.plus.setOnClickListener {
+            currentProgress = currentProgress!!.plus(1)
+            binding.booksChallenge.setText(currentProgress.toString())
+            viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
+            ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
+                .setDuration(1000).start()
+        }
+
+
+        binding.minus.setOnClickListener {
+            currentProgress = currentProgress!!.minus(1)
+            binding.booksChallenge.setText(currentProgress.toString())
+            viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
+            ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
+                .setDuration(1000).start()
+        }
 
 
     }

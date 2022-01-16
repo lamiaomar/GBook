@@ -16,9 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -34,8 +31,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="116dp"
                     android:text="@string/track"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    style="@style/black_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.588"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +51,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/track"
-                    app:layout_constraintVertical_bias="0.6" />
+                    app:layout_constraintVertical_bias="0.6"
+                    android:contentDescription="@string/decrease" />
 
                 <Button
                     android:id="@+id/btn_sign_up"
@@ -73,6 +71,5 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
     </RelativeLayout>
 </layout>

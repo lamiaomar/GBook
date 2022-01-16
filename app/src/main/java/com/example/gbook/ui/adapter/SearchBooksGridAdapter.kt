@@ -1,5 +1,6 @@
 package com.example.gbook.ui.adapter
 
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gbook.databinding.SearchGridViewItemBinding
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.fragments.SearchFragmentDirections
+
 
 class SearchBooksGridAdapter : ListAdapter<BookDetailsUiState,
         SearchBooksGridAdapter.SearchBookViewHolder>(DiffCallback) {
@@ -31,11 +33,13 @@ class SearchBooksGridAdapter : ListAdapter<BookDetailsUiState,
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<BookDetailsUiState>() {
-        override fun areItemsTheSame(oldDetails: BookDetailsUiState, newDetails: BookDetailsUiState): Boolean {
+        override fun areItemsTheSame(oldDetails: BookDetailsUiState,
+                                     newDetails: BookDetailsUiState): Boolean {
             return newDetails.title == oldDetails.title
         }
 
-        override fun areContentsTheSame(oldDetails: BookDetailsUiState, newDetails: BookDetailsUiState): Boolean {
+        override fun areContentsTheSame(oldDetails: BookDetailsUiState,
+                                        newDetails: BookDetailsUiState): Boolean {
             return oldDetails.title == newDetails.title
         }
     }
@@ -68,3 +72,13 @@ class SearchBooksGridAdapter : ListAdapter<BookDetailsUiState,
 
 }
 
+
+//class SearchLoadStateAdapter(private val retry: () -> Unit) : LoadStateAdapter< SearchBooksGridAdapter.SearchBookViewHolder>() {
+//    override fun onBindViewHolder(holder:  SearchBooksGridAdapter.SearchBookViewHolder, loadState: LoadState) {
+//        holder.bind(loadState)
+//    }
+//
+//    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState):  SearchBooksGridAdapter.SearchBookViewHolder {
+//        return  SearchBooksGridAdapter.SearchBookViewHolder.create(parent, retry)
+//    }
+//}
