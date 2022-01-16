@@ -13,8 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.gbook.BookViewmodel
 import com.example.gbook.databinding.FragmentBookDetailsBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 private const val POSITION = "title"
@@ -65,6 +63,19 @@ class BookDetailsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
 
+
+        val list = viewModel.userResultUi.value.toReadList
+        try {
+            for (item in 0..list.size){
+                if (list[item].title == bookTitle){
+                    binding.animationView.playAnimation()
+                }
+            }
+        }catch (e : Exception){
+            Log.e("exception","$e")
+        }
+
+
         binding.animationView.setOnClickListener {
             binding.animationView.playAnimation()
             if (uid.isNotEmpty()) {
@@ -87,6 +98,8 @@ class BookDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.displayBookDetails(displayPosition, bookTitle, numSearch)
+
+
 
     }
 
