@@ -41,7 +41,7 @@
     </string-array>
 
     <string name="notification_subtitle" translatable="false">It is time to read (:</string>
-    <string name="notification_title" translatable="false">Reminder</string>
+    <string name="notification_title" translatable="false">GBOOK</string>
     <string name="notification_schedule_title" translatable="false">Schedule notification:\u00a0</string>
     <string name="notification_schedule_pattern" translatable="false">dd.MM.yy \u00B7 HH:mm</string>
     <string name="notification_schedule_error" translatable="false">
@@ -66,6 +66,7 @@
     <string name="decrease">decrease</string>
     <string name="books">books</string>
     <string name="score">-</string>
+    <string name="fill_fill">You can fill one field or more.</string>
 
 
 </resources>

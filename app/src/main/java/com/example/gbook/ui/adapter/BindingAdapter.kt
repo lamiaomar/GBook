@@ -1,5 +1,6 @@
 package com.example.gbook.ui.adapter
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -12,7 +13,7 @@ import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-
+Log.e("imageUrl","$imgUrl")
     imgUrl.let {
         val imgUri = imgUrl?.toUri()?.buildUpon()?.build()
         Glide.with(imgView.context)

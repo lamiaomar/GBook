@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.paging.PagingData
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
+import com.example.gbook.ServiceLocator
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRemoteDataSource
 import com.example.gbook.data.BooksRepository
@@ -26,13 +27,7 @@ class SearchFragment : Fragment() {
 
 
 private val viewModel: BookViewmodel by activityViewModels {
-    val bookApi = BooksApi.retrofitService
-
-    val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
-    val booksRealTimeDataSource = BooksRealTimeDataSource()
-
-    val repo = BooksRepository(booksRemoteDataSource , booksRealTimeDataSource)
-    BookViewModelFactory(repo)
+    BookViewModelFactory(ServiceLocator.provideBooksRepository())
 }
     private var binding : FragmentSearchBinding? = null
 

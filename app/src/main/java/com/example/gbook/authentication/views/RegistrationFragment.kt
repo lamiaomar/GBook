@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
 import com.example.gbook.R
+import com.example.gbook.ServiceLocator
 import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
 import com.example.gbook.data.BooksRemoteDataSource
@@ -28,17 +29,9 @@ import kotlinx.android.synthetic.main.fragment_registration.gender
 
 class RegistrationFragment : Fragment() {
 
-
     private val viewModel: BookViewmodel by activityViewModels {
-        val bookApi = BooksApi.retrofitService
-
-        val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
-        val booksRealTimeDataSource = BooksRealTimeDataSource()
-
-        val repo = BooksRepository(booksRemoteDataSource, booksRealTimeDataSource)
-        BookViewModelFactory(repo)
+        BookViewModelFactory(ServiceLocator.provideBooksRepository())
     }
-
 
     var createAccountInputsArray: Array<TextInputEditText?> = arrayOf(null, null, null)
 
