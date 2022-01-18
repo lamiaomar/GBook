@@ -24,11 +24,8 @@ object ServiceLocator {
 
 /*
         val bookApi = BooksApi.retrofitService
-
         val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
         val booksRealTimeDataSource = BooksRealTimeDataSource()
-
         val repo = BooksRepository(booksRemoteDataSource, booksRealTimeDataSource)
         BookViewModelFactory(repo)
-
  */
