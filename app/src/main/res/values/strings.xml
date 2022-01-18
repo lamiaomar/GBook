@@ -68,5 +68,12 @@
     <string name="score">-</string>
     <string name="fill_fill">You can fill one field or more.</string>
 
+    <string name="not_Valid_email_msg">Not Valid Email Address</string>
+    <string name="not_Valid_pass_msg">Not Valid Password </string>
+    <string name="not_Valid_name_msg">Not Valid Name </string>
+    <string name="not_Valid_day_msg">Not Valid Day </string>
+    <string name="not_Valid_month_msg">Not Valid month </string>
+    <string name="not_Valid_year_msg">Not Valid year </string>
+
 
 </resources>
