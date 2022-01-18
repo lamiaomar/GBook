@@ -52,7 +52,7 @@ class BookViewmodel(
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
 
-    private var categories = listOf("Biography", "Fiction", "Comic")
+    private var categories = listOf("Biography", "Cinema", "Comic")
 
     //    inauthor:Ann inauthor:M inauthor:Martin
 

@@ -13,7 +13,7 @@ class BookViewModelFactory constructor(
 
         return when {
             modelClass.isAssignableFrom(BookViewmodel::class.java) ->
-                BookViewmodel(booksRepository) as T
+              return  BookViewmodel(booksRepository) as T
 
 //            modelClass.isAssignableFrom(UserViewModel::class.java) ->
 //                UserViewModel(booksRepository) as T

@@ -64,6 +64,7 @@ class SettingFragment : PreferenceFragmentCompat(),
         if (key == "language") {
 
             val prefs = sharedPreferences?.getString(key, "1")
+
             when (prefs?.toInt()) {
                 1 -> {
                     var locale = Locale("en")

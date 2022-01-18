@@ -2,6 +2,7 @@ package com.example.gbook.authentication.views
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,35 +14,28 @@ import androidx.navigation.findNavController
 import com.example.gbook.BookViewModelFactory
 import com.example.gbook.BookViewmodel
 import com.example.gbook.R
+import com.example.gbook.ServiceLocator
 import com.example.gbook.authentication.User
+import com.example.gbook.authentication.extensions.Extensions.isValid
+import com.example.gbook.authentication.extensions.TextTypes
 import com.example.gbook.authentication.utils.FirebaseUtils.firebaseAuth
-import com.example.gbook.data.BooksRemoteDataSource
-import com.example.gbook.data.BooksRepository
-import com.example.gbook.data.firebase.BooksRealTimeDataSource
-import com.example.gbook.data.network.BooksApi
 import com.example.gbook.databinding.FragmentRegistrationBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlinx.android.synthetic.main.fragment_registration.gender
+import kotlinx.coroutines.delay
 
 
 class RegistrationFragment : Fragment() {
 
-
     private val viewModel: BookViewmodel by activityViewModels {
-        val bookApi = BooksApi.retrofitService
-
-        val booksRemoteDataSource = BooksRemoteDataSource(bookApi)
-        val booksRealTimeDataSource = BooksRealTimeDataSource()
-
-        val repo = BooksRepository(booksRemoteDataSource, booksRealTimeDataSource)
-        BookViewModelFactory(repo)
+        BookViewModelFactory(ServiceLocator.provideBooksRepository())
     }
-
 
     var createAccountInputsArray: Array<TextInputEditText?> = arrayOf(null, null, null)
 
+    lateinit var binding: FragmentRegistrationBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,7 +49,7 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentRegistrationBinding.inflate(inflater)
+        binding = FragmentRegistrationBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
@@ -63,32 +57,26 @@ class RegistrationFragment : Fragment() {
 
 
         binding.btnCreateAccount.setOnClickListener {
-            val user = User(
-                first_name.text.toString().trim(),
-                lastname.text.toString().trim(),
-                day.text.toString().trim(),
-                month.text.toString().trim(),
-                year.text.toString().trim(),
-                email.text.toString().trim(),
-                gender.text.toString().trim(),
-                mutableListOf(),
-                0,
-                "0",
-                "50"
-            )
+            if (!validationCheck()) {
 
-            if (identicalPassword()) {
-                viewModel.signIn(user, password.text.toString())
-                if (viewModel.onSuccesses()) {
-                    val action =
-                        RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
-                    btnSignIn2.findNavController().navigate(action)
+                val user = User(
+                    first_name.text.toString().trim(), lastname.text.toString().trim(),
+                    day.text.toString().trim(), month.text.toString().trim(),
+                    year.text.toString().trim(), email.text.toString().trim(),
+                    gender.text.toString().trim(), mutableListOf(),
+                    0, "0", "50"
+                )
 
+                if (identicalPassword()) {
+
+                    viewModel.signIn(user, password.text.toString())
+//                    if (viewModel.onSuccesses()) {
+                        val action =
+                            RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
+                        btnSignIn2.findNavController().navigate(action)
+
+//                    }
                 }
-//                else{
-//                    Toast.makeText(context, "Failed registration", Toast.LENGTH_SHORT).show()
-//                }
-
             }
         }
 
@@ -110,6 +98,37 @@ class RegistrationFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun validationCheck(): Boolean {
+        var isValid = true
+
+        if (binding.EmailId.isValid(binding.email, TextTypes.EMAIL))
+            isValid = false
+
+
+        if (binding.passlId.isValid(binding.password, TextTypes.PASSWORD))
+            isValid = false
+
+
+        if (binding.repasslId.isValid(binding.rePassword, TextTypes.RE_PASSWORD))
+            isValid = false
+
+
+        if (binding.nameId.isValid(binding.firstName, TextTypes.FIRSTNAME))
+            isValid = false
+
+
+        if (binding.lastNameTextinput.isValid(binding.lastname, TextTypes.LASTNAME))
+            isValid = false
+
+        if (binding.dayBirth.isValid(binding.day, TextTypes.DAY))
+            isValid = false
+
+        if (binding.yearBirth.isValid(binding.year, TextTypes.YEAR))
+            isValid = false
+
+        return isValid
     }
 
 
@@ -139,18 +158,16 @@ class RegistrationFragment : Fragment() {
 
     private fun identicalPassword(): Boolean {
         var identical = false
-        if (notEmpty() &&
+        if (notEmpty()&&
             password.text.toString().trim() == re_password.text.toString().trim()
         ) {
             identical = true
-        } else if (!notEmpty()) {
+        } else if (notEmpty()){
             createAccountInputsArray.forEach { input ->
                 if (input?.text.toString().trim().isEmpty()) {
                     input?.error = "${input?.hint} is required"
                 }
             }
-        } else {
-            Toast.makeText(this.context, "passwords are not matching !", Toast.LENGTH_SHORT).show()
         }
         return identical
     }

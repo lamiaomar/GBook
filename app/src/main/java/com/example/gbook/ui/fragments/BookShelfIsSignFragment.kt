@@ -18,8 +18,6 @@ class BookShelfIsSignFragment : Fragment() {
     var auth = FirebaseAuth.getInstance()
     var uid = auth.currentUser?.uid.toString()
 
-    private val viewModel: BookViewmodel by activityViewModels ()
-
     private lateinit var binding: FragmentBookShelfIsSignBinding
 
 

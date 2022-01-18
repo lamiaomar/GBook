@@ -34,4 +34,11 @@
     <string name="decrease">decrease</string>
     <string name="books">كتاب</string>
     <string name="score">-</string>
+    <string name="fill_fill">You can fill one field or more.</string>
+    <string name="not_Valid_email_msg">الايميل غير صحيح</string>
+    <string name="not_Valid_pass_msg">كلمة المرور غير صحيحة</string>
+    <string name="not_Valid_name_msg">الاسم غير صحيح</string>
+    <string name="not_Valid_day_msg">اليوم غير صحيح</string>
+    <string name="not_Valid_month_msg">الشهر غير صجيج</string>
+    <string name="not_Valid_year_msg">السنة غير صحيحة</string>
 </resources>
