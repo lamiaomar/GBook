@@ -34,4 +34,5 @@
     <string name="decrease">decrease</string>
     <string name="books">كتاب</string>
     <string name="score">-</string>
+    <string name="fill_fill">You can fill one field or more.</string>
 </resources>

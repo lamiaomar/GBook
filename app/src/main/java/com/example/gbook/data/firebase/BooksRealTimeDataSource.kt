@@ -107,7 +107,7 @@ class BooksRealTimeDataSource(
         uid = auth.currentUser?.uid.toString()
         databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
+            Log.e("userEdit","$userEdit")
                 if (userEdit.firstName!=""){
                     databaseReference.child(uid).child("firstName")
                         .setValue(userEdit.firstName)
@@ -133,7 +133,7 @@ class BooksRealTimeDataSource(
                         .setValue(userEdit.gender)
                 }
 
-                if (userEdit.maxBooksChallenge!="50"){
+                if (userEdit.maxBooksChallenge!="50" && userEdit.maxBooksChallenge!=""){
                     databaseReference.child(uid).child("maxBooksChallenge")
                         .setValue(userEdit.maxBooksChallenge)
                 }

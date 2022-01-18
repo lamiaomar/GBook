@@ -1,112 +1,104 @@
 package com.example.gbook
+
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.gbook.authentication.User
+import com.example.gbook.authentication.utils.FirebaseUtils
+import com.example.gbook.data.BooksRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.fragment_log_in.*
+import kotlinx.android.synthetic.main.fragment_registration.*
+import kotlinx.coroutines.launch
+
+
+class UserViewModel(
+    private val usersRepository: BooksRepository
+) : ViewModel() {
+
+
+    var operationState = false
+
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var databaseReference: DatabaseReference
+    var currentUser = User()
+
+    fun signIn(newUser: User, password: String) {
+        viewModelScope.launch {
+
+            usersRepository.signIn(newUser, password)
+            operationState = true
+            addUserDataToDB(newUser)
+            sendEmailVerification()
+
+        }
+
+    }
+
+
+    fun addUserDataToDB(newUser: User) {
+        viewModelScope.launch {
+            usersRepository.getBooksToRead()
+        }
+    }
+
+
+    private fun sendEmailVerification() {
+        FirebaseUtils.firebaseUser?.sendEmailVerification()
+    }
+
+    fun signInUser(signInEmail: String, signInPassword: String) {
+        viewModelScope.launch {
+            usersRepository.signInUser(signInEmail, signInPassword)
+        }
+    }
+
+
+    fun onSuccesses(): Boolean {
+        return operationState
+    }
+
+    fun getUserData(): User {
+        var user = User()
+        viewModelScope.launch {
+            user = usersRepository.getBooksToRead()
+        }
+        return user
+    }
+
+//    auth = FirebaseAuth.getInstance()
 //
-//import android.util.Log
-//import android.widget.Toast
-//import androidx.lifecycle.LiveData
-//import androidx.lifecycle.MutableLiveData
-//import androidx.lifecycle.ViewModel
-//import androidx.lifecycle.viewModelScope
-//import androidx.navigation.findNavController
-//import androidx.navigation.fragment.findNavController
-//import com.example.gbook.authentication.User
-//import com.example.gbook.authentication.utils.FirebaseUtils
-//import com.example.gbook.authentication.views.LogInFragmentDirections
-//import com.example.gbook.authentication.views.RegistrationFragmentDirections
-//import com.example.gbook.data.BooksRepository
-//import com.google.android.material.textfield.TextInputEditText
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.database.*
-//import kotlinx.android.synthetic.main.fragment_log_in.*
-//import kotlinx.android.synthetic.main.fragment_registration.*
-//import kotlinx.coroutines.launch
+//    databaseReference = FirebaseDatabase.getInstance().getReference("users")
+//    var uid = auth.currentUser?.uid.toString()
+//
+//    databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
+//
+//        override fun onDataChange(snapshot: DataSnapshot) {
 //
 //
-//class UserViewModel(
-//    private val usersRepository: BooksRepository
-//) : ViewModel() {
+//            for (item in snapshot.children) {
 //
+//                val user = snapshot.getValue(User::class.java)!!
 //
-//    var operationState = false
+//                currentUser = User(
+//                    user.firstName, user.lastName,
+//                    user.day, user.month, user.year, user.email,
+//                    user.gender, user.toReadList, user.booksNumberInList
+//                )
 //
-//    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
-//    private lateinit var databaseReference: DatabaseReference
-//    var currentUser = User()
-//
-//    fun signIn(newUser: User, password: String) {
-//        viewModelScope.launch {
-//
-//            usersRepository.signIn(newUser, password)
-//            operationState = true
-//            addUserDataToDB(newUser)
-//            sendEmailVerification()
-//
+//            }
 //        }
 //
-//    }
-//
-//
-//    fun addUserDataToDB(newUser: User) {
-//        viewModelScope.launch {
-//            usersRepository.addUserToDB(newUser)
+//        override fun onCancelled(error: DatabaseError) {
+//            Log.e("database error", "$error")
 //        }
-//    }
 //
 //
-//    private fun sendEmailVerification() {
-//        FirebaseUtils.firebaseUser?.sendEmailVerification()
-//    }
-//
-//    fun signInUser(signInEmail: String, signInPassword: String) {
-//        viewModelScope.launch {
-//            usersRepository.signInUser(signInEmail, signInPassword)
-//        }
-//    }
-//
-//
-//    fun onSuccesses(): Boolean {
-//        return operationState
-//    }
-//
-//    fun getUserData(): User {
-//        var user = User()
-//        viewModelScope.launch {
-//            user = usersRepository.getBooksToRead()
-//        }
-//        return user
-//    }
-//
-////    auth = FirebaseAuth.getInstance()
-////
-////    databaseReference = FirebaseDatabase.getInstance().getReference("users")
-////    var uid = auth.currentUser?.uid.toString()
-////
-////    databaseReference.child(uid).addValueEventListener(object : ValueEventListener {
-////
-////        override fun onDataChange(snapshot: DataSnapshot) {
-////
-////
-////            for (item in snapshot.children) {
-////
-////                val user = snapshot.getValue(User::class.java)!!
-////
-////                currentUser = User(
-////                    user.firstName, user.lastName,
-////                    user.day, user.month, user.year, user.email,
-////                    user.gender, user.toReadList, user.booksNumberInList
-////                )
-////
-////            }
-////        }
-////
-////        override fun onCancelled(error: DatabaseError) {
-////            Log.e("database error", "$error")
-////        }
-////
-////
-////    })
-////    return currentUser
-//}
-//
-//
-//
-//
+//    })
+//    return currentUser
+}
+
+
+
+
