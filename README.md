@@ -37,6 +37,7 @@ It will remind you and encourage you to read more and more, Gbooks for any one h
 
 # GBooks UI
 ![splash](https://user-images.githubusercontent.com/92260185/150346086-94815287-16ac-452c-8bfa-13fa9fc7888b.png width="200" height="400")
+ <img src="https://user-images.githubusercontent.com/92260185/150346086-94815287-16ac-452c-8bfa-13fa9fc7888b.png" width="100" height="100">
 - splash Screen
 -  
 ![HomePage](https://user-images.githubusercontent.com/92260185/150346504-796a761b-01e0-4fd4-9df5-965f![details](https://user-images.githubusercontent.com/92260185/150349009-8f6a82d3-aa42-42bf-9314-a37dc0d75061.png)
