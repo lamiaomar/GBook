@@ -67,7 +67,7 @@ class SettingFragment : PreferenceFragmentCompat(),
 
             when (prefs?.toInt()) {
                 1 -> {
-                    var locale = Locale("en")
+                    val locale = Locale("en")
                     Locale.setDefault(locale)
                     var config = Configuration()
                     config.setLocale(locale)
