@@ -23,15 +23,13 @@ import com.example.gbook.databinding.FragmentHomeAuthenticationBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_home_authentication.*
 
-
 class HomeAuthenticationFragment : Fragment() {
 
     private val viewModel: BookViewmodel by activityViewModels {
         BookViewModelFactory(ServiceLocator.provideBooksRepository())
     }
 
-    private lateinit var binding: FragmentHomeAuthenticationBinding
-
+    private  var binding: FragmentHomeAuthenticationBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,14 +39,14 @@ class HomeAuthenticationFragment : Fragment() {
 
         binding = FragmentHomeAuthenticationBinding.inflate(inflater)
 
-        binding.lifecycleOwner = this
+        binding!!.lifecycleOwner = this
 
 
         val auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid.toString()
 
 
-        binding.viewModel = viewModel
+        binding!!.viewModel = viewModel
 
         if (uid.isNotEmpty()) {
             viewModel.getUserData()
@@ -59,7 +57,7 @@ class HomeAuthenticationFragment : Fragment() {
         }
 
 
-        binding.btnSignOut.setOnClickListener {
+        binding!!.btnSignOut.setOnClickListener {
             firebaseAuth.signOut()
             val action =
                 HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToRegistrationFragment()
@@ -67,19 +65,19 @@ class HomeAuthenticationFragment : Fragment() {
 
         }
 
-        binding.calender.setOnClickListener {
+        binding!!.calender.setOnClickListener {
             val action =
                 HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToCalenderFragment()
             calender.findNavController().navigate(action)
         }
 
-        binding.edit.setOnClickListener {
+        binding!!.edit.setOnClickListener {
             val action =
                 HomeAuthenticationFragmentDirections.actionHomeAuthenticationFragmentToEditProfileFragment()
             edit.findNavController().navigate(action)
         }
 
-        return binding.root
+        return binding!!.root
     }
 
 
@@ -92,27 +90,27 @@ class HomeAuthenticationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.booksNumber.setText(viewModel.userResultUi.value.booksNumberInList.toString())
+        binding!!.booksNumber.setText(viewModel.userResultUi.value.booksNumberInList.toString())
 
 
-        binding.progressBar.max = viewModel.userResultUi.value.maxBooksChallenge!!.toInt()
+        binding!!.progressBar.max = viewModel.userResultUi.value.maxBooksChallenge!!.toInt()
         var currentProgress = viewModel.userResultUi.value.booksChallenge?.toInt()
         ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
             .setDuration(2000).start()
 
 
-        binding.plus.setOnClickListener {
+        binding!!.plus.setOnClickListener {
             currentProgress = currentProgress!!.plus(1)
-            binding.booksChallenge.setText(currentProgress.toString())
+            binding!!.booksChallenge.setText(currentProgress.toString())
             viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
             ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
                 .setDuration(1000).start()
         }
 
 
-        binding.minus.setOnClickListener {
+        binding!!.minus.setOnClickListener {
             currentProgress = currentProgress!!.minus(1)
-            binding.booksChallenge.setText(currentProgress.toString())
+            binding!!.booksChallenge.setText(currentProgress.toString())
             viewModel.editUserProfile(User(booksChallenge = currentProgress.toString()))
             ObjectAnimator.ofInt(progressBar, "progress", currentProgress!!)
                 .setDuration(1000).start()
@@ -123,7 +121,7 @@ class HomeAuthenticationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        binding = null
+        binding = null
     }
 
 }

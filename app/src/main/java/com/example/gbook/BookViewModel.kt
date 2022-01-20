@@ -28,17 +28,19 @@ class BookViewmodel(
 
     var auth = FirebaseAuth.getInstance()
 
+    //region StateFlow
+    // * stream flow for Search list
     private val _searchResultUi = MutableStateFlow(BooksDataUiState())
     val searchResultUi: StateFlow<BooksDataUiState> = _searchResultUi.asStateFlow()
 
-
+    // * stream flow for Books list
     private val _bookCategoryResultUi = MutableStateFlow(BookCategoryUiState())
     val bookCategoryResultUi: StateFlow<BookCategoryUiState> = _bookCategoryResultUi.asStateFlow()
 
-
+    // * stream flow for User Information
     private val _userResultUi = MutableStateFlow(UserUiState())
     val userResultUi: StateFlow<UserUiState> = _userResultUi.asStateFlow()
-
+    //endregion
 
     //region values to display books details
     var title = MutableLiveData<String?>()
@@ -49,14 +51,18 @@ class BookViewmodel(
     var publishedDate = MutableLiveData<String?>()
     //endregion
 
+    //region UI state
     private val _status = MutableLiveData<BooksApiStatus>()
     val status: LiveData<BooksApiStatus> = _status
+    //endregion
 
+    // region Categories Lists
     private var categories = listOf("Biography", "Cinema", "Comic")
+    // ? example in case to search by author
+    // ? (inauthor:Ann inauthor:M inauthor:Martin)
+    // endregion
 
-    //    inauthor:Ann inauthor:M inauthor:Martin
-
-    //region values for adding book to books list
+    //region values for adding book to user books list
     private var categoryNum = 0
     private var books = 0
     //endregion
@@ -66,8 +72,9 @@ class BookViewmodel(
         getBooksDetail()
     }
 
-    //region Network
+    //region Functions related to Google API database
 
+    // * Get all books from google API network
     private fun getBooksDetail() {
         viewModelScope.launch {
             _status.value = BooksApiStatus.LOADING
@@ -91,7 +98,8 @@ class BookViewmodel(
         }
     }
 
-
+    // * Set the object from the network to BookDetailsUiState
+    // * and return list of Books UI State
     private fun setItemUiState(volume: BooksData): List<BookDetailsUiState> {
 
         val data = volume.items!!.map { item ->
@@ -108,7 +116,7 @@ class BookViewmodel(
         return data
     }
 
-
+    // * To display book details
     fun displayBookDetails(displayPosition: Int, bookTitle: String, search: Int) {
         try {
             if (search == 1) {
@@ -139,9 +147,8 @@ class BookViewmodel(
 
     }
 
-
+    // * Set the details to values as live data
     private fun setBookDetails(details: BookDetailsUiState?) {
-
         title.value = details?.title
         bookCover.value = details?.bookCover
         description.value = details?.description
@@ -151,7 +158,7 @@ class BookViewmodel(
 
     }
 
-
+    // * To get the book that user search for
     fun getSearchBook(query: String?) {
         viewModelScope.launch {
             try {
@@ -168,14 +175,12 @@ class BookViewmodel(
     //endregion
 
 
-    // region Firebase
+    // region Functions related to Firebase Realtime database
 
-
+    // * Add book to user to-read list in the database
     fun addBookToReadList(search: Int = 0) {
-
         viewModelScope.launch {
             try {
-
                 if (search == 1) {
                     booksRepository.addBookToReadList(
                         searchResultUi.value.books.get(books)
@@ -193,7 +198,7 @@ class BookViewmodel(
         }
     }
 
-
+    // * Get all books in to-read list
     fun getBooksToRead() {
         viewModelScope.launch {
             val data = booksRepository.getBooksToRead()
@@ -212,7 +217,6 @@ class BookViewmodel(
         }
     }
 
-
     fun deleteBookFromList(book: BookDetailsUiState) {
         viewModelScope.launch {
             try {
@@ -223,7 +227,6 @@ class BookViewmodel(
         }
     }
 
-
     fun editUserProfile(userEdit: User) {
         viewModelScope.launch {
             booksRepository.editUserProfile(userEdit)
@@ -233,7 +236,7 @@ class BookViewmodel(
 
     var operationState = false
 
-
+    // * User registration by passing password and all user information
     fun signIn(newUser: User, password: String) {
         viewModelScope.launch {
             booksRepository.signIn(newUser, password)
@@ -261,7 +264,7 @@ class BookViewmodel(
         return operationState
     }
 
-
+    // * Get user data and set to userResultUi
     fun getUserData() {
         viewModelScope.launch {
             val user = booksRepository.getBooksToRead()
@@ -281,7 +284,6 @@ class BookViewmodel(
             }
         }
     }
-
 
     //endregion
 

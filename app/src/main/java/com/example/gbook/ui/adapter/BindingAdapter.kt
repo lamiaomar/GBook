@@ -13,7 +13,6 @@ import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-Log.e("imageUrl","$imgUrl")
     imgUrl.let {
         val imgUri = imgUrl?.toUri()?.buildUpon()?.build()
         Glide.with(imgView.context)
