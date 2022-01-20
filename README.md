@@ -40,17 +40,23 @@ It will remind you and encourage you to read more and more, Gbooks for any one h
 - splash Screen
 
 
+
  <img src="https://user-images.githubusercontent.com/92260185/150351589-843c76f7-7be1-4d3a-b300-0729aa301d1f.png" width="200" height="400">
  <img src="https://user-images.githubusercontent.com/92260185/150351658-b9ff8bc9-b263-4dbe-a8fd-6bb96be6180a.png" width="200" height="400">
 - Books list , and book deatils. 
 
-![SearchPage](https://user-images.githubusercontent.com/92260185/150346747-a8615751-45dc-45f1-98e4-8b1de3ecbd18.png)
+
+
+
+<img src="https://user-images.githubusercontent.com/92260185/150346747-a8615751-45dc-45f1-98e4-8b1de3ecbd18.png" width="200" height="400">
 - SearchPage
 
-![bookShelf](https://user-images.githubusercontent.com/92260185/150346953-bd1faba7-3d31-4ba6-9237-56817dc1876e.png) ![bookShelfSignIn](https://user-images.githubusercontent.com/92260185/150349276-3714096b-b62b-4a9b-a018-a8559042c179.png)
+
+<img src="https://user-images.githubusercontent.com/92260185/150346953-bd1faba7-3d31-4ba6-9237-56817dc1876e.png" width="200" height="400">
+<img src="https://user-images.githubusercontent.com/92260185/150346747-a8615751-45dc-45f1-98e4-8b1de3ecbd18.png" width="200" height="400">
 -BookShelf 
 
-![![signIn](https://user-images.githubusercontent.com/92260185/150348506-b4ab61a9-e5f7-4209-8f0c-6024487199a1.png)
-reg](https://user-images.githubusercontent.com/92260185/150347113-ac8d3160-d03c-4075-aee3-b134ac0ec674.png)
-![profile](https://user-images.githubusercontent.com/92260185/150348712-5cab8ed9-5bab-49ae-95f8-69d4def2a544.png)
+
+
+<img src="https://user-images.githubusercontent.com/92260185/150348506-b4ab61a9-e5f7-4209-8f0c-6024487199a1.png" width="200" height="400">
 - Authentication
