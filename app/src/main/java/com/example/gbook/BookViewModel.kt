@@ -151,10 +151,28 @@ class BookViewmodel(
     private fun setBookDetails(details: BookDetailsUiState?) {
         title.value = details?.title
         bookCover.value = details?.bookCover
-        description.value = details?.description
-        averageRating.value = details?.averageRating
-        pageCount.value = details?.pageCount
-        publishedDate.value = details?.publishedDate
+
+        if (details!!.description == "null" ){
+            description.value = "No Description"
+        }else{
+            description.value = details.description
+        }
+        if (details.averageRating == "null" ){
+            averageRating.value = "No rate"
+        }else{
+            averageRating.value = details?.averageRating
+        }
+        if (details.pageCount == "null" ){
+            pageCount.value = "No num"
+        }else{
+            pageCount.value = details.pageCount
+        }
+        if (details.publishedDate == "null" ){
+            publishedDate.value = "No date"
+        }else{
+            publishedDate.value = details.publishedDate
+        }
+
 
     }
 
