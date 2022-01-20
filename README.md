@@ -36,8 +36,8 @@ It will remind you and encourage you to read more and more, Gbooks for any one h
 - Lottie.
 
 # GBooks UI
+* splash Screen.
  <img src="https://user-images.githubusercontent.com/92260185/150346086-94815287-16ac-452c-8bfa-13fa9fc7888b.png" width="200" height="400">
-- splash Screen.
 
 
 
