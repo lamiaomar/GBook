@@ -1,6 +1,79 @@
 <resources>
-    <string name="app_name">GBook</string>
+    <string name="app_name" translatable="false">GBook</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="description">Description :</string>
+    <string name="gbook" translatable="false">GBook</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="or">or</string>
+    <string name="sign_in">Sign In</string>
+    <string name="first_name">First name</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="registration">Registration</string>
+    <string name="published_date">Published Date</string>
+    <string name="pages">Pages</string>
+    <string name="gender">Gender</string>
+
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
+    <string name="notification_subtitle" translatable="false">It is time to read (:</string>
+    <string name="notification_title" translatable="false">GBOOK</string>
+    <string name="notification_schedule_title" translatable="false">Schedule notification:\u00a0</string>
+    <string name="notification_schedule_pattern" translatable="false">dd.MM.yy \u00B7 HH:mm</string>
+    <string name="notification_schedule_error" translatable="false">
+        Schedule notification: Incorrect Date and Time
+    </string>
+    <string name="done">Done</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="track">Track and organize the books \n you\'ve read or want to read</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="bookshelf" translatable="false">BookShelf</string>
+    <string name="number_of_books">Number Of Books</string>
+    <string name="notification">Notification</string>
+    <string name="last_name">last name</string>
+    <string name="sign_in_instead">Sign in instead</string>
+    <string name="sign_out">sign out</string>
+    <string name="_2022_reading_challenge">2022 Reading challenge</string>
+    <string name="k">k</string>
+    <string name="o">o</string>
+    <string name="b">B</string>
+    <string name="g">G</string>
+    <string name="of">Of</string>
+    <string name="decrease">decrease</string>
+    <string name="books">books</string>
+    <string name="score">-</string>
+    <string name="fill_fill">You can fill one field or more.</string>
+
+    <string name="not_Valid_email_msg">Not Valid Email Address</string>
+    <string name="not_Valid_pass_msg">Not Valid Password </string>
+    <string name="not_Valid_name_msg">Not Valid Name </string>
+    <string name="not_Valid_day_msg">Not Valid Day </string>
+    <string name="not_Valid_month_msg">Not Valid month </string>
+    <string name="not_Valid_year_msg">Not Valid year </string>
+
+
 </resources>

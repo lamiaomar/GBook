@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GBook</string>
+    <string name="description">الوصف :</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="password">كلمة المرور</string>
+    <string name="create_account">انشاء حساب</string>
+    <string name="or">أو</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="first_name">الاسم الاول</string>
+    <string name="day">يوم</string>
+    <string name="month">شهر</string>
+    <string name="year">سنة</string>
+    <string name="registration">التسجيل</string>
+    <string name="published_date">تاريخ الاصدار</string>
+    <string name="pages">صفحة</string>
+    <string name="gender">نوع</string>
+    <string name="done">تم</string>
+    <string name="edit_profile">تعديل الصفحة الشخصية</string>
+    <string name="track">تابع و نظم الكتب التي تريد ان تقرئها</string>
+    <string name="sign_up">تسجيل الدخول</string>
+    <string name="number_of_books">عدد الكتب</string>
+    <string name="last_name">الاسم الاخير</string>
+    <string name="sign_in_instead">تسجيل الدخول</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="notification">الاشعارات</string>
+    <string name="_2022_reading_challenge">تحدي القراءة ل 2022</string>
+    <string name="k">k</string>
+    <string name="o">o</string>
+    <string name="b">B</string>
+    <string name="g">G</string>
+    <string name="of">من</string>
+    <string name="decrease">decrease</string>
+    <string name="books">كتاب</string>
+    <string name="score">-</string>
+    <string name="fill_fill">You can fill one field or more.</string>
+    <string name="not_Valid_email_msg">الايميل غير صحيح</string>
+    <string name="not_Valid_pass_msg">كلمة المرور غير صحيحة</string>
+    <string name="not_Valid_name_msg">الاسم غير صحيح</string>
+    <string name="not_Valid_day_msg">اليوم غير صحيح</string>
+    <string name="not_Valid_month_msg">الشهر غير صجيج</string>
+    <string name="not_Valid_year_msg">السنة غير صحيحة</string>
+</resources>

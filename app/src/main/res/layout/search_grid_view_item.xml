@@ -8,7 +8,7 @@
 
         <variable
             name="result"
-            type="com.example.gbook.data.ItemsItem" />
+            type="com.example.gbook.ui.BookDetailsUiState" />
 
         <variable
             name="viewModel"
@@ -21,32 +21,29 @@
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_margin="8dp"
+        android:padding="4dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
 
-        >
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:elevation="20dp"-->
-<!--            >-->
-
-            <!--            app:imageUrl="@{viewModel.image}"-->
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="20dp">
 
             <ImageView
                 android:id="@+id/book_thumb"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                app:imageUrl="@{result.volumeInfo.imageLinks.thumbnail}"
+                android:layout_width="130dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                app:imageUrl="@{result.bookCover}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

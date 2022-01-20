@@ -3,37 +3,145 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/bookListFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/bookListFragment"
-        android:name="com.example.gbook.fragments.BookListFragment"
+        android:name="com.example.gbook.ui.fragments.BookListFragment"
         android:label="BookListFragment" >
         <action
             android:id="@+id/action_bookListFragment_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
-        <action
-            android:id="@+id/action_bookListFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
-        android:name="com.example.gbook.fragments.BookDetailsFragment"
+        android:name="com.example.gbook.ui.fragments.BookDetailsFragment"
         android:label="fragment_book_details"
         tools:layout="@layout/fragment_book_details" >
         <argument
             android:name="title"
             app:argType="integer" />
         <argument
-            android:name="listNum"
-            app:argType="integer" />
+            android:name="bookTitle"
+            app:argType="string" />
+        <argument
+            android:name="search"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.gbook.fragments.SearchFragment"
+        android:name="com.example.gbook.ui.fragments.SearchFragment"
         android:label="SearchFragment" >
         <action
-            android:id="@+id/action_searchFragment_to_bookListFragment"
+            android:id="@+id/action_searchFragment_to_bookDetailsFragment"
+            app:destination="@id/bookDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.gbook.authentication.views.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_registrationFragment_to_homeAuthenticationFragment"
+            app:destination="@id/homeAuthenticationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeAuthenticationFragment"
+        android:name="com.example.gbook.authentication.views.HomeAuthenticationFragment"
+        android:label="HomeAuthenticationFragment" >
+        <action
+            android:id="@+id/action_homeAuthenticationFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_homeAuthenticationFragment_to_calenderFragment"
+            app:destination="@id/calenderFragment" />
+        <action
+            android:id="@+id/action_homeAuthenticationFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.gbook.authentication.views.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeAuthenticationFragment"
+            app:destination="@id/homeAuthenticationFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookShelfFragment"
+        android:name="com.example.gbook.ui.fragments.BookShelfFragment"
+        android:label="BookShelfFragment" >
+        <action
+            android:id="@+id/action_bookShelfFragment_to_detailsUserBookFragment"
+            app:destination="@id/detailsUserBookFragment" />
+        <action
+            android:id="@+id/action_bookShelfFragment_to_bookShelfSplashFragment"
+            app:destination="@id/bookShelfSplashFragment" />
+        <action
+            android:id="@+id/action_bookShelfFragment_to_bookShelfIsSignFragment"
+            app:destination="@id/bookShelfIsSignFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.gbook.ui.fragments.splashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_bookListFragment"
             app:destination="@id/bookListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsUserBookFragment"
+        android:name="com.example.gbook.ui.fragments.DetailsUserBookFragment"
+        android:label="fragment_details_user_book"
+        tools:layout="@layout/fragment_details_user_book" >
+        <argument
+            android:name="title"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/calenderFragment"
+        android:name="com.example.gbook.notification.CalenderFragment"
+        android:label="CalenderFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.gbook.ui.fragments.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.gbook.ui.fragments.EditProfileFragment"
+        android:label="EditProfileFragment" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_homeAuthenticationFragment"
+            app:destination="@id/homeAuthenticationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookShelfSplashFragment"
+        android:name="com.example.gbook.BookShelfSplashFragment"
+        android:label="fragment_book_shelf_splash"
+        tools:layout="@layout/fragment_book_shelf_splash" >
+        <action
+            android:id="@+id/action_bookShelfSplashFragment_to_bookShelfFragment"
+            app:destination="@id/bookShelfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookShelfIsSignFragment"
+        android:name="com.example.gbook.ui.fragments.BookShelfIsSignFragment"
+        android:label="BookShelfIsSignFragment" >
+        <action
+            android:id="@+id/action_bookShelfIsSignFragment_to_bookShelfFragment"
+            app:destination="@id/bookShelfFragment" />
+        <action
+            android:id="@+id/action_bookShelfIsSignFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
 </navigation>

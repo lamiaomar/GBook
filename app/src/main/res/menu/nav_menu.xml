@@ -3,15 +3,25 @@
 
 
     <item
-        android:id="@+id/ic_home"
+        android:id="@+id/bookListFragment"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Home"/>
 
 
     <item
-        android:id="@+id/ic_search"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="search"/>
+
+    <item
+        android:id="@+id/bookShelfIsSignFragment"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="@string/bookshelf"/>
+
+    <item
+        android:id="@+id/registrationFragment"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="profile"/>
 
 
 </menu>

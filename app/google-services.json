@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882237515727",
+    "project_id": "gbook-360bd",
+    "storage_bucket": "gbook-360bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882237515727:android:a77cff24ade97ff03f94ba",
+        "android_client_info": {
+          "package_name": "com.example.gbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882237515727-cto6k7bqu899opn5goiknelhar6hqui4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsa3IsrYWc2jxChTUz1zFQ6vf9xGKq91Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882237515727-cto6k7bqu899opn5goiknelhar6hqui4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
