@@ -90,14 +90,6 @@ class BookDetailsFragment : Fragment() {
                 Toast.makeText(context, "You have to sign in to add the book", Toast.LENGTH_SHORT).show()
             }
         }
-//
-//        if (viewModel.averageRating.value == null || viewModel.averageRating.value == ""){
-//            binding.averageRatingText.setText("No average")
-//            Log.e("ss", "${viewModel.averageRating.value}")
-//        }else{
-//            binding.averageRatingText.setText(viewModel.averageRating.value)
-//            Log.e("sselse", "${viewModel.averageRating.value}")
-//        }
 
 
         return binding.root

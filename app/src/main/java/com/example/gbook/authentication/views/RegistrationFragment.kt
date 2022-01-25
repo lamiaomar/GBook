@@ -57,27 +57,32 @@ class RegistrationFragment : Fragment() {
 
 
         binding.btnCreateAccount.setOnClickListener {
-            if (!validationCheck()) {
+//            if (!validationCheck()) {
+            val user = User(
+                first_name.text.toString().trim(),
+                lastname.text.toString().trim(),
+                day.text.toString().trim(),
+                month.text.toString().trim(),
+                year.text.toString().trim(),
+                email.text.toString().trim(),
+                gender.text.toString().trim(),
+                mutableListOf(),
+                0)
 
-                val user = User(
-                    first_name.text.toString().trim(), lastname.text.toString().trim(),
-                    day.text.toString().trim(), month.text.toString().trim(),
-                    year.text.toString().trim(), email.text.toString().trim(),
-                    gender.text.toString().trim(), mutableListOf(),
-                    0, "0", "50"
-                )
+            if (identicalPassword()) {
+                viewModel.signIn(user , password.text.toString())
+                if (viewModel.onSuccesses()){
+                    val action =
+                        RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
+                    btnSignIn2.findNavController().navigate(action)
 
-                if (identicalPassword()) {
-
-                    viewModel.signIn(user, password.text.toString())
-//                    if (viewModel.onSuccesses()) {
-                        val action =
-                            RegistrationFragmentDirections.actionRegistrationFragmentToHomeAuthenticationFragment()
-                        btnSignIn2.findNavController().navigate(action)
-
-//                    }
                 }
+//                else{
+//                    Toast.makeText(context, "Failed registration", Toast.LENGTH_SHORT).show()
+//                }
+
             }
+//            }
         }
 
         binding.btnSignIn2.setOnClickListener {
