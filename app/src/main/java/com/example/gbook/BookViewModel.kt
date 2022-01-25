@@ -152,24 +152,24 @@ class BookViewmodel(
         title.value = details?.title
         bookCover.value = details?.bookCover
 
-        if (details!!.description == "null" ){
+        if (details!!.description == "null") {
             description.value = "No Description"
-        }else{
+        } else {
             description.value = details.description
         }
-        if (details.averageRating == "null" ){
+        if (details.averageRating == "null") {
             averageRating.value = "No rate"
-        }else{
-            averageRating.value = details?.averageRating
+        } else {
+            averageRating.value = details.averageRating
         }
-        if (details.pageCount == "null" ){
+        if (details.pageCount == "null") {
             pageCount.value = "No num"
-        }else{
+        } else {
             pageCount.value = details.pageCount
         }
-        if (details.publishedDate == "null" ){
+        if (details.publishedDate == "null") {
             publishedDate.value = "No date"
-        }else{
+        } else {
             publishedDate.value = details.publishedDate
         }
 

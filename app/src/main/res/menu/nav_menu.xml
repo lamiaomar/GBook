@@ -5,13 +5,13 @@
     <item
         android:id="@+id/bookListFragment"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home"/>
+        android:title="@string/home"/>
 
 
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/ic_baseline_search_24"
-        android:title="search"/>
+        android:title="@string/search"/>
 
     <item
         android:id="@+id/bookShelfIsSignFragment"
@@ -21,7 +21,7 @@
     <item
         android:id="@+id/registrationFragment"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="profile"/>
+        android:title="@string/profile"/>
 
 
 </menu>
