@@ -10,18 +10,18 @@ plugins {
 android {
     signingConfigs {
         realse {
-            storeFile file('C:\\Users\\Lamia\\apk.jks')
+            storeFile file('C\\Users\\Lamia\\apk.jks')
             storePassword '123456789'
             keyAlias 'key0'
             keyPassword '123456789'
         }
     }
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.gbook"
-        minSdk 21
-        targetSdk 31
+        minSdk 26
+        targetSdk 33
         versionCode 1
         versionName "2.0"
 
@@ -52,7 +52,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
