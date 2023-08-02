@@ -10,17 +10,14 @@ import com.example.gbook.authentication.User
 import com.example.gbook.authentication.utils.FirebaseUtils
 import com.example.gbook.data.BooksData
 import com.example.gbook.data.BooksRepository
+import com.example.gbook.enums.BooksApiStatus
 import com.example.gbook.ui.BookCategoryUiState
 import com.example.gbook.ui.BookDetailsUiState
 import com.example.gbook.ui.BooksDataUiState
 import com.example.gbook.ui.UserUiState
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-
-
-enum class BooksApiStatus { LOADING, ERROR, DONE }
 
 class BookViewmodel(
     private val booksRepository: BooksRepository

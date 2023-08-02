@@ -1,14 +1,13 @@
 package com.example.gbook.ui.adapter
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.gbook.BooksApiStatus
 import com.example.gbook.R
+import com.example.gbook.enums.BooksApiStatus
 import com.example.gbook.ui.*
 
 @BindingAdapter("imageUrl")
@@ -54,6 +53,9 @@ fun bindStatus(
             statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
         BooksApiStatus.DONE -> {
+            statusImageView.visibility = View.GONE
+        }
+        else -> {
             statusImageView.visibility = View.GONE
         }
     }

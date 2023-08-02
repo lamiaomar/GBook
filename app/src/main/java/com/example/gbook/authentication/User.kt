@@ -1,7 +1,6 @@
 package com.example.gbook.authentication
 
 import com.example.gbook.ui.BookDetailsUiState
-import okhttp3.Challenge
 
 data class User(
     val firstName: String? = "",
@@ -15,7 +14,7 @@ data class User(
     val booksNumberInList: Int = 0,
     val booksChallenge: String? = "0",
     val maxBooksChallenge: String? = "50"
-) {}
+)
 
 
 data class BookList(
